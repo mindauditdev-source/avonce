@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Landing Page" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body
+    class="bg-white text-gray-900 selection:bg-indigo-100 selection:text-indigo-700 antialiased"
+  >
+    <slot />
+    <style is:global>
+      /* Aquí puedes meter algún reset de CSS si Figma lo requiere */
+      :root {
+        --accent: 136, 58, 234;
+      }
+    </style>
+  </body>
+</html>
