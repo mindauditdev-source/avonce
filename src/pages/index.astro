@@ -1,17 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// Importa tus componentes aquí
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
 ---
 
-<Layout title="Mi Landing Page Pro">
+<Layout title="Avonce - Construction Group">
   <main>
-    <!-- Sección Hero -->
-    <section class="h-screen flex items-center justify-center bg-slate-50">
-      <h1 class="text-5xl font-extrabold tracking-tight">
-        Maquetando desde <span class="text-blue-600">Figma</span>
-      </h1>
+    <Navbar />
+    <Hero />
+    
+    <!-- Other sections could go here -->
+    <section style="height: 100vh; background-color: #121212; display: flex; align-items: center; justify-content: center; color: #333;">
+      <h2 style="font-size: 3rem; opacity: 0.1;">More Content Below</h2>
     </section>
-
-    <!-- Aquí irán tus secciones de Blog/Artículos después -->
   </main>
 </Layout>

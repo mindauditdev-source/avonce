@@ -1,0 +1,177 @@
+<section class="hero">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="hero-content w-full">
+      <div class="main-title-container">
+        <h1 class="main-title">
+          AVONCE<br />
+          CONSTRUCTION<br />
+          GROUP
+        </h1>
+      </div>
+      <div class="subtitle-row justify-between w-full">
+        <p class="subtitle">Committed to the project’s success</p>
+        <div class="badge-content">
+          <span class="celebrating">Celebrating</span>
+          <img src="/tenyears.png" alt="10 Years Badge" class="badge-img" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtro SVG invisible para lograr un contorno perfecto sin líneas internas -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+  <filter id="clean-outline-filter" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="e1"></feMorphology>
+    <feComposite in="e1" in2="SourceAlpha" operator="out" result="outline"></feComposite>
+    <feFlood flood-color="#e6a523" result="color"></feFlood>
+    <feComposite in="color" in2="outline" operator="in"></feComposite>
+  </filter>
+</svg>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    width: 100%;
+    background-image: linear-gradient(
+        180deg,
+        rgba(18, 18, 18, 0) -23.9%,
+        #121212 100%
+      ),
+      linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
+      url("/hero-bg.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px 80px 100px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .main-title-container {
+    width: 100%;
+    z-index: 2;
+  }
+
+  .main-title {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    /* Responsive font size: min 40px, scaling with viewport, max 90px */
+    font-size: clamp(2.5rem, 8vw, 90px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+    padding: 0;
+    margin-left: -4px; /* Optical alignment */
+    
+    /* Aplicamos el filtro para el contorno limpio */
+    filter: url(#clean-outline-filter);
+    
+    /* Mejora de renderizado */
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .subtitle-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 32px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .subtitle {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: clamp(1rem, 2vw, 24px);
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .badge-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .celebrating {
+    font-family: "Roboto Slab", serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #ffffff;
+    text-transform: capitalize;
+  }
+
+  .badge-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px 60px 40px;
+    }
+    .hero-content {
+      width: 100%;
+    }
+    .subtitle-row {
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 500px;
+    }
+    .main-title {
+      /* Ajustamos el filtro para pantallas pequeñas si es necesario */
+    }
+    .subtitle {
+      font-size: 16px;
+      white-space: normal;
+    }
+    .subtitle-row {
+      flex-direction: column !important;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .container {
+      padding: 0 20px 40px 20px;
+    }
+    .badge-img {
+      height: 32px;
+    }
+  }
+</style>
