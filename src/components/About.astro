@@ -1,0 +1,220 @@
+---
+---
+
+<section id="about" class="about">
+  <!-- Decorative background shape -->
+  <div class="vector-bg">
+    <svg
+      width="657"
+      height="488"
+      viewBox="0 0 657 488"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 193.167V488H192.497V293.763L461.458 136.447V488H656.628L656.094 240.254L354.515 0L0 193.167Z"
+        fill="#D2D5D8"></path>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="content-frame">
+      <div class="header-group">
+        <span class="subtle">WHO WE ARE</span>
+        <h2 class="heading">
+          Committed to Being Your <br />Most Reliable Trade Partner.
+        </h2>
+      </div>
+
+      <div class="text-content">
+        <p>
+          Avonce Construction Group delivers integrated framing, interior
+          finishes, and exterior building systems for multifamily and commercial
+          projects across Florida.
+        </p>
+
+        <p>
+          We operate as a single-source trade partner, coordinating structural
+          framing, trusses, tie-down systems, drywall and metal framing,
+          exterior cladding, windows and doors, painting, cabinetry, and AerCon
+          fire wall assemblies under one disciplined execution strategy.
+        </p>
+
+        <p>
+          Our teams are structured to support aggressive construction schedules
+          while maintaining strict safety standards, quality control, and
+          installation consistency across every phase - from preconstruction
+          coordination through final closeout.
+        </p>
+
+        <div class="priority-section">
+          <p class="priority-intro">
+            We prioritize what matters most to our General Contractor partners:
+          </p>
+          <ul class="priority-list">
+            <li>Schedule reliability</li>
+            <li>Field supervision and accountability</li>
+            <li>Safety-driven operations</li>
+            <li>Clear communication and documentation</li>
+            <li>Controlled growth and long-term partnership</li>
+          </ul>
+        </div>
+
+        <p class="closing-text">
+          As we continue expanding our capabilities, our objective remains the
+          same: to be a dependable, professional, and long-term trade partner
+          trusted to execute critical scopes safely, efficiently, and on time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    position: relative;
+    background: #fcfcfc;
+    padding: 160px 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .vector-bg {
+    position: absolute;
+    width: 656px;
+    height: 488px;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .vector-bg svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .content-frame {
+    max-width: 884px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .header-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .subtle {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #e6a523;
+    letter-spacing: 0.05em;
+  }
+
+  .heading {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 120%;
+    letter-spacing: -0.03em;
+    color: #1e1e1e;
+    margin: 0;
+  }
+
+  .text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.01em;
+    color: #1b1b1b;
+  }
+
+  .text-content p {
+    margin: 0;
+  }
+
+  .priority-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .priority-intro {
+    font-weight: 600;
+  }
+
+  .priority-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .priority-list li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .priority-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    background-color: #e6a523;
+    border-radius: 50%;
+  }
+
+  .closing-text {
+    margin-top: 12px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .container {
+      padding: 0 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about {
+      padding: 80px 0;
+    }
+    .container {
+      padding: 0 24px;
+    }
+    .heading {
+      font-size: 32px;
+    }
+    .text-content {
+      font-size: 16px;
+    }
+    .vector-bg {
+      width: 300px;
+      height: 220px;
+      opacity: 0.3;
+    }
+  }
+</style>

@@ -2,16 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
 ---
 
 <Layout title="Avonce - Construction Group">
   <main>
     <Navbar />
     <Hero />
-    
-    <!-- Other sections could go here -->
-    <section style="height: 100vh; background-color: #121212; display: flex; align-items: center; justify-content: center; color: #333;">
-      <h2 style="font-size: 3rem; opacity: 0.1;">More Content Below</h2>
-    </section>
+    <About />
+    <Services />
   </main>
 </Layout>
