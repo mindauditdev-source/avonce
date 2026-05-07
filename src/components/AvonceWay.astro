@@ -223,50 +223,59 @@
   /* Responsive Adjustments */
   @media (max-width: 1024px) {
     .slider-container {
-      height: 700px;
+      height: 844px; /* Taller on mobile to fit content */
       flex-direction: column;
     }
 
     .slider-tab {
-      width: 100%;
-      height: 60px;
-    }
-
-    .prev-tab .tab-text, .next-tab .tab-text {
-      transform: none;
-      writing-mode: horizontal-tb;
+      display: none; /* Hide side tabs on small screens, rely on bottom navigation */
     }
 
     .slider-viewport {
-      order: -1; /* Move image to top on mobile */
+      width: 100%;
+      height: 100%;
     }
 
     .slider-content {
-      bottom: 60px;
-      left: 20px;
-      right: 20px;
+      bottom: 80px;
+      left: 16px;
+      right: 16px;
     }
   }
 
   @media (max-width: 768px) {
     .avonce-way {
-      padding: 80px 16px 60px;
+      padding: 80px 0 60px; /* Reduce horizontal padding to let slider take full width */
+    }
+
+    .header-section {
+      padding: 0 16px; /* Keep text padded */
     }
 
     .heading {
       font-size: 36px;
     }
 
+    .phase-label {
+      font-size: 18px;
+    }
+
     .slide-title {
-      font-size: 24px;
+      font-size: 28px;
     }
 
     .slide-desc {
-      font-size: 16px;
+      font-size: 18px;
     }
 
-    .nav-dot {
-      width: 40px;
+    .navigation-indicators {
+      bottom: 36px;
+      gap: 6.66px;
+    }
+
+    :global(.nav-dot) {
+      width: 65.76px;
+      height: 5px;
     }
   }
 </style>
