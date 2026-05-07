@@ -1,0 +1,165 @@
+---
+// src/components/TeamCallToAction.astro
+---
+
+<section class="team-cta">
+  <div class="cta-block join-team">
+    <div class="content">
+      <h2 class="heading">Grow With a Team That Cares</h2>
+      <a href="#join" class="cta-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">JOIN THE TEAM</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="cta-block contact-us">
+    <div class="content">
+      <h2 class="heading">Have a Project in Mind?<br/>Let's Talk.</h2>
+      <a href="#contact" class="cta-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">CONTACT US</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-cta {
+    display: flex;
+    width: 100%;
+    height: 600px;
+  }
+
+  .cta-block {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 100px; /* based on left: 100px, bottom: 100px in figma */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .join-team {
+    /* Background from provided CSS */
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), 
+                url('/slider_2.png'), 
+                #A83030;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .contact-us {
+    /* Assuming a similar background layout for the second block */
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), 
+                url('/slider/slider_3.png'), 
+                #1E1E1E; /* Fallback color */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 568px;
+    z-index: 2; /* To sit above any background artifacts */
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.3; /* 130% */
+    letter-spacing: -0.03em;
+    color: #F5F4F4;
+    margin: 0;
+  }
+
+  /* Button styling matching the shared figma properties */
+  .cta-button {
+    position: relative;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #E6A523;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .bg-effect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: #E6A523;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .cta-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .button-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7; /* 170% */
+    color: #E6A523;
+    transition: color 0.4s ease;
+    text-transform: uppercase;
+  }
+
+  .cta-button:hover .button-label {
+    color: #121212;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .cta-block {
+      padding: 60px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .team-cta {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .cta-block {
+      height: 500px;
+      padding: 60px 40px;
+    }
+    
+    .heading {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cta-block {
+      height: 400px;
+      padding: 40px 20px;
+    }
+    
+    .heading {
+      font-size: 32px;
+    }
+  }
+</style>

@@ -1,0 +1,610 @@
+---
+// src/components/TeamGrid.astro
+
+const teamMembers = [
+  { name: "ZEFERINO AVONCE", title: "OWNER / PRESIDENT", image: "ZEFERINO AVONCE.png" },
+  { name: "YESENIA LACRUZ", title: "VICEPRESIDENT", image: "YESENIA LACRUZ.png" },
+  { name: "JAIME RUIZ", title: "CEO", image: "JAIME RUIZ.png" },
+  { name: "MARCEL MILIAN", title: "PROJECT MANAGER", image: "MARCEL MILIAN.png" },
+  { name: "ABRAHAM BROMSTEIN", title: "CONSULTING ESTIMATOR", image: "ABRAHAM BROMSTEIN.png" },
+  { name: "CYNTHIA REINEFELD", title: "ESTIMATOR", image: "CYNTHIA REINEFELD.png" },
+  { name: "NELSON RODRIGUEZ", title: "ESTIMATOR", image: "NELSON RODRIGUEZ.png" },
+  { name: "GRACE RUIZ", title: "ACCOUNTING MANAGER", image: "GRACE RUIZ.png" },
+  { name: "NESHMAYDA RODRIGUEZ", title: "OFFICE MANAGER", image: "NESHMAYDA RODRIGUEZ.png" },
+  { name: "ANDRES GONZALEZ", title: "ESTIMATOR", image: "ANDRES GONZALEZ.png" },
+  { name: "ZERGIO AVONCE", title: "SUPERINTENDENT", image: "ZERGIO AVONCE.png" },
+  { name: "JAIME PUENTE", title: "SUPERINTENDENT", image: "JAIME PUENTE.png" },
+  { name: "ALVARO VAZQUEZ", title: "SUPERINTENDENT", image: "ALVARO VAZQUEZ.png" }
+];
+---
+
+<section class="team-grid-section">
+  <div class="container">
+    <div class="grid">
+      {teamMembers.map(member => (
+        <div class="team-member" data-name={member.name} data-title={member.title} data-image={`/team/${member.image}`}>
+          <div class="img-wrapper">
+            <img src={`/team/${member.image}`} alt={member.name} />
+          </div>
+          <div class="info">
+            <h4 class="name">{member.name}</h4>
+            <p class="title">{member.title}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Modal Popover -->
+  <dialog id="teamModal" class="team-modal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal" aria-label="Close">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4L14.6 16L8 22.6L9.4 24L16 17.4L22.6 24L24 22.6L17.4 16L24 9.4Z" fill="#000000"/>
+        </svg>
+      </button>
+
+      <div class="modal-avatar">
+        <img id="modalImg" src="" alt="Team Member" />
+      </div>
+
+      <a href="#" class="read-bio-link">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6667 2.66666H21.3333C22.8 2.66666 24 3.86666 24 5.33332V26.6667C24 28.1333 22.8 29.3333 21.3333 29.3333H10.6667C9.2 29.3333 8 28.1333 8 26.6667V5.33332C8 3.86666 9.2 2.66666 10.6667 2.66666ZM10.6667 26.6667H21.3333V5.33332H10.6667V26.6667ZM14.6667 17.3333V21.3333H12V12H16.6667C18.1333 12 19.3333 13.2 19.3333 14.6667C19.3333 16.1333 18.1333 17.3333 16.6667 17.3333H14.6667ZM14.6667 14.6667H16.6667V14.6667H14.6667Z" fill="#FCFCFC"/>
+        </svg>
+        <span>Read full bio</span>
+      </a>
+
+      <div class="modal-info-frame">
+        <div class="modal-header">
+          <h2 id="modalName" class="modal-name"></h2>
+          <p id="modalTitle" class="modal-title"></p>
+        </div>
+        <div id="modalBio" class="modal-bio">
+          Zeferino Avonce is the Founder and President of Avonce Construction Group Inc., founded in 2015. He began his career in the construction industry installing tie-down systems, gaining hands-on experience that shaped his strong understanding of field operations and craftsmanship.
+          <br/><br/>
+          Over time, he identified a key opportunity in wood framing, which became the foundation of the company's growth. As Avonce continued to expand, its services grew to include exterior and finishing scopes such as drywall, painting, cabinets and countertops, as well as windows and doors.
+          <br/><br/>
+          His professional path reflects steady growth driven by experience, vision, and a strong commitment to quality. Today, his leadership continues to guide Avonce with a focus on reliability, skilled workmanship, and pride in every phase of construction.
+        </div>
+      </div>
+
+      <div class="modal-tabs">
+        <div class="pop-up-tab active-tab" data-tab="education">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM11.5 11.5C11.5 12.33 10.83 13 10 13H8V15H6.5V9H10C10.83 9 11.5 9.67 11.5 10.5V11.5ZM17.5 10.5H15V11.5H16.5V13H15V15H13.5V9H17.5V10.5ZM10 11.5V10.5H8V11.5H10Z" fill="#121212"/>
+          </svg>
+          <span class="tab-link">Education</span>
+        </div>
+        <div class="pop-up-tab" data-tab="affiliations">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="#121212"/>
+          </svg>
+          <span class="tab-link">Affiliations</span>
+        </div>
+        <div class="pop-up-tab" data-tab="awards">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#121212"/>
+          </svg>
+          <span class="tab-link">Awards</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<style>
+  .team-grid-section {
+    width: 100%;
+    background: #FCFCFC;
+    padding: 0 100px 148px 100px; /* Space at the bottom as per figma, matches TeamIntro background */
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1336px;
+    width: 100%;
+  }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px 20px;
+    justify-content: flex-start;
+  }
+
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 319px;
+    height: 500px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .team-member:hover {
+    transform: translateY(-5px);
+  }
+
+  .img-wrapper {
+    width: 319px;
+    height: 419px;
+    overflow: hidden;
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.4s ease;
+  }
+  
+  .team-member:hover .img-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .name {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.4; /* 34px */
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+  }
+
+  .title {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7; /* 27px */
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  /* Modal Styling */
+  .team-modal {
+    margin: auto;
+    border: none;
+    background: transparent;
+    overflow: visible;
+    padding: 0;
+  }
+  
+  .team-modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    position: relative;
+    width: 1096px;
+    height: 703px;
+    background: #E6A523;
+    border-radius: 24px;
+    isolation: isolate;
+  }
+
+  .close-btn {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 1032px;
+    top: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+
+  .close-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .modal-avatar {
+    position: absolute;
+    width: 319px;
+    height: 419px;
+    left: -32px;
+    top: -32px;
+    border: 6px solid #FCFCFC;
+    background: #FCFCFC; /* fallback */
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .modal-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .read-bio-link {
+    position: absolute;
+    width: auto;
+    height: 32px;
+    left: 32px;
+    top: 411px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .read-bio-link svg {
+    /* To ensure SVG matches colors accurately */
+  }
+
+  .read-bio-link span {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    text-decoration-line: underline;
+    color: #000000;
+  }
+
+  .modal-info-frame {
+    position: absolute;
+    width: 713px;
+    height: 543px;
+    left: 319px;
+    top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    width: 332px;
+  }
+
+  .modal-name {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: #1E1E1E;
+    margin: 0;
+  }
+
+  .modal-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .modal-bio {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #000000;
+    margin: 0;
+    padding-right: 40px; /* some breathing room */
+    overflow-y: auto;
+    max-height: 428px;
+  }
+
+  .modal-tabs {
+    position: absolute;
+    left: 319px;
+    top: 639px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pop-up-tab {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    gap: 8px;
+    width: 259px;
+    height: 64px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    background: #E6A523;
+    border-left: 2px solid #8A6315;
+  }
+
+  .pop-up-tab:first-child {
+    border-left: none;
+  }
+
+  .pop-up-tab:hover {
+    opacity: 0.9;
+  }
+
+  /* Active tab: dark background */
+  .pop-up-tab.active-tab {
+    background: #1B1B1B;
+    border-left: none;
+  }
+
+  .tab-link {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7;
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #121212;
+  }
+
+  /* Active tab text and icon color */
+  .pop-up-tab.active-tab .tab-link {
+    color: #FCFCFC;
+  }
+
+  .pop-up-tab svg path {
+    fill: #121212;
+    transition: fill 0.2s;
+  }
+
+  .pop-up-tab.active-tab svg path {
+    fill: #FCFCFC;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1400px) {
+    .grid {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 1150px) {
+    .modal-content {
+      width: 90vw;
+      height: auto;
+      min-height: 50vh;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    
+    .modal-avatar {
+      position: static;
+      width: 100%;
+      height: 280px;
+      border: none;
+      border-radius: 0;
+    }
+
+    .read-bio-link {
+      position: static;
+      padding: 12px 24px 0;
+    }
+    
+    .modal-info-frame {
+      position: static;
+      width: 100%;
+      height: auto;
+      flex: 1;
+      padding: 16px 24px 0;
+      overflow-y: auto;
+    }
+    
+    .modal-tabs {
+      position: static;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .pop-up-tab {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid #8A6315;
+    }
+
+    .pop-up-tab:first-child {
+      border-top: none;
+    }
+    
+    .close-btn {
+      top: 12px;
+      left: auto;
+      right: 12px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .modal-bio {
+      font-size: 16px;
+      padding-right: 0;
+      max-height: 200px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .team-grid-section {
+      padding: 0 40px 80px 40px;
+    }
+  }
+
+  /* Mobile: matches the Figma mobile spec exactly */
+  @media (max-width: 600px) {
+    .team-grid-section {
+      padding: 0 20px 60px 20px;
+    }
+
+    .team-member, .img-wrapper {
+      width: 100%;
+      max-width: 319px;
+    }
+
+    /* Full-screen-ish modal on mobile */
+    .modal-content {
+      width: calc(100vw - 32px); /* 16px margin each side */
+      max-width: 374px;
+      height: 802px;
+      border-radius: 0;
+      overflow: visible;
+      display: block; /* back to absolute positioning mode */
+    }
+
+    .modal-avatar {
+      position: absolute;
+      width: 169px;
+      height: 222px;
+      left: 0;
+      top: 0;
+      border: 6px solid #FCFCFC;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .read-bio-link {
+      position: absolute;
+      left: 16px;
+      top: 222px;
+      padding: 0;
+    }
+
+    .read-bio-link span {
+      font-size: 16px;
+    }
+
+    .modal-info-frame {
+      position: absolute;
+      left: 16px;
+      top: 282px;
+      width: calc(100% - 32px);
+      height: auto;
+      padding: 0;
+      overflow: visible;
+      gap: 16px;
+    }
+
+    .modal-name {
+      font-size: 32px;
+      letter-spacing: -0.04em;
+    }
+
+    .modal-bio {
+      font-size: 16px;
+      max-height: none;
+      overflow: visible;
+      padding-right: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .modal-tabs {
+      position: absolute;
+      top: 610px;
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .pop-up-tab {
+      width: 100%;
+      height: 64px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .pop-up-tab:not(.active-tab) {
+      border-left: 2px solid #8A6315;
+      border-top: none;
+    }
+
+    .close-btn {
+      top: 12px;
+      left: auto;
+      right: 12px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const members = document.querySelectorAll('.team-member');
+    const modal = document.getElementById('teamModal') as HTMLDialogElement;
+    const closeBtn = document.getElementById('closeModal');
+
+    const modalImg = document.getElementById('modalImg') as HTMLImageElement;
+    const modalName = document.getElementById('modalName');
+    const modalTitle = document.getElementById('modalTitle');
+
+    members.forEach(member => {
+      member.addEventListener('click', () => {
+        const name = member.getAttribute('data-name');
+        const title = member.getAttribute('data-title');
+        const image = member.getAttribute('data-image');
+
+        if (modalImg && image) modalImg.src = image;
+        if (modalName && name) modalName.textContent = name;
+        if (modalTitle && title) modalTitle.textContent = title;
+
+        modal?.showModal();
+      });
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      modal?.close();
+    });
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.close();
+      }
+    });
+
+    // Tab active state toggle
+    const tabs = document.querySelectorAll('.pop-up-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active-tab'));
+        tab.classList.add('active-tab');
+      });
+    });
+  });
+</script>

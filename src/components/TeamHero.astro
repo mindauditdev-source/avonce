@@ -1,0 +1,94 @@
+---
+// src/components/TeamHero.astro
+---
+
+<section class="team-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="heading">Meet Our Team</h1>
+      <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-hero {
+    position: relative;
+    width: 100%;
+    height: 864px;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, rgba(18, 18, 18, 0.75) 100%),
+                linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
+                url('/section-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end; /* Align content to the bottom */
+  }
+
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    padding-bottom: 100px; /* Adjust based on 'bottom: 100px' in figma css */
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 658px;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+    color: #E6A523;
+    margin: 0;
+  }
+
+  .text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #F5F4F4;
+    margin: 0;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px;
+      padding-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-hero {
+      height: auto;
+      min-height: 600px;
+      padding-top: 150px;
+    }
+    
+    .container {
+      padding: 0 20px;
+      padding-bottom: 40px;
+    }
+
+    .heading {
+      font-size: 42px;
+    }
+    
+    .hero-content {
+      gap: 24px;
+    }
+  }
+</style>
