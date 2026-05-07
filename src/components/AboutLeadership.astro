@@ -1,0 +1,161 @@
+---
+// src/components/AboutLeadership.astro
+---
+
+<section class="leadership-section">
+  <div class="left-panel">
+    <div class="content-wrapper">
+      <h2 class="heading">Meet our Team!</h2>
+      <p class="text">
+        At Avonce Construction Group, our people are our foundation. Our leadership team combines deep trade expertise with a commitment to developing talent, fostering accountability, and supporting our field crews. Their experience and dedication create a culture focused on safety, quality, and delivering reliable results for our General Contractor partners.
+      </p>
+      
+      <button class="leadership-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">MEET OUR TEAM</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="right-panel"></div>
+</section>
+
+<style>
+  .leadership-section {
+    display: flex;
+    width: 100%;
+    height: 752px;
+  }
+
+  .left-panel {
+    flex: 1;
+    background-color: #E6A523;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Push content towards center, we'll restrict width and align left inside */
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 432px;
+    margin-right: 136px; /* Balance spacing between split */
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .right-panel {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.33) 100%),
+                url('/team1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: #1E1E1E;
+    margin: 0;
+  }
+
+  .text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  /* Button styling */
+  .leadership-button {
+    position: relative;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #171003;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .bg-effect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: #171003;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .leadership-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .button-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #2E2107;
+    transition: color 0.4s ease;
+  }
+
+  .leadership-button:hover .button-label {
+    color: #FFFFFF;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .content-wrapper {
+      margin-right: 60px;
+      margin-left: 60px;
+    }
+  }
+
+  @media (max-width: 968px) {
+    .leadership-section {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .left-panel {
+      padding: 80px 40px;
+      justify-content: center;
+    }
+    
+    .content-wrapper {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .right-panel {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .heading {
+      font-size: 36px;
+    }
+    .left-panel {
+      padding: 60px 20px;
+    }
+  }
+</style>

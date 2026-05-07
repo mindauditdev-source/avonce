@@ -1,0 +1,277 @@
+---
+// src/components/CoreValues.astro
+
+const valuesList = [
+  { title: "Integrity", active: true },
+  { title: "Safety", active: false },
+  { title: "Quality", active: false },
+  { title: "Respect", active: false },
+  { title: "Compliance", active: false },
+  { title: "Sustainability", active: false }
+];
+---
+
+<section class="core-values">
+  <div class="container">
+    
+    <div class="header-content">
+      <span class="subtle-heading">ABOUT US</span>
+      <h2 class="main-heading">Our Core Values</h2>
+      <p class="desc-text">We foster a transparent work environment built on trust, accountability, and ethical conduct—on every project and in every interaction.</p>
+    </div>
+
+    <div class="values-content">
+      <!-- Left Column: Accordion / Tabs -->
+      <div class="values-list">
+        {valuesList.map((val) => (
+          <div class={`value-item ${val.active ? 'active' : ''}`}>
+            <div class="value-item-content">
+              <div class="icon-house">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- A stylized house shape matching the Avonce logo A or just a basic house -->
+                  <path d="M12 3L2 12H5V21H19V12H22L12 3Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <h3 class="value-title">{val.title}</h3>
+            </div>
+            <div class="icon-toggle">
+              {val.active ? '+' : '-'}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right Column: Content -->
+      <div class="values-details">
+        <p class="details-text">
+          Lorem Ipsum is <strong>simply dummy text</strong> of the printing and typesetting industry. Lorem Ipsum has been the industry's standard <strong>dummy text ever since the 1500s</strong>, when an unknown.
+        </p>
+        
+        <div class="images-grid">
+          <div class="img-wrapper">
+            <img src="/about/image.png" alt="Workers examining work" />
+          </div>
+          <div class="img-wrapper">
+            <img src="/about/image1.png" alt="Architects discussing project" />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  .core-values {
+    width: 100%;
+    background: #FFFFFF;
+    padding: 100px 0;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  /* Header Section */
+  .header-content {
+    max-width: 544px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .subtle-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #E6A523;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .main-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: #1E1E1E;
+    margin: 0;
+  }
+
+  .desc-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  /* Main Content Layout */
+  .values-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+  }
+
+  /* Left Column (Accordion) */
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 441px;
+  }
+
+  .value-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #D6D6D6;
+    color: #ABABAB; /* Inactive color */
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .value-item.active {
+    border-bottom-color: #E6A523;
+    color: #E6A523;
+  }
+
+  .value-item-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .icon-house {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .value-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .icon-toggle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+  }
+
+  /* Right Column (Details) */
+  .values-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 771px;
+    width: 100%;
+  }
+
+  .details-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #121212;
+    margin: 0;
+  }
+
+  .images-grid {
+    display: flex;
+    gap: 17px;
+    width: 100%;
+  }
+
+  .img-wrapper {
+    flex: 1;
+    position: relative;
+    height: 268px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Adding the requested gradient overlay from Figma */
+  .img-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) 50%, rgba(18, 18, 18, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .values-content {
+      flex-direction: column;
+    }
+    
+    .values-list, .values-details {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+    
+    .images-grid {
+      flex-direction: column;
+    }
+    
+    .main-heading {
+      font-size: 36px;
+    }
+    
+    .value-title {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script>
+  // Simple interaction for the accordion (visual only, since content is static for now)
+  const items = document.querySelectorAll('.value-item');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      // Remove active from all
+      items.forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.icon-toggle').textContent = '-';
+      });
+      // Add active to clicked
+      item.classList.add('active');
+      item.querySelector('.icon-toggle').textContent = '+';
+    });
+  });
+</script>

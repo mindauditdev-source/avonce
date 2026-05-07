@@ -1,0 +1,147 @@
+---
+// src/components/AboutHero.astro
+---
+
+<section class="about-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="heading">We Are Trade Specialist</h1>
+      <p class="text">With discipline in our planning and pride in our craft, we are committed to delivering safe, efficient, and high-quality construction for our partners.</p>
+      
+      <button class="hero-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">SEE OUR WORK</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-hero {
+    position: relative;
+    width: 100%;
+    height: 864px;
+    /* We use hero-bg.png as a placeholder for the requested photo */
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%),
+                linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
+                url('/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end; /* Align content to the bottom */
+  }
+
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    padding-bottom: 200px; /* Moved higher up as requested */
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 658px;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+    color: #E6A523;
+    margin: 0;
+  }
+
+  .text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #F5F4F4;
+    margin: 0;
+    margin-bottom: 16px; /* Additional gap if needed, though flex gap handles it */
+  }
+
+  /* Button styling */
+  .hero-button {
+    position: relative;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #E6A523;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .bg-effect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: #E6A523;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .hero-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .button-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #E6A523;
+    transition: color 0.4s ease;
+  }
+
+  .hero-button:hover .button-label {
+    color: #121212;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px;
+      padding-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      height: auto;
+      min-height: 600px;
+      padding-top: 150px; /* Space for navbar */
+    }
+    
+    .container {
+      padding: 0 20px;
+      padding-bottom: 40px;
+    }
+
+    .heading {
+      font-size: 42px;
+    }
+    
+    .hero-content {
+      gap: 24px;
+    }
+  }
+</style>
