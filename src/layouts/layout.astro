@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -23,7 +25,9 @@ const { title } = Astro.props;
   <body
     class="bg-[#121212] text-white selection:bg-[#E6A523] selection:text-black antialiased"
   >
+    <Navbar />
     <slot />
+    <Footer />
     <style is:global>
       /* Reset base */
       * {
