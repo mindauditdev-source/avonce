@@ -1,0 +1,282 @@
+---
+// src/components/ServicesOffice.astro
+---
+
+<section class="services-office">
+  <!-- Florida Map Background Graphic (SVG for better control) -->
+  <div class="map-bg">
+    <!-- Simplified but recognizable Florida state outline -->
+    <svg viewBox="0 0 200 200" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="0.5">
+      <path d="M40,20 L120,20 L125,25 L130,50 L140,70 L150,110 L155,140 L160,160 L155,170 L145,175 L135,170 L130,150 L125,120 L115,80 L100,60 L90,55 L40,55 Z" />
+    </svg>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="left-side">
+      <div class="headings">
+        <span class="subtle">OFFICE LOCATION</span>
+        <h2 class="heading">Local Presence.<br />Regional Reach.</h2>
+        <p class="description">
+          Our Orlando office supports multifamily and commercial projects across 
+          Florida with coordinated planning, field supervision, and end-to-end 
+          scope delivery.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <div class="info-text">
+          <h3 class="city">Orlando, Fl</h3>
+          <address class="address">
+            8810 Commodity Cir, Suite 29<br />
+            Orlando, Fl 32819
+          </address>
+          <div class="phone">
+            <svg class="phone-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20,15.5c-1.2,0-2.4-0.2-3.6-0.6c-0.3-0.1-0.7,0-1,0.2l-2.2,2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c0.3-0.3,0.4-0.7,0.2-1 c-0.4-1.1-0.6-2.3-0.6-3.5c0-0.6-0.4-1-1-1H5c-0.6,0-1,0.4-1,1c0,9.4,7.6,17,17,17c0.6,0,1-0.4,1-1v-3.5C21,15.9,20.6,15.5,20,15.5z"/>
+            </svg>
+            <span>(407) 270-4808</span>
+          </div>
+        </div>
+        <div class="city-map">
+          <!-- Stylized round map graphic using an existing aerial shot -->
+          <div class="round-map">
+            <img src="/slider/slider_4.png" alt="Orlando Map" class="map-img" />
+          </div>
+        </div>
+      </div>
+
+      <a href="/contact" class="contact-button">
+        <span class="btn-label">CONTACT US</span>
+        <div class="bg-effect"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-office {
+    position: relative;
+    width: 100%;
+    height: 1024px;
+    background: #E6A523;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .map-bg {
+    position: absolute;
+    width: 1110px;
+    height: 849px;
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .content-wrapper {
+    max-width: 1536px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .left-side {
+    max-width: 533px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-left: 226px; /* Adjusting to match the left: 326px from provided styles */
+  }
+
+  .headings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .subtle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #FCFCFC;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .description {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #121212;
+    margin: 0;
+    margin-top: 16px;
+  }
+
+  .info-box {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 56px;
+    width: 533.53px;
+    height: 284px;
+    background: transparent;
+    border: 2px solid #000000;
+  }
+
+  .info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .city {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 140%;
+    letter-spacing: -0.03em;
+    color: #000000;
+    margin: 0;
+  }
+
+  .address {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #000000;
+  }
+
+  .phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #000000;
+  }
+
+  .phone-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .city-map {
+    width: 178px;
+    height: 172px;
+  }
+
+  .round-map {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.2) multiply;
+    mix-blend-mode: multiply;
+  }
+
+  .contact-button {
+    position: relative;
+    width: 234px;
+    height: 67px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #171003;
+    border-radius: 7.5px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .btn-label {
+    position: relative;
+    z-index: 2;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #2E2107;
+    transition: color 0.3s ease;
+  }
+
+  .bg-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #171003;
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+
+  .contact-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .contact-button:hover .btn-label {
+    color: #E6A523;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .content-wrapper {
+      padding: 0 40px;
+    }
+    .left-side {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-office {
+      height: auto;
+      padding: 80px 20px;
+    }
+    .info-box {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+      gap: 32px;
+      padding: 32px;
+    }
+    .heading {
+      font-size: 32px;
+    }
+    .city-map {
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>

@@ -1,0 +1,190 @@
+---
+// src/components/ServicesIntro.astro
+---
+
+<section class="services-intro">
+  <div class="vector-bg">
+    <img src="/shape-one.svg" alt="" aria-hidden="true" />
+  </div>
+
+  <div class="container">
+    <div class="frame">
+      <span class="subtle">OUR SERVICES</span>
+      <h2 class="heading">Integrated Construction Scopes for<br />Multifamily and Commercial Projects</h2>
+    </div>
+
+    <div class="content-text">
+      <p class="highlight">Built to Perform. Built to Coordinate. Built to Deliver.</p>
+      
+      <div class="description">
+        <p>
+          For nearly a decade, developers and general contractors across Florida have trusted 
+          Avonce Construction Group to plan, supply, and execute critical construction scopes with precision.
+        </p>
+        <p>
+          Through detailed preconstruction, material procurement, field supervision, and 
+          disciplined coordination, we execute framing, drywall, exterior, and finishing 
+          systems that meet demanding schedule, quality, and safety requirements.
+        </p>
+        <p>
+          By integrating engineering intent, logistics, and field execution under a single 
+          point of responsibility, Avonce provides consistent, accountable results during 
+          the project.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-intro {
+    position: relative;
+    height: 826px;
+    background: #FCFCFC;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .vector-bg {
+    position: absolute;
+    width: 656.63px;
+    height: 488px;
+    right: 0px; /* Adjusted slightly from 0.37px */
+    bottom: 0px;
+    z-index: 0;
+  }
+
+  .vector-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom right;
+    /* The user specified background #D2D5D8 for vector_bg, 
+       if the SVG is transparent we can set it here */
+    /* background: #D2D5D8; */
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+
+    position: absolute;
+    /* height: 530px; */
+    left: 326px;
+    right: 326px;
+    top: 148px;
+    z-index: 1;
+    max-width: 884px;
+    margin: 0 auto;
+  }
+
+  .frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: 100%;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+  }
+
+  .subtle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #E6A523;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #1E1E1E;
+    margin: 0;
+  }
+
+  .content-text {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .highlight {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 884px;
+  }
+
+  .description p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1440px) {
+    .container {
+      left: 100px;
+      right: 100px;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .services-intro {
+      height: auto;
+      padding: 100px 0;
+    }
+    .container {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 40px;
+      width: 100%;
+    }
+    .vector-bg {
+      width: 400px;
+      height: auto;
+      opacity: 0.5;
+    }
+    .heading {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+    .heading {
+      font-size: 32px;
+    }
+    .vector-bg {
+      width: 250px;
+    }
+  }
+</style>

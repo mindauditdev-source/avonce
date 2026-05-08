@@ -1,0 +1,123 @@
+---
+// src/components/ServicesHero.astro
+---
+
+<section class="services-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="heading">
+        Integrated Framing,<br />
+        Interior Finishes, and<br />
+        Exterior Building Systems
+      </h1>
+      <p class="subheading">
+        A coordinated, single-source approach to delivering critical building scopes.
+      </p>
+      <p class="description">
+        By consolidating these scopes, we reduce coordination gaps, improve 
+        schedule efficiency, and provide clear accountability from 
+        preconstruction through project completion.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-hero {
+    position: relative;
+    width: 100%;
+    height: 864px;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, rgba(18, 18, 18, 0.75) 100%),
+                linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
+                url('/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end; /* Align content to the bottom */
+  }
+
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    padding-bottom: 100px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 700px;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    color: #E6A523;
+    margin: 0;
+  }
+
+  .subheading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .description {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #F5F4F4;
+    margin: 0;
+    max-width: 600px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px;
+      padding-bottom: 60px;
+    }
+    .heading {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-hero {
+      height: auto;
+      min-height: 600px;
+      padding-top: 150px;
+    }
+    
+    .container {
+      padding: 0 20px;
+      padding-bottom: 40px;
+    }
+
+    .heading {
+      font-size: 36px;
+    }
+
+    .subheading {
+      font-size: 20px;
+    }
+    
+    .hero-content {
+      gap: 16px;
+    }
+  }
+</style>

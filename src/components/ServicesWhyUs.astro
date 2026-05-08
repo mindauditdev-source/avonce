@@ -1,0 +1,395 @@
+---
+// src/components/ServicesWhyUs.astro
+---
+
+<section class="services-why-us">
+  <div class="slider-wrapper">
+    <div class="slider-track" id="why-us-slider">
+      <!-- Card 1 -->
+      <div class="slide slide-card">
+        <div class="slide-content">
+          <div class="text-side">
+            <h2 class="title">Multiple Scopes,<br />One Partner</h2>
+            <div class="divider"></div>
+            <div class="info-box">
+              <h4 class="subtle">One Team. Multiple Scopes.<br />One Point of Responsibility.</h4>
+              <p class="info">
+                By awarding multiple scopes to Avonce, our partners gain a single point 
+                of coordination for materials, sequencing, and field execution. This 
+                integrated approach reduces trade overlap, minimizes coordination gaps, 
+                and improves schedule reliability across framing, drywall, exteriors, 
+                and finishes.
+              </p>
+            </div>
+          </div>
+          <div class="image-side">
+            <img src="/why-us-1.png" alt="Multiple Scopes" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 (Expert Execution - Mocked content based on pattern) -->
+      <div class="slide slide-card">
+        <div class="slide-content">
+          <div class="text-side">
+            <h2 class="title">Expert Execution,<br />Consistent Quality</h2>
+            <div class="divider"></div>
+            <div class="info-box">
+              <h4 class="subtle">Disciplined Field Supervision.<br />Rigorous Standards.</h4>
+              <p class="info">
+                Our field teams are led by experienced superintendents who maintain 
+                disciplined oversight of every scope. This ensures that quality 
+                benchmarks are met, safety protocols are strictly followed, and 
+                technical specifications are executed with precision across the 
+                entire project lifecycle.
+              </p>
+            </div>
+          </div>
+          <div class="image-side">
+            <img src="/slider/slider_1.png" alt="Expert Execution" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 (Coordinated Logistics - Mocked content based on pattern) -->
+      <div class="slide slide-card">
+        <div class="slide-content">
+          <div class="text-side">
+            <h2 class="title">Coordinated Logistics,<br />Reliable Schedule</h2>
+            <div class="divider"></div>
+            <div class="info-box">
+              <h4 class="subtle">Proactive Planning.<br />Seamless Material Flow.</h4>
+              <p class="info">
+                We manage material procurement and logistics as an integrated part 
+                of our execution strategy. By controlling the supply chain and 
+                coordinating deliveries with site activity, we eliminate wait 
+                times, reduce waste, and keep projects moving forward according 
+                to the master schedule.
+              </p>
+            </div>
+          </div>
+          <div class="image-side">
+            <img src="/slider/slider_2.png" alt="Coordinated Logistics" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Summary Block -->
+      <div class="slide slide-summary">
+        <div class="summary-bg">
+          <img src="/slider/slider_3.png" alt="Summary Background" />
+          <div class="overlay"></div>
+        </div>
+        <div class="summary-content">
+          <h2 class="summary-heading">Simplified Management.<br />Reduced Risk.<br />Better Results.</h2>
+          <p class="summary-text">
+            Bundling scopes with Avonce means fewer handoffs, clearer accountability, 
+            and a coordinated installation strategy that protects schedule, 
+            quality, and overall project performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-why-us {
+    position: relative;
+    width: 100%;
+    height: 865px;
+    background: #121212;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .slider-wrapper {
+    width: 100%;
+    height: 720px;
+    overflow: hidden;
+  }
+
+  .slider-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+    will-change: scroll-position;
+  }
+
+  .slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slider-track.active {
+    cursor: grabbing;
+  }
+
+  .slide {
+    flex: 0 0 1436px;
+    height: 100%;
+    position: relative;
+  }
+
+  /* Slide Card Layout */
+  .slide-card .slide-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .text-side {
+    flex: 0 0 551px;
+    padding-left: 100px;
+    padding-top: 72px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .image-side {
+    flex: 1;
+    height: 100%;
+    background: #1a1a1a;
+  }
+
+  .image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin: 0;
+    margin-bottom: 32px;
+  }
+
+  .divider {
+    width: 466.7px;
+    height: 5px;
+    background: #E6A523;
+    margin-bottom: 32px;
+  }
+
+  .info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 353px;
+  }
+
+  .subtle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .info {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  /* Final Summary Block Layout */
+  .slide-summary {
+    flex: 0 0 1171px;
+    background: #2B2B2B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summary-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .summary-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .summary-content {
+    position: relative;
+    z-index: 2;
+    max-width: 543px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .summary-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #E6A523;
+    margin: 0;
+  }
+
+  .summary-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1440px) {
+    .slide {
+      flex: 0 0 100vw;
+    }
+    .text-side {
+      flex: 0 0 40%;
+      padding-left: 40px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .services-why-us {
+      height: auto;
+      padding: 80px 0;
+    }
+    .slider-wrapper {
+      height: auto;
+    }
+    .slide-content {
+      flex-direction: column;
+    }
+    .text-side {
+      flex: 1;
+      padding: 40px;
+    }
+    .image-side {
+      height: 400px;
+    }
+    .divider {
+      width: 100%;
+    }
+    .info-box {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .title, .summary-heading {
+      font-size: 32px;
+    }
+    .subtle {
+      font-size: 20px;
+    }
+    .text-side {
+      padding: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Improved slider script with touch support and fluid drag
+  const slider = document.getElementById("why-us-slider");
+  let isDown = false;
+  let startX: number;
+  let scrollLeft: number;
+  let isScrolling: number;
+
+  if (slider) {
+    // Helper to get X position for both mouse and touch
+    const getX = (e: MouseEvent | TouchEvent) => {
+      if (e instanceof MouseEvent) return e.pageX;
+      return e.touches[0].pageX;
+    };
+
+    const startDragging = (e: MouseEvent | TouchEvent) => {
+      isDown = true;
+      slider.classList.add("active");
+      startX = getX(e) - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      cancelAnimationFrame(isScrolling);
+    };
+
+    const stopDragging = () => {
+      isDown = false;
+      slider.classList.remove("active");
+    };
+
+    const move = (e: MouseEvent | TouchEvent) => {
+      if (!isDown) return;
+      
+      const x = getX(e) - slider.offsetLeft;
+      // Increased multiplier for more responsive feel
+      const walk = (x - startX) * 1.8;
+
+      isScrolling = requestAnimationFrame(() => {
+        slider.scrollLeft = scrollLeft - walk;
+      });
+    };
+
+    // Mouse Events
+    slider.addEventListener("mousedown", startDragging);
+    slider.addEventListener("mouseleave", stopDragging);
+    slider.addEventListener("mouseup", stopDragging);
+    slider.addEventListener("mousemove", (e) => {
+      if (isDown) e.preventDefault();
+      move(e);
+    });
+
+    // Touch Events
+    slider.addEventListener("touchstart", startDragging, { passive: true });
+    slider.addEventListener("touchend", stopDragging, { passive: true });
+    slider.addEventListener("touchmove", (e) => {
+      if (isDown) {
+        // Only prevent default if we're clearly dragging horizontally
+        const x = getX(e) - slider.offsetLeft;
+        if (Math.abs(x - startX) > 10) {
+          // e.preventDefault(); // Cannot prevent default on passive listener
+        }
+        move(e);
+      }
+    }, { passive: true });
+
+    // Prevent image dragging
+    const images = slider.querySelectorAll('img');
+    images.forEach(img => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+  }
+</script>
