@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   navLight?: boolean;
+  navPrimary?: boolean;
 }
 
-const { title, navLight = false } = Astro.props;
+const { title, navLight = false, navPrimary = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -26,7 +27,7 @@ const { title, navLight = false } = Astro.props;
   <body
     class="bg-[#121212] text-white selection:bg-[#E6A523] selection:text-black antialiased"
   >
-    <Navbar light={navLight} />
+    <Navbar light={navLight} primary={navPrimary} />
     <slot />
     <Footer />
     <style is:global>

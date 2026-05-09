@@ -1,0 +1,410 @@
+---
+// src/components/BlogFeatured.astro
+---
+
+<section class="blog-featured">
+  <div class="vector-bg"></div>
+  
+  <div class="container">
+    <div class="content-wrapper">
+      
+      <!-- Left side: Featured Articles -->
+      <div class="featured-articles">
+        <h2 class="section-heading">Featured Articles</h2>
+        
+        <div class="article-card">
+          <div class="image-wrapper">
+            <!-- Simulated image using wood-framing as fallback -->
+            <div class="article-image" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('/wood-framing.png');"></div>
+            <div class="category-badge">
+              <span>Best practices</span>
+            </div>
+          </div>
+          
+          <div class="article-content">
+            <h3 class="article-title">Best Practices for Client Satisfaction</h3>
+            
+            <div class="article-meta">
+              <span class="author">By Yesenia Lacruz</span>
+              <span class="dot"></span>
+              <span class="date">January 22, 2026</span>
+              <span class="dot"></span>
+              <span class="read-time">(4 min read)</span>
+            </div>
+            
+            <p class="article-excerpt">
+              A client is the person who purchases from a store or who regularly uses the services of a professional or a company. We have internal and external clients. Internal clients are part of the organization, for example: coworkers. External clients are not, for example: general contractors, external inspectors, etc. A client is anyone you serve.
+            </p>
+            
+            <a href="#" class="view-more">View More</a>
+          </div>
+        </div>
+        
+        <div class="pagination">
+          <div class="dot-active"></div>
+          <div class="dot-inactive"></div>
+          <div class="dot-inactive"></div>
+          <div class="dot-inactive"></div>
+          <div class="dot-inactive"></div>
+        </div>
+      </div>
+      
+      <!-- Right side: Subscribe Form -->
+      <div class="subscribe-section">
+        <div class="subscribe-header">
+          <h2 class="section-heading">Subscribe</h2>
+          <p class="subscribe-text">
+            Get project updates, safety insights, and best practices from Avonce's
+            field and preconstruction teams.
+          </p>
+        </div>
+        
+        <form class="subscribe-form">
+          <input type="text" placeholder="First Name*:" class="form-input" required />
+          <input type="text" placeholder="Last Name*:" class="form-input" required />
+          <input type="text" placeholder="Company:" class="form-input" />
+          <input type="email" placeholder="Email Address*:" class="form-input" required />
+          
+          <button type="submit" class="submit-button">
+            <span class="bg-effect"></span>
+            <span class="button-label">SUBSCRIBE</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-featured {
+    position: relative;
+    width: 100%;
+    min-height: 788px;
+    background-color: #E6A523;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  .vector-bg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 657px;
+    height: 488px;
+    background-color: #B8841C;
+    mask-image: url('/shape-one.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: bottom right;
+    -webkit-mask-image: url('/shape-one.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: bottom right;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1536px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+  }
+
+  .content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    width: 100%;
+  }
+
+  /* Left Side - Featured Articles */
+  .featured-articles {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 658px;
+    max-width: 100%;
+  }
+
+  .section-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #121212;
+    margin: 0;
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 414px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .article-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .category-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-badge span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 170%;
+    color: #FFFFFF;
+  }
+
+  .article-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .article-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #121212;
+    margin: 0;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 170%;
+    color: #121212;
+  }
+
+  .dot {
+    width: 2px;
+    height: 2px;
+    background-color: #121212;
+    border-radius: 50%;
+  }
+
+  .article-excerpt {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 170%;
+    color: #121212;
+    margin: 0;
+  }
+
+  .view-more {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 170%;
+    text-decoration: underline;
+    color: #121212;
+    margin-top: 4px;
+  }
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    align-self: center;
+    margin-top: 16px;
+  }
+
+  .dot-active {
+    width: 8px;
+    height: 8px;
+    background-color: #121212;
+    border-radius: 50%;
+  }
+
+  .dot-inactive {
+    width: 8px;
+    height: 8px;
+    background-color: #F0C97B;
+    border-radius: 50%;
+  }
+
+  /* Right Side - Subscribe Section */
+  .subscribe-section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 545px;
+    max-width: 100%;
+  }
+
+  .subscribe-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subscribe-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .form-input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    width: 100%;
+    height: 63px;
+    background: #FCFCFC;
+    border: 1px solid #2E2107;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #2E2107;
+  }
+
+  .form-input::placeholder {
+    color: #2E2107;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #121212;
+  }
+
+  .submit-button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    margin-top: 24px;
+    position: relative;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #171003;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .submit-button .bg-effect {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #171003;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .submit-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .submit-button .button-label {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    color: #2E2107;
+    z-index: 1;
+    transition: color 0.4s ease;
+  }
+
+  .submit-button:hover .button-label {
+    color: #E6A523;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1280px) {
+    .container {
+      padding: 0 40px;
+    }
+    .content-wrapper {
+      flex-direction: column;
+      gap: 60px;
+    }
+    .featured-articles, .subscribe-section {
+      width: 100%;
+      max-width: 800px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-featured {
+      padding: 60px 0;
+    }
+    .container {
+      padding: 0 20px;
+    }
+    .section-heading {
+      font-size: 36px;
+    }
+    .image-wrapper {
+      height: 300px;
+    }
+    .form-input {
+      font-size: 16px;
+      height: 56px;
+    }
+    .vector-bg {
+      display: none;
+    }
+  }
+</style>

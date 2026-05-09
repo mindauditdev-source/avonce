@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogHero from "../components/BlogHero.astro";
+import BlogFeatured from "../components/BlogFeatured.astro";
+import BlogList from "../components/BlogList.astro";
+import BlogCTABanners from "../components/BlogCTABanners.astro";
+---
+
+<Layout title="Avonce - Blog" navLight={true}>
+  <main>
+    <BlogHero />
+    <BlogFeatured />
+    <BlogList />
+    <BlogCTABanners />
+  </main>
+</Layout>

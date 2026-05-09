@@ -1,0 +1,168 @@
+---
+// src/components/BlogCTABanners.astro
+---
+
+<section class="blog-cta-banners">
+  <div class="banner left-banner">
+    <div class="content">
+      <h2 class="heading">Explore our Integrated<br/>Scopes</h2>
+      <a href="/services" class="cta-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">VIEW SERVICES</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="banner right-banner">
+    <div class="content">
+      <h2 class="heading">Join our<br/>Outstanding Team</h2>
+      <a href="/our-team" class="cta-button">
+        <span class="bg-effect"></span>
+        <span class="button-label">JOIN THE TEAM</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-cta-banners {
+    display: flex;
+    width: 100%;
+    height: 600px;
+  }
+
+  .banner {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .left-banner {
+    /* Using a fallback image that matches the construction vibe */
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), 
+                url('/section-image.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .right-banner {
+    /* Using team fallback image */
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), 
+                url('/team/team1.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 568px;
+    z-index: 2;
+  }
+
+  .heading {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #F5F4F4;
+    margin: 0;
+  }
+
+  .cta-button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    gap: 4px;
+    position: relative;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #E6A523;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .bg-effect {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #E6A523;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .cta-button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .button-label {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    color: #E6A523;
+    z-index: 1;
+    transition: color 0.4s ease;
+    white-space: nowrap;
+  }
+
+  .cta-button:hover .button-label {
+    color: #121212;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .banner {
+      padding: 60px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .blog-cta-banners {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .banner {
+      height: 500px;
+      padding: 60px 40px;
+    }
+    
+    .heading {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .banner {
+      height: 400px;
+      padding: 40px 20px;
+    }
+    
+    .heading {
+      font-size: 32px;
+    }
+  }
+</style>

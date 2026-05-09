@@ -1,11 +1,12 @@
 ---
 interface Props {
   light?: boolean;
+  primary?: boolean;
 }
 
-const { light = false } = Astro.props;
+const { light = false, primary = false } = Astro.props;
 ---
-<nav class={`navbar ${light ? 'navbar-light' : ''}`}>
+<nav class={`navbar ${light ? 'navbar-light' : ''} ${primary ? 'navbar-primary' : ''}`}>
   <div class="container">
     <div class="logo">
       <a href="/">
@@ -25,7 +26,7 @@ const { light = false } = Astro.props;
       <a href="/services" class="nav-link">Expertise</a>
       <a href="/gallery" class="nav-link">Gallery</a>
       <a href="/our-team" class="nav-link">Join our team</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="/contact" class="nav-link">Contact</a>
     </div>
   </div>
 </nav>
@@ -45,6 +46,22 @@ const { light = false } = Astro.props;
 
   .navbar-light {
     background: #FCFCFC;
+  }
+
+  .navbar-primary {
+    background: #E6A523;
+  }
+
+  .navbar-primary .nav-link {
+    color: #2E2107 !important;
+  }
+
+  .navbar-primary path {
+    fill: #2E2107 !important;
+  }
+
+  .navbar-primary text {
+    fill: #2E2107 !important;
   }
 
   .navbar-light .nav-link {

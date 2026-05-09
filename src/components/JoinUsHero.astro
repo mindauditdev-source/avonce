@@ -1,0 +1,85 @@
+---
+---
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>The Work We Build Together,<br/> <span class="highlight">Builds Us All.</span></h1>
+    <p>Join a team committed to quality, coordination,<br/> and building the right way.</p>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 864px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -23.9%, rgba(255, 255, 255, 0.75) 100%), 
+                linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
+                url('/join-us-hero.png') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 100px;
+  }
+
+  .hero-content {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  h1 {
+    width: 367px;
+    font-family: 'Roboto', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 125%;
+    letter-spacing: -0.04em;
+    color: #121212;
+    margin: 0;
+  }
+
+  .highlight {
+    color: #E6A523;
+  }
+
+  p {
+    width: 367px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #121212;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-content {
+      padding: 0 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      height: auto;
+      padding-top: 150px;
+      padding-bottom: 60px;
+    }
+    .hero-content {
+      padding: 0 20px;
+    }
+    h1 {
+      width: auto;
+      font-size: 40px;
+    }
+    p {
+      width: auto;
+      font-size: 16px;
+    }
+  }
+</style>
