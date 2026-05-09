@@ -1,0 +1,328 @@
+---
+---
+<section class="join-form-section">
+  <div class="vector-bg"></div>
+  <div class="container">
+    <div class="why-avonce">
+      <h3>Why Avonce</h3>
+      <ul>
+        <li>&bull; Integrated construction scopes (framing, drywall, exteriors, etc.)</li>
+        <li>&bull; Strong field leadership and mentorship</li>
+        <li>&bull; Stable pipeline of multifamily and commercial work</li>
+        <li>&bull; Emphasis on planning, coordination, and execution</li>
+        <li>&bull; Opportunity to grow with a company in expansion</li>
+      </ul>
+    </div>
+
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>Build Your Career With AVONCE</h2>
+        <p>Tell us about yourself and the role you're interested in.<br/>Our team will follow up.</p>
+      </div>
+
+      <form class="join-form" onsubmit="event.preventDefault()">
+        <div class="form-grid">
+          <div class="form-left">
+            <input type="text" placeholder="Name*:" required />
+            <input type="email" placeholder="Email*:" required />
+            <input type="tel" placeholder="Phone*:" required />
+          </div>
+          <div class="form-right">
+            <div class="select-wrapper">
+              <select required>
+                <option value="" disabled selected>Position*:</option>
+                <option value="superintendent">Superintendent</option>
+                <option value="assistant-superintendent">Assistant Superintendent</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="chevron">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9L12 15L18 9" stroke="#2E2107" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <textarea placeholder="Comments:" rows="4"></textarea>
+            
+            <div class="form-actions">
+              <button type="button" class="btn">
+                <svg class="btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="7" y="16" fill="currentColor" font-size="6" font-family="sans-serif" font-weight="bold">PDF</text>
+                </svg>
+                <span>UPLOAD RESUME</span>
+              </button>
+              <button type="submit" class="btn">
+                <span>SUBMIT</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .join-form-section {
+    position: relative;
+    width: 100%;
+    background: #E6A523;
+    padding: 100px 0;
+    overflow: hidden;
+  }
+
+  .vector-bg {
+    position: absolute;
+    width: 656.63px;
+    height: 488px;
+    right: 0;
+    bottom: 0;
+    background: #B8841C;
+    clip-path: polygon(50% 0, 100% 30%, 100% 100%, 0 100%, 20% 50%);
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .why-avonce {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+  }
+
+  .why-avonce h3 {
+    font-family: 'Roboto', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 140%;
+    letter-spacing: -0.03em;
+    color: #121212;
+    margin: 0;
+  }
+
+  .why-avonce ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .why-avonce li {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+  }
+
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-header h2 {
+    font-family: 'Roboto', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .form-header p {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+  }
+
+  .join-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .form-left, .form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .form-left {
+    max-width: 655px;
+  }
+
+  .form-right {
+    max-width: 545px;
+  }
+
+  input, textarea, select {
+    box-sizing: border-box;
+    width: 100%;
+    background: #FCFCFC;
+    border: 1px solid #2E2107;
+    border-radius: 4px;
+    padding: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    letter-spacing: -0.02em;
+    color: #2E2107;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: #000;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #2E2107;
+    opacity: 1;
+  }
+  
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  
+  select:invalid {
+    color: #2E2107;
+  }
+
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .chevron {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .btn {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    gap: 8px;
+    height: 67px;
+    border: 1px solid #171003;
+    border-radius: 7.5px;
+    background: transparent;
+    cursor: pointer;
+    color: #2E2107;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .btn span {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: #171003;
+    z-index: -1;
+    transition: width 0.3s ease;
+  }
+
+  .btn:hover::before {
+    width: 100%;
+  }
+
+  .btn:hover {
+    color: #E6A523;
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+      gap: 40px;
+    }
+    .form-grid {
+      flex-direction: column;
+    }
+    .form-left, .form-right {
+      max-width: 100%;
+    }
+    .form-actions {
+      flex-direction: column;
+    }
+    .btn {
+      width: 100%;
+    }
+    .why-avonce h3, .form-header h2 {
+      font-size: 32px;
+    }
+  }
+</style>
