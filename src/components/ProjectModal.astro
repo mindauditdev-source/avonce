@@ -1,0 +1,609 @@
+---
+// src/components/ProjectModal.astro
+---
+
+<dialog id="project-modal" class="project-modal">
+  <div class="modal-wrapper">
+    <div class="modal-container">
+      <button id="close-modal" class="close-button" aria-label="Close modal">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path
+            d="M25 7L7 25M7 7L25 25"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+        </svg>
+      </button>
+
+      <div class="modal-top">
+        <div class="modal-header">
+          <div class="info-left">
+            <h2 class="heading-white">Project Details</h2>
+            <div id="project-stats" class="cargo-black">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="info-right">
+            <h2 class="heading-white">General Contractor</h2>
+            <div id="contractor-info" class="cargo-black">
+              <p id="contractor-name">LandSouth Construction</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="description-container">
+          <p id="project-description" class="description-text">
+            <!-- Populated by JS -->
+          </p>
+        </div>
+      </div>
+
+      <div class="slider-section">
+        <div class="slider-background"></div>
+        <div id="slider-track" class="slider-track">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div id="gallery-pagination" class="pagination">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .project-modal {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    outline: none;
+    overflow: hidden;
+  }
+
+  .project-modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  /* ─── Main Container ──────────────────────────────────── */
+  .modal-container {
+    position: relative;
+    width: 90vw;
+    max-width: 1454px;
+    /* Figma height 944px on a 1454px-wide modal → ~64.9% ratio */
+    height: min(90vh, calc(90vw * 944 / 1454));
+    max-height: 944px;
+    background: #e6a523;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    /* Use CSS custom properties so inner elements can reference the real size */
+    --modal-h: min(90vh, calc(90vw * 944 / 1454));
+  }
+
+  /* ─── Close Button ────────────────────────────────────── */
+  /* Figma: left 1390 / 1454 ≈ 95.6% from left → right ≈ 4.4% – 32px */
+  .close-button {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    right: calc(64px - 32px); /* mirrors left: 64px inset but from right */
+    top: calc(32 / 944 * 100%); /* ~3.4% */
+    background: transparent;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .close-button:hover {
+    transform: scale(1.1) rotate(90deg);
+  }
+
+  /* ─── Scrollable top zone (header + description) ─────── */
+  .modal-top {
+    flex: none;
+    /* Reserve Figma ratio: top zone = 455px out of 944px ≈ 48.2% */
+    max-height: 48%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  }
+
+  .modal-top::-webkit-scrollbar {
+    width: 4px;
+  }
+  .modal-top::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  /* ─── Header ──────────────────────────────────────────── */
+  /* Figma: info-left at left 64, top 64; right heading at left 1007 top 64 */
+  .modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: calc(64 / 944 * 100%) 64px 0 64px;
+    width: 100%;
+    flex: none;
+    box-sizing: border-box;
+  }
+
+  .info-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    /* Figma width 332px on 1454px ≈ 22.8% */
+    width: clamp(200px, 22.8%, 332px);
+  }
+
+  .info-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
+    /* Right side heading at left 1007 → width ≈ 1454 - 1007 = 447px max */
+    width: clamp(200px, 30%, 447px);
+  }
+
+  .heading-white {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    /* Reduced from 48px max to 36px max */
+    font-size: clamp(20px, 2.5vw, 36px);
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.03em;
+    color: #fcfcfc;
+    margin: 0;
+  }
+
+  .cargo-black {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: clamp(13px, 1.1vw, 16px);
+    line-height: 170%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+  }
+
+  .cargo-black p {
+    margin: 0;
+  }
+
+  .info-right .cargo-black {
+    align-items: flex-end;
+  }
+
+  /* ─── Description ─────────────────────────────────────── */
+  /* Figma top 243 on 944 ≈ 25.7%, header ends ~(64+147)/944 ≈ 22.4% */
+  .description-container {
+    padding: calc(32 / 944 * 100%) 64px 0 64px;
+    width: 100%;
+    flex: none;
+    box-sizing: border-box;
+  }
+
+  .description-text {
+    max-width: 100%;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(14px, 1.38vw, 20px);
+    line-height: 150%;
+    color: #000000;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  /* ─── Slider Section ──────────────────────────────────── */
+  /* White band: Figma height 385/944 ≈ 40.8% of modal height */
+  .slider-section {
+    position: relative;
+    width: 100%;
+    height: calc(385 / 944 * 100%);
+    flex: none;
+    overflow: hidden;
+    margin-top: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .slider-background {
+    position: absolute;
+    inset: 0;
+    background: #fcfcfc;
+    z-index: 1;
+  }
+
+  /* Scrollable + draggable flex row */
+  .slider-track {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* Vertical padding creates breathing room above/below images */
+    padding: 28px 56px;
+    gap: 20px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    /* Prevent text selection while dragging */
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Applied via JS while dragging */
+  .slider-track.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto; /* instant during drag */
+  }
+
+  /* All images in the flow */
+  .slider-item {
+    flex: none;
+    /* Reduced widths: side ≈ 26% of modal, center ≈ 34% */
+    width: clamp(160px, 26%, 380px);
+    /* Height fills the band minus the 28px top + 28px bottom padding */
+    height: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    scroll-snap-align: center;
+    opacity: 0.75;
+    transition: opacity 0.35s ease, width 0.35s ease;
+  }
+
+  /* The currently centered image is wider and fully opaque */
+  .slider-item.active {
+    width: clamp(200px, 34%, 480px);
+    opacity: 1;
+  }
+
+  .slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none; /* don't interfere with drag */
+  }
+
+  /* ─── Pagination ──────────────────────────────────────── */
+  /* Figma: top 872, height 8 → bottom = 944-872-8 = 64px from bottom */
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    /* Figma: dots are 64px from bottom of the 944 modal */
+    height: calc(64 / 944 * 100%);
+    gap: 6px;
+    width: 100%;
+    flex: none;
+    align-self: flex-end;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #f0c97b;
+    border-radius: 38px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .dot.active {
+    background: #121212;
+  }
+
+  /* ─── Responsive ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .modal-wrapper {
+      padding: 10px;
+    }
+
+    .modal-container {
+      width: 100%;
+      height: 92vh;
+      max-height: none;
+    }
+
+    .modal-top {
+      max-height: 52%;
+    }
+
+    .modal-header {
+      padding: 32px 24px 0 24px;
+    }
+
+    .info-left,
+    .info-right {
+      width: 48%;
+    }
+
+    .heading-white {
+      font-size: clamp(18px, 4vw, 28px);
+    }
+
+    .description-container {
+      padding: 12px 24px 0 24px;
+    }
+
+    .close-button {
+      right: 20px;
+      top: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .modal-container {
+      height: 96vh;
+      border-radius: 16px;
+    }
+
+    .modal-header {
+      flex-direction: column;
+      gap: 16px;
+      padding: 32px 20px 0 20px;
+    }
+
+    .info-left,
+    .info-right {
+      width: 100%;
+    }
+
+    .info-right {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .info-right .cargo-black {
+      align-items: flex-start;
+    }
+
+    .description-container {
+      padding: 12px 20px 0 20px;
+    }
+
+    .slider-track {
+      gap: 12px;
+      padding: 16px 24px;
+    }
+
+    .close-button {
+      right: 16px;
+      top: 16px;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("project-modal");
+    const closeBtn = document.getElementById("close-modal");
+
+    // ── Close ───────────────────────────────────────────────
+    if (modal && closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        modal.close();
+        document.body.style.overflow = "";
+      });
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.close();
+          document.body.style.overflow = "";
+        }
+      });
+    }
+
+    // ── Drag-to-scroll ──────────────────────────────────────
+    function initDrag(track) {
+      let isDragging = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      const onMouseDown = (e) => {
+        isDragging = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.classList.add("is-dragging");
+      };
+      const onMouseMove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.2; // multiplier for feel
+        track.scrollLeft = scrollLeft - walk;
+      };
+      const onMouseUp = () => {
+        isDragging = false;
+        track.classList.remove("is-dragging");
+      };
+
+      // Touch
+      let touchStartX = 0;
+      let touchScrollL = 0;
+      const onTouchStart = (e) => {
+        touchStartX = e.touches[0].pageX;
+        touchScrollL = track.scrollLeft;
+      };
+      const onTouchMove = (e) => {
+        const dx = touchStartX - e.touches[0].pageX;
+        track.scrollLeft = touchScrollL + dx;
+      };
+
+      track.addEventListener("mousedown", onMouseDown);
+      track.addEventListener("mousemove", onMouseMove);
+      track.addEventListener("mouseup", onMouseUp);
+      track.addEventListener("mouseleave", onMouseUp);
+      track.addEventListener("touchstart", onTouchStart, { passive: true });
+      track.addEventListener("touchmove", onTouchMove, { passive: true });
+    }
+
+    // ── Active dot / item on scroll ─────────────────────────
+    function syncActive(track) {
+      const items = track.querySelectorAll(".slider-item");
+      const dots = document.querySelectorAll("#gallery-pagination .dot");
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+
+      let closest = 0;
+      let minDist = Infinity;
+      items.forEach((item, i) => {
+        const r = item.getBoundingClientRect();
+        const itemCenter = r.left + r.width / 2;
+        const dist = Math.abs(itemCenter - trackCenter);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
+      });
+
+      items.forEach((item, i) =>
+        item.classList.toggle("active", i === closest),
+      );
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === closest));
+    }
+
+    // ── Scroll to index ─────────────────────────────────────
+    function scrollToIndex(track, index) {
+      const items = track.querySelectorAll(".slider-item");
+      if (!items[index]) return;
+      const item = items[index];
+      const trackW = track.offsetWidth;
+      const itemOffset = item.offsetLeft;
+      const itemW = item.offsetWidth;
+      track.scrollTo({
+        left: itemOffset - trackW / 2 + itemW / 2,
+        behavior: "smooth",
+      });
+    }
+
+    // ── Open modal ──────────────────────────────────────────
+    window.openProjectModal = (projectData) => {
+      const modal = document.getElementById("project-modal");
+      if (!modal) return;
+
+      // Contractor
+      document.getElementById("contractor-name").textContent =
+        projectData.contractor || "LandSouth Construction";
+
+      // Description
+      document.getElementById("project-description").textContent =
+        projectData.description || "Project description goes here...";
+
+      // Stats
+      const statsContainer = document.getElementById("project-stats");
+      const stats = [];
+      if (projectData.units)
+        stats.push(
+          `<span><strong>Total Units:</strong> ${projectData.units}</span>`,
+        );
+      if (projectData.area)
+        stats.push(
+          `<span><strong>Total Area:</strong> ${projectData.area}</span>`,
+        );
+      if (projectData.scope)
+        stats.push(
+          `<span><strong>Scope(s) of Work:</strong> ${projectData.scope}</span>`,
+        );
+      statsContainer.innerHTML = stats.join("");
+
+      // Gallery images
+      const images =
+        projectData.gallery && projectData.gallery.length > 0
+          ? projectData.gallery
+          : Array(5).fill(projectData.image);
+
+      // Render ALL images in the scroll track
+      const track = document.getElementById("slider-track");
+      track.innerHTML = images
+        .map(
+          (src, i) => `
+        <div class="slider-item${i === 0 ? " active" : ""}" data-index="${i}">
+          <img src="${src}" alt="Project image ${i + 1}" loading="lazy" />
+        </div>
+      `,
+        )
+        .join("");
+
+      // Pagination dots
+      const pagination = document.getElementById("gallery-pagination");
+      pagination.innerHTML = images
+        .map(
+          (_, i) => `
+        <div class="dot${i === 0 ? " active" : ""}" data-index="${i}"></div>
+      `,
+        )
+        .join("");
+
+      // Dot click → scroll to that image
+      pagination.querySelectorAll(".dot").forEach((dot) => {
+        dot.addEventListener("click", () => {
+          scrollToIndex(track, parseInt(dot.dataset.index, 10));
+        });
+      });
+
+      // Sync active state as user scrolls
+      track.addEventListener("scroll", () => syncActive(track), {
+        passive: true,
+      });
+
+      // Init drag
+      initDrag(track);
+
+      modal.showModal();
+      document.body.style.overflow = "hidden";
+
+      // Scroll to first image & sync
+      requestAnimationFrame(() => {
+        track.scrollLeft = 0;
+        syncActive(track);
+      });
+    };
+  });
+</script>

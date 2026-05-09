@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GalleryHero from "../components/GalleryHero.astro";
+import GalleryGrid from "../components/GalleryGrid.astro";
+import GalleryCTA from "../components/GalleryCTA.astro";
+import ProjectModal from "../components/ProjectModal.astro";
+---
+
+<Layout title="Avonce - Gallery" navLight={true}>
+  <main>
+    <GalleryHero />
+    <GalleryGrid />
+    <GalleryCTA />
+  </main>
+  <ProjectModal />
+</Layout>

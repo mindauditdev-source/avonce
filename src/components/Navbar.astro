@@ -1,6 +1,11 @@
 ---
+interface Props {
+  light?: boolean;
+}
+
+const { light = false } = Astro.props;
 ---
-<nav class="navbar">
+<nav class={`navbar ${light ? 'navbar-light' : ''}`}>
   <div class="container">
     <div class="logo">
       <a href="/">
@@ -17,9 +22,9 @@
 
     <div class="nav-links">
       <a href="/about" class="nav-link">About</a>
-      <a href="#expertise" class="nav-link">Expertise</a>
+      <a href="/services" class="nav-link">Expertise</a>
+      <a href="/gallery" class="nav-link">Gallery</a>
       <a href="/our-team" class="nav-link">Join our team</a>
-      <a href="#blog" class="nav-link">Blog</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
   </div>
@@ -36,6 +41,14 @@
     align-items: center;
     z-index: 100;
     background: transparent;
+  }
+
+  .navbar-light {
+    background: #FCFCFC;
+  }
+
+  .navbar-light .nav-link {
+    color: #1B1B1B !important;
   }
 
   .container {

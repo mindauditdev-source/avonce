@@ -1,0 +1,161 @@
+---
+// src/components/GalleryCTA.astro
+---
+
+<section class="gallery-cta">
+  <div class="cta-banner" style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), url('/slider/slider_4.png');">
+    <div class="cta-content">
+      <h2 class="heading">Have a Project in Mind?<br/>Let's Talk.</h2>
+      <a href="#contact" class="button">
+        <span class="button-label">CONTACT US</span>
+        <div class="bg-effect"></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-banner" style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), url('/slider/slider_5.png');">
+    <div class="cta-content">
+      <h2 class="heading">One Partner.<br/>Multiple Scopes</h2>
+      <a href="/services" class="button">
+        <span class="button-label">VIEW SERVICES</span>
+        <div class="bg-effect"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-cta {
+    width: 100%;
+    max-width: 1536px;
+    margin: 0 auto;
+    display: flex;
+    height: 600px;
+    background: #121212;
+  }
+
+  .cta-banner {
+    position: relative;
+    width: 768px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 100px 100px 100px;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .heading {
+    width: 568px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: #F5F4F4;
+    margin: 0;
+  }
+
+  .button {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    width: 234px;
+    height: 67px;
+    border: 1px solid #E6A523;
+    border-radius: 7.5px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .button-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #E6A523;
+    z-index: 2;
+    transition: color 0.3s ease;
+  }
+
+  .bg-effect {
+    position: absolute;
+    width: 0px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #E6A523;
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+
+  .button:hover .bg-effect {
+    width: 100%;
+  }
+
+  .button:hover .button-label {
+    color: #121212;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .cta-banner {
+        padding: 0 40px 60px 40px;
+    }
+    .heading {
+        width: 100%;
+        font-size: 36px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .gallery-cta {
+      flex-direction: column;
+      height: auto;
+    }
+    .cta-banner {
+      width: 100%;
+      height: 500px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cta-banner {
+      padding: 0 20px 40px 20px;
+    }
+    .heading {
+      font-size: 32px;
+    }
+    .button {
+      width: 200px;
+      height: 60px;
+      padding: 12px 24px;
+    }
+    .button-label {
+      font-size: 16px;
+    }
+  }
+</style>

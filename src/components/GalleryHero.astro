@@ -1,0 +1,136 @@
+---
+// src/components/GalleryHero.astro
+---
+
+<section class="gallery-hero">
+  <div class="container">
+    <div class="frame-31">
+      <div class="frame-30">
+        <span class="subtle">OUR PORTFOLIO</span>
+        <h1 class="heading">Where Coordination Meets Construction.</h1>
+      </div>
+      <p class="text">
+        A selection of multifamily and commercial projects demonstrating Avonce's ability to 
+        deliver integrated scopes with precision, coordination, and schedule certainty.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-hero {
+    position: relative;
+    width: 100%;
+    height: 432px;
+    background: #FCFCFC;
+    margin-top: 96px; /* Offset for absolute Navbar */
+    display: flex;
+    align-items: center;
+  }
+
+  .container {
+    max-width: 1536px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .frame-31 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: 658px;
+    height: 281px;
+  }
+
+  .frame-30 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: 658px;
+    height: 187px;
+  }
+
+  .subtle {
+    width: 658px;
+    height: 31px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    color: #E6A523;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    width: 658px;
+    height: 124px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.03em;
+    color: #1E1E1E;
+    margin: 0;
+  }
+
+  .text {
+    width: 658px;
+    height: 62px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 40px;
+    }
+    .frame-31, .frame-30, .subtle, .heading, .text {
+      width: 100%;
+      height: auto;
+    }
+    .gallery-hero {
+        height: auto;
+        padding: 60px 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+    .heading {
+      font-size: 36px;
+      line-height: 1.2;
+    }
+    .text {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .frame-31, .frame-30 {
+        gap: 24px;
+    }
+  }
+</style>
