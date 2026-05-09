@@ -1,38 +1,65 @@
-<section class="hero">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="hero-content w-full">
-      <div class="main-title-container">
-        <h1 class="main-title">
-          AVONCE<br />
-          CONSTRUCTION<br />
-          GROUP
-        </h1>
-      </div>
-      <div class="subtitle-row justify-between w-full">
-        <p class="subtitle">Committed to the project’s success</p>
-        <div class="badge-content">
-          <span class="celebrating">Celebrating</span>
-          <img src="/tenyears.png" alt="10 Years Badge" class="badge-img" />
+---
+import Navbar from "./Navbar.astro";
+---
+
+<div class="hero-scroll-wrapper">
+  <section class="hero">
+    <Navbar />
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="hero-content w-full">
+        <div class="main-title-container">
+          <h1 class="main-title outline-only">
+            AVONCE<br />
+            CONSTRUCTION<br />
+            GROUP
+          </h1>
+          <h1 class="main-title fill-only" aria-hidden="true">
+            AVONCE<br />
+            CONSTRUCTION<br />
+            GROUP
+          </h1>
+        </div>
+        <div class="subtitle-row justify-between w-full">
+          <p class="subtitle">Committed to the project’s success</p>
+          <div class="badge-content">
+            <span class="celebrating">Celebrating</span>
+            <img src="/tenyears.png" alt="10 Years Badge" class="badge-img" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <!-- Filtro SVG invisible para lograr un contorno perfecto sin líneas internas -->
-<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
-  <filter id="clean-outline-filter" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="e1"></feMorphology>
-    <feComposite in="e1" in2="SourceAlpha" operator="out" result="outline"></feComposite>
+<svg
+  style="position: absolute; width: 0; height: 0; overflow: hidden;"
+  aria-hidden="true"
+>
+  <filter
+    id="clean-outline-filter"
+    filterUnits="userSpaceOnUse"
+    color-interpolation-filters="sRGB"
+  >
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="e1"
+    ></feMorphology>
+    <feComposite in="e1" in2="SourceAlpha" operator="out" result="outline"
+    ></feComposite>
     <feFlood flood-color="#e6a523" result="color"></feFlood>
     <feComposite in="color" in2="outline" operator="in"></feComposite>
   </filter>
 </svg>
-
 <style>
-  .hero {
+  .hero-scroll-wrapper {
+    height: 200vh;
+    width: 100%;
     position: relative;
+  }
+
+  .hero {
+    position: sticky;
+    top: 0;
     height: 100vh;
     min-height: 600px;
     width: 100%;
@@ -42,7 +69,7 @@
         #121212 100%
       ),
       linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
-      url("/hero-bg.png");
+      url("/hero-bg-1.png");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -74,6 +101,7 @@
   .main-title-container {
     width: 100%;
     z-index: 2;
+    position: relative;
   }
 
   .main-title {
@@ -87,13 +115,33 @@
     margin: 0;
     padding: 0;
     margin-left: -4px; /* Optical alignment */
-    
-    /* Aplicamos el filtro para el contorno limpio */
-    filter: url(#clean-outline-filter);
-    
+
     /* Mejora de renderizado */
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
+  }
+
+  .outline-only {
+    color: #e6a523; /* Asegura un SourceAlpha sólido para el filtro */
+    filter: url(#clean-outline-filter);
+  }
+
+  .fill-only {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Scrolling fill effect styles */
+    color: transparent;
+    background: linear-gradient(to right, #e6a523 50%, transparent 50%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-position: 100% 50%;
+    will-change: background-position;
+    pointer-events: none;
   }
 
   .subtitle-row {
@@ -175,3 +223,38 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fillTitle = document.querySelector(".fill-only") as HTMLElement;
+    if (!fillTitle) return;
+
+    // Use requestAnimationFrame for smoother performance
+    let ticking = false;
+
+    function updateFill() {
+      const scrollY = window.scrollY;
+      // El efecto de llenado dura exactamente el 100vh extra del wrapper (200vh - 100vh)
+      const maxScroll = window.innerHeight;
+      const scrollPercent = Math.max(0, Math.min(scrollY / maxScroll, 1));
+
+      const bgPos = 100 - scrollPercent * 100;
+      fillTitle.style.backgroundPosition = `${bgPos}% 50%`;
+      ticking = false;
+    }
+
+    // Initialize state
+    updateFill();
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateFill);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+  });
+</script>

@@ -6,27 +6,144 @@ interface Props {
 
 const { light = false, primary = false } = Astro.props;
 ---
-<nav class={`navbar ${light ? 'navbar-light' : ''} ${primary ? 'navbar-primary' : ''}`}>
+
+<nav
+  class={`navbar ${light ? "navbar-light" : ""} ${
+    primary ? "navbar-primary" : ""
+  }`}
+>
   <div class="container">
     <div class="logo">
       <a href="/">
-        <svg width="234" height="40" viewBox="0 0 234 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Stylized A (Roof shape from Figma) -->
-          <path d="M5 20L20 5L35 20V35H28V22H12V35H5V20Z" fill="#E6A523"/>
-          <path d="M12 22H28V24H12V22Z" fill="#E6A523" opacity="0.5"/>
-          
-          <!-- Text "VONCE" in a bold, clean style -->
-          <text x="45" y="32" fill="#E6A523" style="font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.02em;">VONCE</text>
+        <svg
+          width="234"
+          height="32"
+          viewBox="0 0 234 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M155.673 6.80916H147.422V30.9601H155.673V6.80916Z"
+            fill="#E6A523"></path>
+          <path
+            d="M147.455 30.3228L138.499 6.80916H130.885L131.086 7.37939L132.159 10.2305L140.042 30.9601H147.69L147.455 30.3228Z"
+            fill="#E6A523"></path>
+          <path
+            d="M131.32 6.80917H122.633V30.9601H131.32V6.80917Z"
+            fill="#E6A523"></path>
+          <path
+            d="M233.559 25.5262V30.8596H202.9V6.74215H233.357V12.109H207.764V16.805H232.787V20.8973H207.764V25.5262H233.559Z"
+            fill="#E6A523"></path>
+          <path
+            d="M233.559 30.8596H202.867V6.7086H233.324V12.0755H208.402V16.1677H232.788V21.1321H208.435V25.4591H233.593V30.8596H233.559Z"
+            fill="#E6A523"></path>
+          <path
+            d="M0 12.109V30.5912H12.0755V18.4151L28.9476 8.55347V30.5912H41.1908L41.1573 15.0608L22.239 0L0 12.109Z"
+            fill="#E6A523"></path>
+          <path
+            d="M114.347 8.95592C111.798 6.74208 108.041 5.63516 103.177 5.63516H96.1669C91.2696 5.63516 87.5128 6.74208 84.9971 8.95592C82.4478 11.1698 81.2402 14.3899 81.2402 18.784C81.2402 23.1446 82.5149 26.4654 84.9971 28.6457C87.5463 30.8595 91.2025 31.9664 95.8985 31.9664H103.379C108.142 31.9664 111.831 30.8595 114.381 28.6457C116.896 26.4654 118.138 23.1446 118.138 18.784C118.104 14.3899 116.863 11.1698 114.347 8.95592ZM110.188 19.8239C110.188 20.7966 110.02 21.6687 109.718 22.4402C109.249 23.6142 108.511 24.5534 107.504 25.1907C106.163 26.0629 104.284 26.4989 101.936 26.4989H97.408C95.0264 26.4989 93.1145 26.0629 91.7727 25.1907C90.7665 24.5534 90.0285 23.6142 89.5589 22.4402C89.257 21.7023 89.0893 20.7966 89.0893 19.8239V17.6771C89.0893 16.7044 89.257 15.8322 89.5589 15.0943C90.0285 13.9874 90.7665 13.0817 91.7727 12.4444C93.1145 11.5723 94.9929 11.1362 97.3073 11.1362H101.903C104.217 11.1362 106.096 11.5723 107.437 12.4444C108.444 13.0817 109.182 14.0209 109.651 15.1614C109.953 15.9329 110.121 16.805 110.121 17.7777V19.8239H110.188Z"
+            fill="#E6A523"></path>
+          <path
+            d="M189.753 21.5681H197.669C197.233 24.587 196.025 26.9685 194.08 28.6792C191.531 30.8931 187.841 32 183.078 32H175.598C170.902 32 167.212 30.8931 164.696 28.6792C162.181 26.4989 160.939 23.1782 160.939 18.8176C160.939 14.4235 162.181 11.2033 164.696 8.98949C167.212 6.77565 171.002 5.66874 175.866 5.66874H182.877C187.774 5.66874 191.531 6.77565 194.046 8.98949C196.025 10.7337 197.199 13.0482 197.636 16.1006H189.719C189.652 15.7987 189.552 15.4968 189.451 15.195C188.981 14.0209 188.21 13.1153 187.237 12.4444C185.895 11.5723 184.017 11.1362 181.703 11.1362H177.107C174.793 11.1362 172.914 11.5723 171.573 12.4444C170.566 13.0817 169.795 13.9874 169.359 15.0943C169.057 15.8323 168.889 16.7044 168.889 17.6771V19.8239C168.889 20.7966 169.057 21.7023 169.359 22.4402C169.828 23.6142 170.566 24.5534 171.573 25.1908C172.914 26.0629 174.826 26.4989 177.208 26.4989H181.736C184.084 26.4989 185.963 26.0629 187.304 25.1908C188.311 24.5534 189.049 23.6142 189.518 22.4402C189.619 22.1719 189.686 21.87 189.753 21.5681Z"
+            fill="#E6A523"></path>
+          <path
+            d="M189.753 21.5681H197.669C197.233 24.587 196.025 26.9685 194.08 28.6792C191.531 30.8931 187.841 32 183.078 32H175.598C170.902 32 167.212 30.8931 164.696 28.6792C162.181 26.4989 160.939 23.1782 160.939 18.8176C160.939 14.4235 162.181 11.2033 164.696 8.98949C167.212 6.77565 171.002 5.66874 175.866 5.66874H182.877C187.774 5.66874 191.531 6.77565 194.046 8.98949C196.025 10.7337 197.199 13.0482 197.636 16.1006H189.719C189.652 15.7987 189.552 15.4968 189.451 15.195C188.981 14.0209 188.21 13.1153 187.237 12.4444C185.895 11.5723 184.017 11.1362 181.703 11.1362H177.107C174.793 11.1362 172.914 11.5723 171.573 12.4444C170.566 13.0817 169.795 13.9874 169.359 15.0943C169.057 15.8323 168.889 16.7044 168.889 17.6771V19.8239C168.889 20.7966 169.057 21.7023 169.359 22.4402C169.828 23.6142 170.566 24.5534 171.573 25.1908C172.914 26.0629 174.826 26.4989 177.208 26.4989H181.736C184.084 26.4989 185.963 26.0629 187.304 25.1908C188.311 24.5534 189.049 23.6142 189.518 22.4402C189.619 22.1719 189.686 21.87 189.753 21.5681Z"
+            fill="#E6A523"></path>
+          <path
+            d="M70.0051 6.80916L62.3237 24.8218L61.9883 30.9601H69.3342L79.4977 6.80916H70.0051Z"
+            fill="#E6A523"></path>
+          <path
+            d="M62.0547 30.6582L52.2266 6.80917H42.1973L53.0987 30.9601H62.1554L62.0547 30.6582Z"
+            fill="#E6A523"></path>
         </svg>
       </a>
     </div>
 
     <div class="nav-links">
-      <a href="/about" class="nav-link">About</a>
-      <a href="/services" class="nav-link">Expertise</a>
-      <a href="/gallery" class="nav-link">Gallery</a>
-      <a href="/our-team" class="nav-link">Join our team</a>
-      <a href="/contact" class="nav-link">Contact</a>
+      <div class="nav-item has-submenu">
+        <a href="/about" class="nav-link">About</a>
+        <div class="submenu-container">
+          <div class="submenu-inner v2">
+            <a href="/about" class="highlight-item v2">
+              <div class="image">
+                <img src="/hard_hat_cityscape.png" alt="About Us" />
+              </div>
+              <span class="title">About Us</span>
+              <span class="description"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br
+                />Integer nec odio. Praesent libero.</span
+              >
+            </a>
+            <a href="/our-team" class="highlight-item v2">
+              <div class="image">
+                <img src="/team_hands_motivation.png" alt="Our Team" />
+              </div>
+              <span class="title">Our Team</span>
+              <span class="description"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br
+                />Integer nec odio. Praesent libero.</span
+              >
+            </a>
+            <div class="other v2">
+              <span class="other-heading">Learn More</span>
+              <ul class="other-list">
+                <li><a href="/about#leadership">Leadership</a></li>
+                <li><a href="/about#awards-ranking">Awards & Rankings</a></li>
+                <li><a href="/about#giving-back">Giving Back</a></li>
+                <li><a href="/about#affiliations">Affiliations</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-submenu">
+        <a href="/services" class="nav-link">Expertise</a>
+        <div class="submenu-container">
+          <div class="submenu-inner v2">
+            <a href="/services#framing" class="highlight-item v2">
+              <div class="image">
+                <img src="/hard_hat_cityscape.png" alt="Structural Framing" />
+              </div>
+              <span class="title">Structural Framing</span>
+              <span class="description"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br
+                />Integer nec odio. Praesent libero.</span
+              >
+            </a>
+            <a href="/services#drywall" class="highlight-item v2">
+              <div class="image">
+                <img
+                  src="/team_hands_motivation.png"
+                  alt="Drywall & Interiors"
+                />
+              </div>
+              <span class="title">Drywall & Interiors</span>
+              <span class="description"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br
+                />Integer nec odio. Praesent libero.</span
+              >
+            </a>
+            <div class="other v2">
+              <span class="other-heading">Learn More</span>
+              <ul class="other-list">
+                <li><a href="/services#systems">Building Systems</a></li>
+                <li><a href="/services#safety">Safety Standards</a></li>
+                <li><a href="/services#quality">Quality Control</a></li>
+                <li><a href="/services#projects">Past Projects</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="/gallery" class="nav-link">Gallery</a>
+      </div>
+      <div class="nav-item">
+        <a href="/our-team" class="nav-link">Join our team</a>
+      </div>
+      <div class="nav-item">
+        <a href="/contact" class="nav-link">Contact</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -42,35 +159,49 @@ const { light = false, primary = false } = Astro.props;
     align-items: center;
     z-index: 100;
     background: transparent;
+    transition: background 0.3s ease;
+  }
+
+  .navbar:hover {
+    background: #e6a523;
+  }
+
+  .navbar:hover .nav-link {
+    color: #2e2107 !important;
+  }
+
+  .navbar:hover path {
+    fill: #2e2107 !important;
   }
 
   .navbar-light {
-    background: #FCFCFC;
+    background: #fcfcfc;
   }
 
   .navbar-primary {
-    background: #E6A523;
+    background: #e6a523;
   }
 
   .navbar-primary .nav-link {
-    color: #2E2107 !important;
+    color: #2e2107 !important;
   }
 
   .navbar-primary path {
-    fill: #2E2107 !important;
+    fill: #2e2107 !important;
   }
 
   .navbar-primary text {
-    fill: #2E2107 !important;
+    fill: #2e2107 !important;
   }
 
   .navbar-light .nav-link {
-    color: #1B1B1B !important;
+    color: #1b1b1b !important;
   }
 
   .container {
     max-width: 1440px;
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     padding: 0 100px;
     display: flex;
@@ -84,30 +215,179 @@ const { light = false, primary = false } = Astro.props;
     text-decoration: none;
   }
 
+  .logo path {
+    transition: fill 0.3s ease;
+  }
+
   .nav-links {
     display: flex;
     gap: 28px;
     align-items: center;
+    height: 100%;
+  }
+
+  .nav-item {
+    height: 100%;
   }
 
   .nav-link {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 170%;
     text-transform: uppercase;
-    color: #FFFFFF;
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.3s ease;
     white-space: nowrap;
     opacity: 0.9;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100;
   }
 
   .nav-link:hover {
-    color: #E6A523;
+    color: #e6a523;
     opacity: 1;
-    transform: translateY(-1px);
+  }
+
+  /* Submenu Hover Triangle (V-notch) */
+  .nav-item.has-submenu .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -9px; /* Ajuste milimétrico para cubrir el grosor del borde (1px) */
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 16px;
+    height: 16px;
+    border-bottom: 1px solid #2e2107;
+    border-right: 1px solid #2e2107;
+    background: #e6a523;
+    opacity: 0;
+    z-index: 101;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .nav-item.has-submenu:hover .nav-link::after {
+    opacity: 1;
+  }
+
+  /* Submenu Container */
+  .submenu-container {
+    position: absolute;
+    top: 96px;
+    left: 0;
+    width: 100%;
+    background: #e6a523;
+    border-top: 1px solid #2e2107;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    padding: 60px 0;
+    cursor: default;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+  }
+
+  .nav-item.has-submenu:hover .submenu-container {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .submenu-inner.v2 {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 60px;
+  }
+
+  .highlight-item.v2 {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    width: 319px;
+  }
+
+  .highlight-item.v2 .image {
+    width: 319px;
+    height: 248px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .highlight-item.v2 .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .highlight-item.v2:hover .image img {
+    transform: scale(1.05);
+  }
+
+  .highlight-item.v2 .title {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    color: #000000;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+
+  .highlight-item.v2 .description {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 170%;
+    color: #000000;
+  }
+
+  .other.v2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px; /* Optional spacing adjustment */
+  }
+
+  .other-heading {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #2e2107;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .other-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .other-list a {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #2e2107;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .other-list a:hover {
+    opacity: 0.6;
   }
 
   @media (max-width: 1024px) {

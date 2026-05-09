@@ -77,6 +77,9 @@
     padding: 160px 0;
     width: 100%;
     overflow: hidden;
+    will-change: transform;
+    transform: scale(0.95);
+    transform-origin: center top;
   }
 
   .vector-bg {
@@ -109,6 +112,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    opacity: 0;
+    transform: translateY(3vh);
+    will-change: opacity, transform;
   }
 
   .header-group {
@@ -218,3 +224,47 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const aboutSection = document.querySelector('.about') as HTMLElement;
+    const contentFrame = document.querySelector('.content-frame') as HTMLElement;
+    if (!aboutSection || !contentFrame) return;
+
+    let ticking = false;
+
+    function updateScale() {
+      const rect = aboutSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate progress: 0 when the section's top enters the bottom of the viewport
+      // 1 when the section's top reaches the top of the viewport
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      // Scale from 0.96 to 1.0 (a bit more subtle than 0.95)
+      const scale = 0.96 + (progress * 0.04);
+      aboutSection.style.transform = `scale(${scale})`;
+      
+      // Fade content in and move up from 4vh to 0
+      // Eliminamos el multiplicador para que tome toda la pantalla en llegar a opacity 1, haciéndolo más lento
+      const opacity = progress; 
+      const yOffset = (1 - progress) * 4;
+      
+      contentFrame.style.opacity = opacity.toString();
+      contentFrame.style.transform = `translateY(${yOffset}vh)`;
+      
+      ticking = false;
+    }
+    
+    // Initial check
+    updateScale();
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScale);
+        ticking = true;
+      }
+    }, { passive: true });
+  });
+</script>

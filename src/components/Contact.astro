@@ -73,10 +73,11 @@ const testimonials = [
     width: 100%;
     min-height: 908px;
     background-color: #E6A523;
-    overflow: hidden;
     display: flex;
     align-items: center;
     padding: 100px 0;
+    transform: scale(0.96);
+    transform-origin: center top;
   }
 
   /* The building shadow vector */
@@ -117,11 +118,14 @@ const testimonials = [
 
   /* Left Column */
   .left-col {
+    position: sticky;
+    top: 150px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 64px;
     max-width: 432px;
+    z-index: 10;
   }
 
   .text-content {
@@ -210,12 +214,7 @@ const testimonials = [
 
   .testimonial-slider-container {
     width: 100%;
-    height: 600px;
-    overflow: hidden;
     position: relative;
-    /* Fade effect at top and bottom for scrolling */
-    mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
   }
 
   .testimonial-slider {
@@ -225,16 +224,6 @@ const testimonials = [
     width: 100%;
     max-width: 319px;
     padding: 20px 0;
-    
-    /* Scroll properties */
-    height: 100%;
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-  }
-
-  .testimonial-slider::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
   }
 
   .testimonial-item {
@@ -315,3 +304,64 @@ const testimonials = [
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector('.contact-section') as HTMLElement;
+    const testimonials = document.querySelectorAll('.testimonial-item');
+
+    if (section) {
+      let ticking = false;
+
+      function updateScrollEffects() {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const centerY = windowHeight / 2;
+
+        // Section Scale Hand-off (same as Services)
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          section.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          section.style.transform = `scale(${scale})`;
+        }
+
+        // Testimonials fade & smooth parallax
+        testimonials.forEach(item => {
+          const el = item as HTMLElement;
+          const itemRect = el.getBoundingClientRect();
+          const itemCenter = itemRect.top + itemRect.height / 2;
+          
+          // Calculate distance from center of viewport
+          const dist = Math.abs(itemCenter - centerY);
+          const maxDist = windowHeight / 1.5;
+          
+          // Ease opacity so it fades out near edges
+          let opacity = 1 - Math.pow(dist / maxDist, 2);
+          opacity = Math.max(0.1, Math.min(opacity, 1));
+          
+          // Parallax effect: moves slightly slower than normal scroll
+          const offset = (itemCenter - centerY) * 0.15;
+          
+          el.style.opacity = opacity.toString();
+          el.style.transform = `translateY(${offset}px)`;
+          el.style.willChange = 'opacity, transform';
+        });
+
+        ticking = false;
+      }
+
+      updateScrollEffects();
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateScrollEffects);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  });
+</script>
