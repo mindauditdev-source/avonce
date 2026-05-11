@@ -43,6 +43,9 @@
     background: #FCFCFC;
     overflow: hidden;
     width: 100%;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .vector-bg {
@@ -79,6 +82,9 @@
     z-index: 1;
     max-width: 884px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .frame {
@@ -177,14 +183,51 @@
   }
 
   @media (max-width: 768px) {
-    .container {
-      padding: 0 20px;
-    }
-    .heading {
-      font-size: 32px;
-    }
     .vector-bg {
       width: 250px;
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const servicesIntroSection = document.querySelector('.services-intro') as HTMLElement;
+    const container = document.querySelector('.services-intro .container') as HTMLElement;
+
+    if (servicesIntroSection && container) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = servicesIntroSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          servicesIntroSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          servicesIntroSection.style.transform = `scale(${scale})`;
+        }
+        
+        const opacity = progress; 
+        const yOffset = (1 - progress) * 4;
+        
+        container.style.opacity = opacity.toString();
+        container.style.transform = `translateY(${yOffset}vh)`;
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

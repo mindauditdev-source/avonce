@@ -16,7 +16,7 @@
   <div class="banner right-banner">
     <div class="content">
       <h2 class="heading">Join our<br/>Outstanding Team</h2>
-      <a href="/our-team" class="cta-button">
+      <a href="/join-us" class="cta-button">
         <span class="bg-effect"></span>
         <span class="button-label">JOIN THE TEAM</span>
       </a>
@@ -29,6 +29,9 @@
     display: flex;
     width: 100%;
     height: 600px;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .banner {
@@ -63,6 +66,9 @@
     gap: 32px;
     max-width: 568px;
     z-index: 2;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .heading {
@@ -168,3 +174,48 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const contactBannersSection = document.querySelector('.contact-banners') as HTMLElement;
+    const contents = document.querySelectorAll('.contact-banners .content');
+
+    if (contactBannersSection && contents.length > 0) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = contactBannersSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          contactBannersSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          contactBannersSection.style.transform = `scale(${scale})`;
+        }
+        
+        const opacity = progress; 
+        const yOffset = (1 - progress) * 4;
+        
+        contents.forEach(content => {
+          (content as HTMLElement).style.opacity = opacity.toString();
+          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
+        });
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

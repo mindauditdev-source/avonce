@@ -37,6 +37,9 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .container {
@@ -47,6 +50,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .heading {
@@ -122,13 +128,52 @@
       font-size: 36px;
     }
   }
-
   @media (max-width: 768px) {
-    .container {
-      padding: 0 20px;
-    }
     .heading {
       font-size: 32px;
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const approachSection = document.querySelector('.services-approach') as HTMLElement;
+    const container = document.querySelector('.services-approach .container') as HTMLElement;
+
+    if (approachSection && container) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = approachSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          approachSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          approachSection.style.transform = `scale(${scale})`;
+        }
+        
+        const opacity = progress; 
+        const yOffset = (1 - progress) * 4;
+        
+        container.style.opacity = opacity.toString();
+        container.style.transform = `translateY(${yOffset}vh)`;
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

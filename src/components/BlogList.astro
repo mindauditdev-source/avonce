@@ -106,6 +106,9 @@ const posts = Array(9).fill(null).map((_, i) => {
     width: 100%;
     background-color: #FCFCFC;
     padding: 100px 0;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .container {
@@ -161,6 +164,10 @@ const posts = Array(9).fill(null).map((_, i) => {
     flex-direction: column;
     gap: 16px;
     width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
   }
 
   .image-wrapper {
@@ -358,3 +365,62 @@ const posts = Array(9).fill(null).map((_, i) => {
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scroll Animation Logic for the whole section
+    const blogListSection = document.querySelector('.blog-list-section') as HTMLElement;
+    if (blogListSection) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = blogListSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          blogListSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          blogListSection.style.transform = `scale(${scale})`;
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateAnimation();
+    }
+
+    // Staggered entry for blog cards using IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const card = entry.target as HTMLElement;
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
+          observer.unobserve(card);
+        }
+      });
+    }, observerOptions);
+
+    const blogCards = document.querySelectorAll('.blog-card');
+    blogCards.forEach((card, index) => {
+      // Add a small delay based on index for cards in the initial viewport
+      const delay = (index % 3) * 0.1;
+      (card as HTMLElement).style.transitionDelay = `${delay}s`;
+      observer.observe(card);
+    });
+  });
+</script>

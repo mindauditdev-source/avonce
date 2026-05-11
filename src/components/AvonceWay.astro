@@ -2,7 +2,7 @@
 // src/components/AvonceWay.astro
 ---
 
-<section class="avonce-way">
+<section id="avonce-way" class="avonce-way">
   <div class="header-section">
     <h2 class="heading">The Avonce Way</h2>
     <p class="text">
@@ -53,6 +53,9 @@
     align-items: center;
     gap: 64px;
     overflow: hidden;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .header-section {
@@ -62,6 +65,9 @@
     gap: 16px;
     max-width: 657px;
     text-align: center;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .heading {
@@ -91,6 +97,9 @@
     width: 100%;
     max-width: 1296px;
     height: 600px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .slider-tab {
@@ -382,4 +391,50 @@
 
   // Initialize
   initSlider();
+
+  // Scroll Animation Logic
+  const avonceWaySection = document.querySelector('.avonce-way') as HTMLElement;
+  const headerSection = document.querySelector('.avonce-way .header-section') as HTMLElement;
+  const sliderContainer = document.querySelector('.avonce-way .slider-container') as HTMLElement;
+
+  if (avonceWaySection && headerSection && sliderContainer) {
+    let ticking = false;
+
+    function updateAnimation() {
+      const rect = avonceWaySection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      if (progress >= 1) {
+        avonceWaySection.style.transform = 'none';
+      } else {
+        const scale = 0.96 + (progress * 0.04);
+        avonceWaySection.style.transform = `scale(${scale})`;
+      }
+      
+      const opacity = progress; 
+      const yOffset = (1 - progress) * 4;
+      
+      headerSection.style.opacity = opacity.toString();
+      headerSection.style.transform = `translateY(${yOffset}vh)`;
+      
+      // Delay slider container animation slightly for a staggered effect
+      const sliderProgress = Math.max(0, Math.min(progress * 1.2 - 0.2, 1));
+      sliderContainer.style.opacity = sliderProgress.toString();
+      sliderContainer.style.transform = `translateY(${(1 - sliderProgress) * 4}vh)`;
+      
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateAnimation);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateAnimation();
+  }
 </script>

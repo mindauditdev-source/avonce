@@ -60,6 +60,9 @@
     background: #FCFCFC;
     padding: 6px 0;
     overflow: hidden;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .grid-container {
@@ -78,6 +81,9 @@
     gap: 6px;
     height: 324px;
     width: 100%;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .banner {
@@ -185,14 +191,54 @@
   }
 
   @media (max-width: 768px) {
-    .banner {
-      padding: 24px;
-    }
-    .banner-title {
-      font-size: 20px;
-    }
     .banner-text {
       font-size: 14px;
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const servicesGridSection = document.querySelector('.services-grid') as HTMLElement;
+    const bannerRows = document.querySelectorAll('.services-grid .banner-row');
+
+    if (servicesGridSection && bannerRows.length > 0) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = servicesGridSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          servicesGridSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          servicesGridSection.style.transform = `scale(${scale})`;
+        }
+        
+        bannerRows.forEach((row, index) => {
+          const rowRect = row.getBoundingClientRect();
+          let rowProgress = 1 - (rowRect.top / windowHeight);
+          rowProgress = Math.max(0, Math.min(rowProgress, 1));
+          
+          (row as HTMLElement).style.opacity = rowProgress.toString();
+          (row as HTMLElement).style.transform = `translateY(${(1 - rowProgress) * 4}vh)`;
+        });
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

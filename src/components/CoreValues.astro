@@ -11,7 +11,7 @@ const valuesList = [
 ];
 ---
 
-<section class="core-values">
+<section id="core-values" class="core-values">
   <div class="container">
     
     <div class="header-content">
@@ -67,6 +67,9 @@ const valuesList = [
     background: #FFFFFF;
     padding: 100px 0;
     position: relative;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .container {
@@ -77,6 +80,9 @@ const valuesList = [
     display: flex;
     flex-direction: column;
     gap: 64px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   /* Header Section */
@@ -274,4 +280,45 @@ const valuesList = [
       item.querySelector('.icon-toggle').textContent = '+';
     });
   });
+
+  // Scroll Animation Logic
+  const coreValuesSection = document.querySelector('.core-values') as HTMLElement;
+  const container = document.querySelector('.core-values .container') as HTMLElement;
+
+  if (coreValuesSection && container) {
+    let ticking = false;
+
+    function updateAnimation() {
+      const rect = coreValuesSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      if (progress >= 1) {
+        coreValuesSection.style.transform = 'none';
+      } else {
+        const scale = 0.96 + (progress * 0.04);
+        coreValuesSection.style.transform = `scale(${scale})`;
+      }
+      
+      const opacity = progress; 
+      const yOffset = (1 - progress) * 4;
+      
+      container.style.opacity = opacity.toString();
+      container.style.transform = `translateY(${yOffset}vh)`;
+      
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateAnimation);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial call
+    updateAnimation();
+  }
 </script>

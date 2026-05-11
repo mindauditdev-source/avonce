@@ -101,6 +101,9 @@ const teamMembers = [
     display: flex;
     justify-content: center;
     position: relative;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .container {
@@ -112,7 +115,7 @@ const teamMembers = [
     display: flex;
     flex-wrap: wrap;
     gap: 64px 20px;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .team-member {
@@ -123,10 +126,18 @@ const teamMembers = [
     width: 319px;
     height: 500px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
   }
   
-  .team-member:hover {
+  .team-member.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .team-member.is-visible:hover {
     transform: translateY(-5px);
   }
 
@@ -639,13 +650,66 @@ const teamMembers = [
       }
     });
 
-    // Tab active state toggle
     const tabs = document.querySelectorAll('.pop-up-tab');
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active-tab'));
         tab.classList.add('active-tab');
       });
+    });
+
+    // Scroll Animation Logic
+    const teamGridSection = document.querySelector('.team-grid-section') as HTMLElement;
+    if (teamGridSection) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = teamGridSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          teamGridSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          teamGridSection.style.transform = `scale(${scale})`;
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateAnimation();
+    }
+
+    // Staggered entry for members using IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const member = entry.target as HTMLElement;
+          member.classList.add('is-visible');
+          observer.unobserve(member);
+        }
+      });
+    }, observerOptions);
+
+    const teamMembers = document.querySelectorAll('.team-member');
+    teamMembers.forEach((member, index) => {
+      // Add a small delay based on index for members in the initial viewport
+      const delay = (index % 4) * 0.1;
+      (member as HTMLElement).style.transitionDelay = `${delay}s`;
+      observer.observe(member);
     });
   });
 </script>

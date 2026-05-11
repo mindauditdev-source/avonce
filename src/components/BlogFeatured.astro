@@ -86,6 +86,9 @@
     display: flex;
     align-items: center;
     padding: 80px 0;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .vector-bg {
@@ -121,6 +124,9 @@
     justify-content: space-between;
     gap: 80px;
     width: 100%;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   /* Left Side - Featured Articles */
@@ -408,3 +414,46 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const blogFeaturedSection = document.querySelector('.blog-featured') as HTMLElement;
+    const contentWrapper = document.querySelector('.blog-featured .content-wrapper') as HTMLElement;
+
+    if (blogFeaturedSection && contentWrapper) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = blogFeaturedSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          blogFeaturedSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          blogFeaturedSection.style.transform = `scale(${scale})`;
+        }
+        
+        const opacity = progress; 
+        const yOffset = (1 - progress) * 4;
+        
+        contentWrapper.style.opacity = opacity.toString();
+        contentWrapper.style.transform = `translateY(${yOffset}vh)`;
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

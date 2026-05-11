@@ -6,7 +6,7 @@
   <div class="cta-banner" style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), url('/slider/slider_4.png');">
     <div class="cta-content">
       <h2 class="heading">Have a Project in Mind?<br/>Let's Talk.</h2>
-      <a href="#contact" class="button">
+      <a href="/contact" class="button">
         <span class="button-label">CONTACT US</span>
         <div class="bg-effect"></div>
       </a>
@@ -32,6 +32,9 @@
     display: flex;
     height: 600px;
     background: #121212;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .cta-banner {
@@ -61,6 +64,9 @@
     gap: 32px;
     width: 100%;
     z-index: 2;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .heading {
@@ -159,3 +165,48 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleryCtaSection = document.querySelector('.gallery-cta') as HTMLElement;
+    const contents = document.querySelectorAll('.gallery-cta .cta-content');
+
+    if (galleryCtaSection && contents.length > 0) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = galleryCtaSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          galleryCtaSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          galleryCtaSection.style.transform = `scale(${scale})`;
+        }
+        
+        const opacity = progress; 
+        const yOffset = (1 - progress) * 4;
+        
+        contents.forEach(content => {
+          (content as HTMLElement).style.opacity = opacity.toString();
+          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
+        });
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

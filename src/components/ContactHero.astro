@@ -55,7 +55,7 @@
         <h3 class="biz-title">Business Development</h3>
         <p class="biz-contact">
           John Doe | Business Development Manager<br />
-          john@avonceconstruction.com
+          <a href="mailto:john@avonceconstruction.com" style="color: inherit; text-decoration: underline;">john@avonceconstruction.com</a>
         </p>
         <div class="biz-phone-row">
           <svg class="phone-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -64,7 +64,7 @@
               c-0.4-1.1-0.6-2.3-0.6-3.5c0-0.6-0.4-1-1-1H5c-0.6,0-1,0.4-1,1
               c0,9.4,7.6,17,17,17c0.6,0,1-0.4,1-1v-3.5C21,15.9,20.6,15.5,20,15.5z"/>
           </svg>
-          <span class="biz-phone">(123)456-7890</span>
+          <a href="tel:1234567890" class="biz-phone" style="color: inherit; text-decoration: none;">(123)456-7890</a>
         </div>
       </div>
     </div>
@@ -80,6 +80,9 @@
     background: #FCFCFC;
     overflow: hidden;
     padding-top: 96px; /* offset for fixed navbar */
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   /* ── Florida map background ────────────────────────────────── */
@@ -117,6 +120,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .subtle {
@@ -156,6 +162,9 @@
     gap: 20px;
     margin-top: 104px; /* 148 + 188 + 64 spacing ≈ 400 from top of section */
     max-width: 545px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .office-photo {
@@ -235,6 +244,9 @@
     padding: 56px;
     margin-top: 64px;
     margin-bottom: 120px;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .biz-inner {
@@ -328,3 +340,53 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector('.contact-info') as HTMLElement;
+    const items = [
+      document.querySelector('.contact-info .text-group'),
+      document.querySelector('.contact-info .office-card'),
+      document.querySelector('.contact-info .biz-card')
+    ].filter(Boolean) as HTMLElement[];
+
+    if (section && items.length > 0) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          section.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          section.style.transform = `scale(${scale})`;
+        }
+        
+        items.forEach(item => {
+          const itemRect = item.getBoundingClientRect();
+          let itemProgress = 1 - (itemRect.top / windowHeight);
+          itemProgress = Math.max(0, Math.min(itemProgress, 1));
+          
+          item.style.opacity = itemProgress.toString();
+          item.style.transform = `translateY(${(1 - itemProgress) * 4}vh)`;
+        });
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

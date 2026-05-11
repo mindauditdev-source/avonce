@@ -102,12 +102,18 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .slider-wrapper {
     width: 100%;
     height: 720px;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .slider-track {
@@ -391,5 +397,45 @@
     images.forEach(img => {
       img.addEventListener('dragstart', (e) => e.preventDefault());
     });
+  }
+
+  // Scroll Animation Logic
+  const whyUsSection = document.querySelector('.services-why-us') as HTMLElement;
+  const sliderWrapper = document.querySelector('.services-why-us .slider-wrapper') as HTMLElement;
+
+  if (whyUsSection && sliderWrapper) {
+    let ticking = false;
+
+    function updateAnimation() {
+      const rect = whyUsSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      if (progress >= 1) {
+        whyUsSection.style.transform = 'none';
+      } else {
+        const scale = 0.96 + (progress * 0.04);
+        whyUsSection.style.transform = `scale(${scale})`;
+      }
+      
+      const opacity = progress; 
+      const yOffset = (1 - progress) * 4;
+      
+      sliderWrapper.style.opacity = opacity.toString();
+      sliderWrapper.style.transform = `translateY(${yOffset}vh)`;
+      
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateAnimation);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateAnimation();
   }
 </script>

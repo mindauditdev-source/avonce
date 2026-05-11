@@ -177,6 +177,9 @@ const projects = [
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: scale(0.96);
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .grid-container {
@@ -192,6 +195,9 @@ const projects = [
     gap: 6px;
     height: 324px;
     width: 100%;
+    opacity: 0;
+    transform: translateY(4vh);
+    will-change: opacity, transform;
   }
 
   .banner {
@@ -385,3 +391,49 @@ const projects = [
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleryGridSection = document.querySelector('.gallery-grid') as HTMLElement;
+    const galleryRows = document.querySelectorAll('.gallery-grid .row');
+
+    if (galleryGridSection && galleryRows.length > 0) {
+      let ticking = false;
+
+      function updateAnimation() {
+        const rect = galleryGridSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = 1 - (rect.top / windowHeight);
+        progress = Math.max(0, Math.min(progress, 1));
+        
+        if (progress >= 1) {
+          galleryGridSection.style.transform = 'none';
+        } else {
+          const scale = 0.96 + (progress * 0.04);
+          galleryGridSection.style.transform = `scale(${scale})`;
+        }
+        
+        galleryRows.forEach((row, index) => {
+          const rowRect = row.getBoundingClientRect();
+          let rowProgress = 1 - (rowRect.top / windowHeight);
+          rowProgress = Math.max(0, Math.min(rowProgress, 1));
+          
+          (row as HTMLElement).style.opacity = rowProgress.toString();
+          (row as HTMLElement).style.transform = `translateY(${(1 - rowProgress) * 4}vh)`;
+        });
+        
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAnimation);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateAnimation();
+    }
+  });
+</script>

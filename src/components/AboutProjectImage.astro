@@ -13,8 +13,10 @@
     background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.33) 100%),
                 url('/section-image.png');
     background-size: cover;
-    background-position: center;
+    background-position: center 0%; /* Start at top */
     background-repeat: no-repeat;
+    background-attachment: fixed; /* Fallback for parallax if JS is slow */
+    will-change: background-position;
   }
 
   /* Responsive Adjustments */
@@ -30,3 +32,38 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const projectImageSection = document.querySelector('.project-image-section') as HTMLElement;
+    if (!projectImageSection) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      const rect = projectImageSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate how far the section is into the viewport
+      const totalScrollArea = windowHeight + rect.height;
+      const currentPos = windowHeight - rect.top;
+      let progress = currentPos / totalScrollArea;
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      // Move background position from 0% to 100%
+      const bgY = progress * 100;
+      projectImageSection.style.backgroundPosition = `center ${bgY}%`;
+      
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateParallax();
+  });
+</script>

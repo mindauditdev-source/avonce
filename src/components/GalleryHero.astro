@@ -46,6 +46,9 @@
     gap: 32px;
     width: 658px;
     height: 281px;
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;
   }
 
   .frame-30 {
@@ -134,3 +137,16 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroContent = document.querySelector(".gallery-hero .frame-31") as HTMLElement;
+    if (!heroContent) return;
+    
+    setTimeout(() => {
+      heroContent.style.transition = "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
+      heroContent.style.opacity = "1";
+      heroContent.style.transform = "translateY(0)";
+    }, 100);
+  });
+</script>
