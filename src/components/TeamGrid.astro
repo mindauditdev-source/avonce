@@ -21,8 +21,8 @@ const teamMembers = [
 <section class="team-grid-section">
   <div class="container">
     <div class="grid">
-      {teamMembers.map(member => (
-        <div class="team-member" data-name={member.name} data-title={member.title} data-image={`/team/${member.image}`}>
+      {teamMembers.map((member, index) => (
+        <div class="team-member" data-reveal data-reveal-delay={((index % 4) * 100).toString()} data-name={member.name} data-title={member.title} data-image={`/team/${member.image}`}>
           <div class="img-wrapper">
             <img src={`/team/${member.image}`} alt={member.name} />
           </div>
@@ -126,18 +126,9 @@ const teamMembers = [
     width: 319px;
     height: 500px;
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
   }
   
-  .team-member.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .team-member.is-visible:hover {
+  .team-member:hover {
     transform: translateY(-5px);
   }
 
@@ -687,29 +678,5 @@ const teamMembers = [
       }, { passive: true });
       updateAnimation();
     }
-
-    // Staggered entry for members using IntersectionObserver
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const member = entry.target as HTMLElement;
-          member.classList.add('is-visible');
-          observer.unobserve(member);
-        }
-      });
-    }, observerOptions);
-
-    const teamMembers = document.querySelectorAll('.team-member');
-    teamMembers.forEach((member, index) => {
-      // Add a small delay based on index for members in the initial viewport
-      const delay = (index % 4) * 0.1;
-      (member as HTMLElement).style.transitionDelay = `${delay}s`;
-      observer.observe(member);
-    });
   });
 </script>

@@ -4,7 +4,7 @@
 
 <section class="team-cta">
   <div class="cta-block join-team">
-    <div class="content">
+    <div class="content" data-reveal>
       <h2 class="heading">Grow With a Team That Cares</h2>
       <a href="/join-us" class="cta-button">
         <span class="bg-effect"></span>
@@ -14,7 +14,7 @@
   </div>
   
   <div class="cta-block contact-us">
-    <div class="content">
+    <div class="content" data-reveal data-reveal-delay="200">
       <h2 class="heading">Have a Project in Mind?<br/>Let's Talk.</h2>
       <a href="/contact" class="cta-button">
         <span class="bg-effect"></span>
@@ -70,9 +70,6 @@
     gap: 32px;
     max-width: 568px;
     z-index: 2; /* To sit above any background artifacts */
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -173,9 +170,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const teamCtaSection = document.querySelector('.team-cta') as HTMLElement;
-    const contents = document.querySelectorAll('.team-cta .content');
 
-    if (teamCtaSection && contents.length > 0) {
+    if (teamCtaSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -191,15 +187,6 @@
           const scale = 0.96 + (progress * 0.04);
           teamCtaSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        contents.forEach(content => {
-          (content as HTMLElement).style.opacity = opacity.toString();
-          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
-        });
-        
         ticking = false;
       }
 

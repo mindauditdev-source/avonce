@@ -5,15 +5,15 @@
 <section class="services-hero">
   <div class="container">
     <div class="hero-content">
-      <h1 class="heading">
+      <h1 class="heading" data-reveal data-reveal-delay="100">
         Integrated Framing,<br />
         Interior Finishes, and<br />
         Exterior Building Systems
       </h1>
-      <p class="subheading">
+      <p class="subheading" data-reveal data-reveal-delay="300">
         A coordinated, single-source approach to delivering critical building scopes.
       </p>
-      <p class="description">
+      <p class="description" data-reveal data-reveal-delay="500">
         By consolidating these scopes, we reduce coordination gaps, improve 
         schedule efficiency, and provide clear accountability from 
         preconstruction through project completion.
@@ -29,7 +29,7 @@
     height: 864px;
     background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, rgba(18, 18, 18, 0.75) 100%),
                 linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
-                url('/hero-bg.png');
+                url('/services-herosection.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -52,9 +52,6 @@
     align-items: flex-start;
     gap: 24px;
     max-width: 700px;
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -125,15 +122,4 @@
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const heroContent = document.querySelector(".hero-content") as HTMLElement;
-    if (!heroContent) return;
-    
-    setTimeout(() => {
-      heroContent.style.transition = "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
-      heroContent.style.opacity = "1";
-      heroContent.style.transform = "translateY(0)";
-    }, 100);
-  });
-</script>
+

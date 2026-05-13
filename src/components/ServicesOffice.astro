@@ -3,53 +3,60 @@
 ---
 
 <section class="services-office">
-  <!-- Florida Map Background Graphic (SVG for better control) -->
-  <div class="map-bg">
-    <!-- Simplified but recognizable Florida state outline -->
-    <svg viewBox="0 0 200 200" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="0.5">
-      <path d="M40,20 L120,20 L125,25 L130,50 L140,70 L150,110 L155,140 L160,160 L155,170 L145,175 L135,170 L130,150 L125,120 L115,80 L100,60 L90,55 L40,55 Z" />
-    </svg>
-  </div>
+  <div class="img-map-bg"></div>
 
   <div class="content-wrapper">
-    <div class="left-side">
-      <div class="headings">
-        <span class="subtle">OFFICE LOCATION</span>
-        <h2 class="heading">Local Presence.<br />Regional Reach.</h2>
-        <p class="description">
-          Our Orlando office supports multifamily and commercial projects across 
-          Florida with coordinated planning, field supervision, and end-to-end 
-          scope delivery.
-        </p>
+    <div class="headings" data-reveal>
+      <div class="container">
+        <div class="frame">
+          <span class="subtle">OFFICE LOCATION</span>
+          <h2 class="heading">Local Presence.<br />Regional Reach.</h2>
+        </div>
       </div>
+      <p class="description">
+        Our Orlando office supports multifamily and commercial projects across
+        Florida with coordinated planning, field supervision, and end-to-end
+        scope delivery.
+      </p>
+    </div>
 
-      <div class="info-box">
-        <div class="info-text">
-          <h3 class="city">Orlando, Fl</h3>
-          <address class="address">
+    <div class="info" data-reveal data-reveal-delay="200">
+      <div class="frame-23">
+        <div class="frame-26">
+          <h3 class="orlando-fl">Orlando, Fl</h3>
+          <p class="address">
             8810 Commodity Cir, Suite 29<br />
             Orlando, Fl 32819
-          </address>
-          <div class="phone">
-            <svg class="phone-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20,15.5c-1.2,0-2.4-0.2-3.6-0.6c-0.3-0.1-0.7,0-1,0.2l-2.2,2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c0.3-0.3,0.4-0.7,0.2-1 c-0.4-1.1-0.6-2.3-0.6-3.5c0-0.6-0.4-1-1-1H5c-0.6,0-1,0.4-1,1c0,9.4,7.6,17,17,17c0.6,0,1-0.4,1-1v-3.5C21,15.9,20.6,15.5,20,15.5z"/>
-            </svg>
-            <span>(407) 270-4808</span>
+          </p>
+          <div class="frame-24">
+            <div class="phone-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 15.5C18.8 15.5 17.6 15.3 16.4 14.9C16.1 14.8 15.7 14.9 15.4 15.2L13.2 17.4C10.4 16 8.1 13.7 6.6 10.8L8.8 8.6C9.1 8.3 9.2 7.9 9.1 7.6C8.7 6.4 8.5 5.2 8.5 4C8.5 3.4 8.1 3 7.5 3H4C3.4 3 3 3.4 3 4C3 13.4 10.6 21 20 21C20.6 21 21 20.6 21 20V16.5C21 15.9 20.6 15.5 20 15.5Z"
+                  fill="black"></path>
+              </svg>
+            </div>
+            <span class="phone-number">(407) 270-4808</span>
           </div>
         </div>
-        <div class="city-map">
-          <!-- Stylized round map graphic using an existing aerial shot -->
-          <div class="round-map">
-            <img src="/slider/slider_4.png" alt="Orlando Map" class="map-img" />
+        <div class="orlando-map">
+          <div class="map-circle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="black"/>
+            </svg>
           </div>
         </div>
       </div>
-
-      <a href="/contact" class="contact-button">
-        <span class="btn-label">CONTACT US</span>
-        <div class="bg-effect"></div>
-      </a>
     </div>
+
+    <a href="/contact" class="button-2" data-reveal data-reveal-delay="400">
+      <span class="bg-effect"></span>
+      <span class="button-label">CONTACT US</span>
+    </a>
   </div>
 </section>
 
@@ -58,166 +65,248 @@
     position: relative;
     width: 100%;
     height: 1024px;
-    background: #E6A523;
+    background: #e6a523;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    transform: scale(0.96);
-    transform-origin: center top;
-    will-change: transform;
   }
 
-  .map-bg {
+  .img-map-bg {
     position: absolute;
     width: 1110px;
     height: 849px;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.15;
+    left: calc(50% - 1110px / 2 + 113px);
+    top: calc(50% - 849px / 2 + 0.5px);
+    background: url("/map-stroke.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2; /* Subtle stroke visibility */
     pointer-events: none;
+    mix-blend-mode: multiply; /* Removes white background and blends stroke with yellow */
   }
 
   .content-wrapper {
-    max-width: 1536px;
-    width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 100px;
     position: relative;
-    z-index: 2;
+    height: 100%;
   }
 
-  .left-side {
-    max-width: 533px;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    margin-left: 226px; /* Adjusting to match the left: 326px from provided styles */
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
-  }
-
+  /* Headings Section */
   .headings {
+    position: absolute;
+    width: 432px;
+    height: 312px;
+    left: 326px;
+    top: 149px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 64px;
+    width: 432px;
+    height: 187px;
+  }
+
+  .frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 32px;
+    width: 432px;
+    height: 187px;
   }
 
   .subtle {
-    font-family: 'Roboto', sans-serif;
+    width: 150px;
+    height: 31px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 170%;
-    color: #FCFCFC;
+    display: flex;
+    align-items: center;
+    color: #fcfcfc;
+    text-transform: uppercase;
   }
 
   .heading {
-    font-family: 'Roboto', sans-serif;
+    width: 432px;
+    height: 124px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
     font-weight: 600;
     font-size: 48px;
     line-height: 130%;
+    display: flex;
+    align-items: center;
     letter-spacing: -0.03em;
-    color: #1B1B1B;
+    color: #1b1b1b;
     margin: 0;
   }
 
   .description {
-    font-family: 'Roboto', sans-serif;
+    width: 432px;
+    height: 93px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 170%;
+    display: flex;
+    align-items: center;
     letter-spacing: -0.02em;
     color: #121212;
     margin: 0;
-    margin-top: 16px;
   }
 
-  .info-box {
+  /* Info Box */
+  .info {
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 56px;
+    gap: 4px;
+    position: absolute;
     width: 533.53px;
     height: 284px;
-    background: transparent;
+    left: 326px;
+    top: 493px;
     border: 2px solid #000000;
   }
 
-  .info-text {
+  .frame-23 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
     gap: 16px;
+    width: 421.53px;
+    height: 172px;
   }
 
-  .city {
-    font-family: 'Roboto', sans-serif;
+  .frame-26 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 16px;
+    width: 227px;
+    height: 171px;
+  }
+
+  .orlando-fl {
+    width: 227px;
+    height: 45px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
     font-weight: 600;
     font-size: 32px;
     line-height: 140%;
+    display: flex;
+    align-items: center;
     letter-spacing: -0.03em;
     color: #000000;
     margin: 0;
   }
 
   .address {
-    font-family: 'Roboto', sans-serif;
+    width: 227px;
+    height: 62px;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 170%;
-    letter-spacing: -0.02em;
-    color: #000000;
-  }
-
-  .phone {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
+    letter-spacing: -0.02em;
     color: #000000;
+    margin: 0;
+  }
+
+  .frame-24 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0;
+    gap: 8px;
+    width: 227px;
+    height: 32px;
   }
 
   .phone-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
   }
 
-  .city-map {
-    width: 178px;
+  .phone-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .phone-number {
+    width: 127px;
+    height: 31px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    color: #000000;
+  }
+
+  /* Orlando Map Circle */
+  .orlando-map {
+    width: 178.53px;
     height: 172px;
+    flex: none;
+    order: 1;
   }
 
-  .round-map {
+  .map-circle {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.1);
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .map-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(1) contrast(1.2) multiply;
-    mix-blend-mode: multiply;
+  .map-circle svg {
+    width: 80%;
+    height: 80%;
   }
 
-  .contact-button {
-    position: relative;
+  /* Button */
+  .button-2 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    gap: 4px;
+    isolation: isolate;
+    position: absolute;
     width: 234px;
     height: 67px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    left: 326px;
+    top: 809px;
     border: 1px solid #171003;
     border-radius: 7.5px;
     text-decoration: none;
@@ -225,107 +314,92 @@
     transition: all 0.3s ease;
   }
 
-  .btn-label {
-    position: relative;
-    z-index: 2;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 170%;
-    color: #2E2107;
-    transition: color 0.3s ease;
-  }
-
   .bg-effect {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 0;
-    height: 100%;
+    height: 67px;
+    left: 0;
+    top: 0;
     background: #171003;
+    border-radius: 7.5px;
+    z-index: 0;
     transition: width 0.3s ease;
-    z-index: 1;
   }
 
-  .contact-button:hover .bg-effect {
+  .button-2:hover .bg-effect {
     width: 100%;
   }
 
-  .contact-button:hover .btn-label {
-    color: #E6A523;
+  .button-label {
+    position: relative;
+    z-index: 1;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 170%;
+    color: #2e2107;
+    transition: color 0.3s ease;
+  }
+
+  .button-2:hover .button-label {
+    color: #e6a523;
   }
 
   /* Responsive Adjustments */
   @media (max-width: 1200px) {
+    .services-office {
+      height: auto;
+      padding: 100px 0;
+    }
+    .img-map-bg {
+      display: none; /* Hide absolute map on smaller screens for better layout */
+    }
     .content-wrapper {
       padding: 0 40px;
     }
-    .left-side {
-      margin-left: 0;
+    .headings,
+    .info,
+    .button-2 {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+      max-width: 533px;
+      margin: 0 auto;
+    }
+    .headings {
+      margin-bottom: 48px;
+    }
+    .info {
+      margin-bottom: 32px;
+    }
+    .container,
+    .frame,
+    .heading,
+    .description,
+    .address,
+    .orlando-fl {
+      width: 100%;
+      height: auto;
+    }
+    .frame-23 {
+      flex-direction: column;
+      height: auto;
+      align-items: flex-start;
+      width: 100%;
     }
   }
 
   @media (max-width: 768px) {
-    .services-office {
-      height: auto;
-      padding: 80px 20px;
-    }
-    .info-box {
-      width: 100%;
-      height: auto;
-      flex-direction: column;
-      gap: 32px;
-      padding: 32px;
+    .content-wrapper {
+      padding: 0 20px;
     }
     .heading {
-      font-size: 32px;
+      font-size: 36px;
     }
-    .city-map {
-      width: 150px;
-      height: 150px;
+    .info {
+      padding: 32px;
     }
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const officeSection = document.querySelector('.services-office') as HTMLElement;
-    const leftSide = document.querySelector('.services-office .left-side') as HTMLElement;
-
-    if (officeSection && leftSide) {
-      let ticking = false;
-
-      function updateAnimation() {
-        const rect = officeSection.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        let progress = 1 - (rect.top / windowHeight);
-        progress = Math.max(0, Math.min(progress, 1));
-        
-        if (progress >= 1) {
-          officeSection.style.transform = 'none';
-        } else {
-          const scale = 0.96 + (progress * 0.04);
-          officeSection.style.transform = `scale(${scale})`;
-        }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        leftSide.style.opacity = opacity.toString();
-        leftSide.style.transform = `translateY(${yOffset}vh)`;
-        
-        ticking = false;
-      }
-
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateAnimation);
-          ticking = true;
-        }
-      }, { passive: true });
-
-      updateAnimation();
-    }
-  });
-</script>

@@ -3,14 +3,14 @@
 ---
 
 <section id="avonce-way" class="avonce-way">
-  <div class="header-section">
+  <div class="header-section" data-reveal>
     <h2 class="heading">The Avonce Way</h2>
     <p class="text">
       A Disciplined Approach From Preconstruction to Close-Out. With discipline in our planning and pride in our craft, we are committed to delivering safe, efficient, and high-quality construction for our partners.
     </p>
   </div>
 
-  <div class="slider-container">
+  <div class="slider-container" data-reveal data-reveal-delay="200">
     <!-- Left Tab (Previous) -->
     <button class="slider-tab prev-tab" id="prevBtn" aria-label="Previous Phase">
       <span class="tab-text" id="prevTabText">Lesson Learned</span>
@@ -65,9 +65,6 @@
     gap: 16px;
     max-width: 657px;
     text-align: center;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -97,9 +94,6 @@
     width: 100%;
     max-width: 1296px;
     height: 600px;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .slider-tab {
@@ -333,6 +327,7 @@
   const navContainer = document.getElementById('navIndicators');
 
   function initSlider() {
+    if (!navContainer) return;
     // Generate nav dots
     slides.forEach((_, index) => {
       const dot = document.createElement('div');
@@ -351,26 +346,28 @@
     const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
 
     // Fade out content
-    contentEl.style.opacity = '0';
+    if (contentEl) (contentEl as HTMLElement).style.opacity = '0';
     
     setTimeout(() => {
       // Update data
-      viewport.style.backgroundImage = `url('${slide.image}')`;
-      phaseEl.textContent = slide.phase;
-      titleEl.textContent = slide.title;
-      descEl.textContent = slide.desc;
+      if (viewport) viewport.style.backgroundImage = `url('${slide.image}')`;
+      if (phaseEl) phaseEl.textContent = slide.phase;
+      if (titleEl) titleEl.textContent = slide.title;
+      if (descEl) descEl.textContent = slide.desc;
       
-      prevTabText.textContent = slides[prevIndex].title;
-      nextTabText.textContent = slides[nextIndex].title;
+      if (prevTabText) prevTabText.textContent = slides[prevIndex].title;
+      if (nextTabText) nextTabText.textContent = slides[nextIndex].title;
 
       // Update dots
-      const dots = navContainer.children;
-      for(let i=0; i<dots.length; i++) {
-        dots[i].className = `nav-dot ${i === currentIndex ? 'active' : ''}`;
+      if (navContainer) {
+        const dots = navContainer.children;
+        for(let i=0; i<dots.length; i++) {
+          dots[i].className = `nav-dot ${i === currentIndex ? 'active' : ''}`;
+        }
       }
 
       // Fade in
-      contentEl.style.opacity = '1';
+      if (contentEl) (contentEl as HTMLElement).style.opacity = '1';
     }, 300); // Wait for fade out
   }
 
@@ -381,23 +378,21 @@
   }
 
   // Event Listeners
-  prevBtn.addEventListener('click', () => {
+  if (prevBtn) prevBtn.addEventListener('click', () => {
     goToSlide(currentIndex === 0 ? slides.length - 1 : currentIndex - 1);
   });
 
-  nextBtn.addEventListener('click', () => {
+  if (nextBtn) nextBtn.addEventListener('click', () => {
     goToSlide(currentIndex === slides.length - 1 ? 0 : currentIndex + 1);
   });
 
   // Initialize
   initSlider();
 
-  // Scroll Animation Logic
+  // Scroll Animation Logic (Section Scaling only)
   const avonceWaySection = document.querySelector('.avonce-way') as HTMLElement;
-  const headerSection = document.querySelector('.avonce-way .header-section') as HTMLElement;
-  const sliderContainer = document.querySelector('.avonce-way .slider-container') as HTMLElement;
 
-  if (avonceWaySection && headerSection && sliderContainer) {
+  if (avonceWaySection) {
     let ticking = false;
 
     function updateAnimation() {
@@ -413,18 +408,6 @@
         const scale = 0.96 + (progress * 0.04);
         avonceWaySection.style.transform = `scale(${scale})`;
       }
-      
-      const opacity = progress; 
-      const yOffset = (1 - progress) * 4;
-      
-      headerSection.style.opacity = opacity.toString();
-      headerSection.style.transform = `translateY(${yOffset}vh)`;
-      
-      // Delay slider container animation slightly for a staggered effect
-      const sliderProgress = Math.max(0, Math.min(progress * 1.2 - 0.2, 1));
-      sliderContainer.style.opacity = sliderProgress.toString();
-      sliderContainer.style.transform = `translateY(${(1 - sliderProgress) * 4}vh)`;
-      
       ticking = false;
     }
 

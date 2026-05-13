@@ -7,7 +7,7 @@
     <div class="slider-track" id="why-us-slider">
       <!-- Card 1 -->
       <div class="slide slide-card">
-        <div class="slide-content">
+        <div class="slide-content" data-reveal data-reveal-delay="100">
           <div class="text-side">
             <h2 class="title">Multiple Scopes,<br />One Partner</h2>
             <div class="divider"></div>
@@ -30,7 +30,7 @@
 
       <!-- Card 2 (Expert Execution - Mocked content based on pattern) -->
       <div class="slide slide-card">
-        <div class="slide-content">
+        <div class="slide-content" data-reveal data-reveal-delay="200">
           <div class="text-side">
             <h2 class="title">Expert Execution,<br />Consistent Quality</h2>
             <div class="divider"></div>
@@ -53,7 +53,7 @@
 
       <!-- Card 3 (Coordinated Logistics - Mocked content based on pattern) -->
       <div class="slide slide-card">
-        <div class="slide-content">
+        <div class="slide-content" data-reveal data-reveal-delay="300">
           <div class="text-side">
             <h2 class="title">Coordinated Logistics,<br />Reliable Schedule</h2>
             <div class="divider"></div>
@@ -80,7 +80,7 @@
           <img src="/slider/slider_3.png" alt="Summary Background" />
           <div class="overlay"></div>
         </div>
-        <div class="summary-content">
+        <div class="summary-content" data-reveal data-reveal-delay="400">
           <h2 class="summary-heading">Simplified Management.<br />Reduced Risk.<br />Better Results.</h2>
           <p class="summary-text">
             Bundling scopes with Avonce means fewer handoffs, clearer accountability, 
@@ -111,9 +111,6 @@
     width: 100%;
     height: 720px;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .slider-track {
@@ -399,11 +396,10 @@
     });
   }
 
-  // Scroll Animation Logic
+  // Scroll Animation Logic (Section Scaling only)
   const whyUsSection = document.querySelector('.services-why-us') as HTMLElement;
-  const sliderWrapper = document.querySelector('.services-why-us .slider-wrapper') as HTMLElement;
 
-  if (whyUsSection && sliderWrapper) {
+  if (whyUsSection) {
     let ticking = false;
 
     function updateAnimation() {
@@ -419,13 +415,6 @@
         const scale = 0.96 + (progress * 0.04);
         whyUsSection.style.transform = `scale(${scale})`;
       }
-      
-      const opacity = progress; 
-      const yOffset = (1 - progress) * 4;
-      
-      sliderWrapper.style.opacity = opacity.toString();
-      sliderWrapper.style.transform = `translateY(${yOffset}vh)`;
-      
       ticking = false;
     }
 

@@ -3,7 +3,7 @@
 
 <section class="why-work-section">
   <div class="container">
-    <div class="content">
+    <div class="content" data-reveal>
       <h2>Why Work Here</h2>
       <p>
         At Avonce, we don't just build projects - we build careers. Our teams
@@ -41,9 +41,6 @@
     flex-direction: column;
     gap: 33px;
     max-width: 884px;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   h2 {
@@ -94,9 +91,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const section = document.querySelector('.why-work-section') as HTMLElement;
-    const content = document.querySelector('.why-work-section .content') as HTMLElement;
 
-    if (section && content) {
+    if (section) {
       let ticking = false;
 
       function updateAnimation() {
@@ -112,13 +108,6 @@
           const scale = 0.96 + (progress * 0.04);
           section.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        content.style.opacity = opacity.toString();
-        content.style.transform = `translateY(${yOffset}vh)`;
-        
         ticking = false;
       }
 

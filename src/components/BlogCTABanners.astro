@@ -4,7 +4,7 @@
 
 <section class="blog-cta-banners">
   <div class="banner left-banner">
-    <div class="content">
+    <div class="content" data-reveal>
       <h2 class="heading">Explore our Integrated<br/>Scopes</h2>
       <a href="/services" class="cta-button">
         <span class="bg-effect"></span>
@@ -14,7 +14,7 @@
   </div>
   
   <div class="banner right-banner">
-    <div class="content">
+    <div class="content" data-reveal data-reveal-delay="200">
       <h2 class="heading">Join our<br/>Outstanding Team</h2>
       <a href="/join-us" class="cta-button">
         <span class="bg-effect"></span>
@@ -68,9 +68,6 @@
     gap: 32px;
     max-width: 568px;
     z-index: 2;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -176,9 +173,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const blogCtaSection = document.querySelector('.blog-cta-banners') as HTMLElement;
-    const contents = document.querySelectorAll('.blog-cta-banners .content');
 
-    if (blogCtaSection && contents.length > 0) {
+    if (blogCtaSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -194,15 +190,6 @@
           const scale = 0.96 + (progress * 0.04);
           blogCtaSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        contents.forEach(content => {
-          (content as HTMLElement).style.opacity = opacity.toString();
-          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
-        });
-        
         ticking = false;
       }
 

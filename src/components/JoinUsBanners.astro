@@ -2,7 +2,7 @@
 ---
 <section class="banners-section">
   <div class="banner projects-banner">
-    <div class="content">
+    <div class="content" data-reveal>
       <h2>See the Work You'll<br/>Be Part Of</h2>
       <a href="/gallery" class="btn">
         <span>VIEW PROJECTS</span>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="banner team-banner">
-    <div class="content">
+    <div class="content" data-reveal data-reveal-delay="200">
       <h2>Meet the People<br/>Behind the Work</h2>
       <a href="/our-team" class="btn">
         <span>MEET OUR TEAM</span>
@@ -54,9 +54,6 @@
     position: relative;
     z-index: 1;
     max-width: 568px;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   h2 {
@@ -141,9 +138,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const section = document.querySelector('.banners-section') as HTMLElement;
-    const contents = document.querySelectorAll('.banners-section .content');
 
-    if (section && contents.length > 0) {
+    if (section) {
       let ticking = false;
 
       function updateAnimation() {
@@ -159,15 +155,6 @@
           const scale = 0.96 + (progress * 0.04);
           section.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        contents.forEach(content => {
-          (content as HTMLElement).style.opacity = opacity.toString();
-          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
-        });
-        
         ticking = false;
       }
 

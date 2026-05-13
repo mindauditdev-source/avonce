@@ -12,7 +12,7 @@ const valuesList = [
 ---
 
 <section id="core-values" class="core-values">
-  <div class="container">
+  <div class="container" data-reveal>
     
     <div class="header-content">
       <span class="subtle-heading">ABOUT US</span>
@@ -80,9 +80,6 @@ const valuesList = [
     display: flex;
     flex-direction: column;
     gap: 64px;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   /* Header Section */
@@ -267,25 +264,26 @@ const valuesList = [
 
 <script>
   // Simple interaction for the accordion (visual only, since content is static for now)
-  const items = document.querySelectorAll('.value-item');
-  items.forEach(item => {
+  const accordionItems = document.querySelectorAll('.value-item');
+  accordionItems.forEach(item => {
     item.addEventListener('click', () => {
       // Remove active from all
-      items.forEach(i => {
+      accordionItems.forEach(i => {
         i.classList.remove('active');
-        i.querySelector('.icon-toggle').textContent = '-';
+        const toggle = i.querySelector('.icon-toggle');
+        if (toggle) toggle.textContent = '-';
       });
       // Add active to clicked
       item.classList.add('active');
-      item.querySelector('.icon-toggle').textContent = '+';
+      const toggle = item.querySelector('.icon-toggle');
+      if (toggle) toggle.textContent = '+';
     });
   });
 
-  // Scroll Animation Logic
+  // Scroll Animation Logic (Section Scaling only)
   const coreValuesSection = document.querySelector('.core-values') as HTMLElement;
-  const container = document.querySelector('.core-values .container') as HTMLElement;
 
-  if (coreValuesSection && container) {
+  if (coreValuesSection) {
     let ticking = false;
 
     function updateAnimation() {
@@ -301,13 +299,6 @@ const valuesList = [
         const scale = 0.96 + (progress * 0.04);
         coreValuesSection.style.transform = `scale(${scale})`;
       }
-      
-      const opacity = progress; 
-      const yOffset = (1 - progress) * 4;
-      
-      container.style.opacity = opacity.toString();
-      container.style.transform = `translateY(${yOffset}vh)`;
-      
       ticking = false;
     }
 
@@ -318,7 +309,6 @@ const valuesList = [
       }
     }, { passive: true });
 
-    // Initial call
     updateAnimation();
   }
 </script>

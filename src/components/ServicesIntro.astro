@@ -8,12 +8,12 @@
   </div>
 
   <div class="container">
-    <div class="frame">
+    <div class="frame" data-reveal data-reveal-delay="100">
       <span class="subtle">OUR SERVICES</span>
       <h2 class="heading">Integrated Construction Scopes for<br />Multifamily and Commercial Projects</h2>
     </div>
 
-    <div class="content-text">
+    <div class="content-text" data-reveal data-reveal-delay="300">
       <p class="highlight">Built to Perform. Built to Coordinate. Built to Deliver.</p>
       
       <div class="description">
@@ -82,9 +82,6 @@
     z-index: 1;
     max-width: 884px;
     margin: 0 auto;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .frame {
@@ -192,9 +189,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const servicesIntroSection = document.querySelector('.services-intro') as HTMLElement;
-    const container = document.querySelector('.services-intro .container') as HTMLElement;
 
-    if (servicesIntroSection && container) {
+    if (servicesIntroSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -210,13 +206,6 @@
           const scale = 0.96 + (progress * 0.04);
           servicesIntroSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        container.style.opacity = opacity.toString();
-        container.style.transform = `translateY(${yOffset}vh)`;
-        
         ticking = false;
       }
 

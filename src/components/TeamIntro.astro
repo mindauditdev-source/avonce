@@ -3,7 +3,7 @@
 ---
 
 <section class="team-intro">
-  <div class="container">
+  <div class="container" data-reveal>
     <div class="content-block">
       <span class="subtle">OUR TEAM</span>
       <h2 class="heading">A Team Built on Experience,<br />Commitment, and Craft</h2>
@@ -48,9 +48,6 @@
     display: flex;
     flex-direction: column;
     gap: 64px; /* Space between the two main blocks */
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .content-block {
@@ -113,42 +110,33 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const teamIntroSection = document.querySelector('.team-intro') as HTMLElement;
-    const container = document.querySelector('.team-intro .container') as HTMLElement;
+    if (!teamIntroSection) return;
 
-    if (teamIntroSection && container) {
-      let ticking = false;
+    let ticking = false;
 
-      function updateAnimation() {
-        const rect = teamIntroSection.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        let progress = 1 - (rect.top / windowHeight);
-        progress = Math.max(0, Math.min(progress, 1));
-        
-        if (progress >= 1) {
-          teamIntroSection.style.transform = 'none';
-        } else {
-          const scale = 0.96 + (progress * 0.04);
-          teamIntroSection.style.transform = `scale(${scale})`;
-        }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        container.style.opacity = opacity.toString();
-        container.style.transform = `translateY(${yOffset}vh)`;
-        
-        ticking = false;
+    function updateAnimation() {
+      const rect = teamIntroSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.max(0, Math.min(progress, 1));
+      
+      if (progress >= 1) {
+        teamIntroSection.style.transform = 'none';
+      } else {
+        const scale = 0.96 + (progress * 0.04);
+        teamIntroSection.style.transform = `scale(${scale})`;
       }
-
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateAnimation);
-          ticking = true;
-        }
-      }, { passive: true });
-
-      updateAnimation();
+      ticking = false;
     }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateAnimation);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateAnimation();
   });
 </script>

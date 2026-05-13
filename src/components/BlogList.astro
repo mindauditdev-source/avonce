@@ -43,7 +43,7 @@ const posts = Array(9).fill(null).map((_, i) => {
     <!-- Blog Grid -->
     <div class="blog-grid">
       {posts.map((post) => (
-        <div class="blog-card">
+        <div class="blog-card" data-reveal data-reveal-delay={((post.id % 3) * 100).toString()}>
           <div class="image-wrapper">
             <div class="card-image" style={`background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('${post.image}');`}></div>
             <div class="category-badge">
@@ -164,10 +164,6 @@ const posts = Array(9).fill(null).map((_, i) => {
     flex-direction: column;
     gap: 16px;
     width: 100%;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    will-change: opacity, transform;
   }
 
   .image-wrapper {
@@ -397,30 +393,5 @@ const posts = Array(9).fill(null).map((_, i) => {
       }, { passive: true });
       updateAnimation();
     }
-
-    // Staggered entry for blog cards using IntersectionObserver
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const card = entry.target as HTMLElement;
-          card.style.opacity = "1";
-          card.style.transform = "translateY(0)";
-          observer.unobserve(card);
-        }
-      });
-    }, observerOptions);
-
-    const blogCards = document.querySelectorAll('.blog-card');
-    blogCards.forEach((card, index) => {
-      // Add a small delay based on index for cards in the initial viewport
-      const delay = (index % 3) * 0.1;
-      (card as HTMLElement).style.transitionDelay = `${delay}s`;
-      observer.observe(card);
-    });
   });
 </script>

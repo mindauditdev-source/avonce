@@ -3,7 +3,7 @@
 ---
 
 <section class="services-approach">
-  <div class="container">
+  <div class="container" data-reveal>
     <h2 class="heading">Our Integrated Approach</h2>
     
     <div class="approach-grid">
@@ -50,9 +50,6 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -138,9 +135,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const approachSection = document.querySelector('.services-approach') as HTMLElement;
-    const container = document.querySelector('.services-approach .container') as HTMLElement;
 
-    if (approachSection && container) {
+    if (approachSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -156,13 +152,6 @@
           const scale = 0.96 + (progress * 0.04);
           approachSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        container.style.opacity = opacity.toString();
-        container.style.transform = `translateY(${yOffset}vh)`;
-        
         ticking = false;
       }
 

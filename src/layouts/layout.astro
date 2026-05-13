@@ -49,5 +49,34 @@ const { title, navLight = false, navPrimary = false, hideNav = false } = Astro.p
         font-family: 'Roboto Slab', serif;
       }
     </style>
+    <script>
+      const revealCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+
+      const revealObserver = new IntersectionObserver(revealCallback, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      const initReveal = () => {
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        revealElements.forEach(el => revealObserver.observe(el));
+      };
+
+      // Handle standard load
+      document.addEventListener('DOMContentLoaded', initReveal);
+      
+      // Handle view transitions / dynamic content
+      document.addEventListener('astro:page-load', initReveal);
+      
+      // Initial run for first page load
+      initReveal();
+    </script>
   </body>
 </html>

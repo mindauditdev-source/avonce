@@ -4,7 +4,7 @@
 
 <section class="contact-banners">
   <div class="banner left-banner">
-    <div class="content">
+    <div class="content" data-reveal>
       <h2 class="heading">See What We<br/>Can Do For You</h2>
       <a href="/services" class="cta-button">
         <span class="bg-effect"></span>
@@ -14,7 +14,7 @@
   </div>
   
   <div class="banner right-banner">
-    <div class="content">
+    <div class="content" data-reveal data-reveal-delay="200">
       <h2 class="heading">Join our<br/>Outstanding Team</h2>
       <a href="/join-us" class="cta-button">
         <span class="bg-effect"></span>
@@ -66,9 +66,6 @@
     gap: 32px;
     max-width: 568px;
     z-index: 2;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -178,9 +175,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const contactBannersSection = document.querySelector('.contact-banners') as HTMLElement;
-    const contents = document.querySelectorAll('.contact-banners .content');
 
-    if (contactBannersSection && contents.length > 0) {
+    if (contactBannersSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -196,15 +192,6 @@
           const scale = 0.96 + (progress * 0.04);
           contactBannersSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        contents.forEach(content => {
-          (content as HTMLElement).style.opacity = opacity.toString();
-          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
-        });
-        
         ticking = false;
       }
 

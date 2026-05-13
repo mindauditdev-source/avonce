@@ -82,7 +82,7 @@ const projects = [
 <section class="gallery-grid">
   <div class="grid-container">
     <!-- Row 1 -->
-    <div class="row row-3">
+    <div class="row row-3" data-reveal>
       {
         projects.slice(0, 3).map((p) => (
           <div class="banner project-trigger" data-project={JSON.stringify(p)}>
@@ -97,7 +97,7 @@ const projects = [
     </div>
 
     <!-- Row 2 -->
-    <div class="row row-mix-1-2">
+    <div class="row row-mix-1-2" data-reveal>
       {
         projects.slice(3, 5).map((p) => (
           <div
@@ -117,7 +117,7 @@ const projects = [
     </div>
 
     <!-- Row 3 -->
-    <div class="row row-3">
+    <div class="row row-3" data-reveal>
       {
         projects.slice(5, 8).map((p) => (
           <div class="banner project-trigger" data-project={JSON.stringify(p)}>
@@ -132,7 +132,7 @@ const projects = [
     </div>
 
     <!-- Row 4 -->
-    <div class="row row-mix-2-1">
+    <div class="row row-mix-2-1" data-reveal>
       {
         projects.slice(8, 10).map((p) => (
           <div
@@ -195,9 +195,6 @@ const projects = [
     gap: 6px;
     height: 324px;
     width: 100%;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .banner {
@@ -395,9 +392,8 @@ const projects = [
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const galleryGridSection = document.querySelector('.gallery-grid') as HTMLElement;
-    const galleryRows = document.querySelectorAll('.gallery-grid .row');
 
-    if (galleryGridSection && galleryRows.length > 0) {
+    if (galleryGridSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -413,16 +409,6 @@ const projects = [
           const scale = 0.96 + (progress * 0.04);
           galleryGridSection.style.transform = `scale(${scale})`;
         }
-        
-        galleryRows.forEach((row, index) => {
-          const rowRect = row.getBoundingClientRect();
-          let rowProgress = 1 - (rowRect.top / windowHeight);
-          rowProgress = Math.max(0, Math.min(rowProgress, 1));
-          
-          (row as HTMLElement).style.opacity = rowProgress.toString();
-          (row as HTMLElement).style.transform = `translateY(${(1 - rowProgress) * 4}vh)`;
-        });
-        
         ticking = false;
       }
 

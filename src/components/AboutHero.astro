@@ -5,10 +5,10 @@
 <section class="about-hero">
   <div class="container">
     <div class="hero-content">
-      <h1 class="heading">We Are Trade Specialist</h1>
-      <p class="text">With discipline in our planning and pride in our craft, we are committed to delivering safe, efficient, and high-quality construction for our partners.</p>
+      <h1 class="heading" data-reveal data-reveal-delay="100">We Are Trade Specialist</h1>
+      <p class="text" data-reveal data-reveal-delay="300">With discipline in our planning and pride in our craft, we are committed to delivering safe, efficient, and high-quality construction for our partners.</p>
       
-      <button class="hero-button">
+      <button class="hero-button" data-reveal data-reveal-delay="500">
         <span class="bg-effect"></span>
         <span class="button-label">SEE OUR WORK</span>
       </button>
@@ -24,7 +24,7 @@
     /* We use hero-bg.png as a placeholder for the requested photo */
     background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%),
                 linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
-                url('/hero-bg.png');
+                url('/about-herosection.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -47,9 +47,6 @@
     align-items: flex-start;
     gap: 32px;
     max-width: 658px;
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -149,15 +146,4 @@
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const heroContent = document.querySelector(".hero-content") as HTMLElement;
-    if (!heroContent) return;
-    
-    setTimeout(() => {
-      heroContent.style.transition = "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
-      heroContent.style.opacity = "1";
-      heroContent.style.transform = "translateY(0)";
-    }, 100);
-  });
-</script>
+

@@ -5,8 +5,8 @@
 <section class="team-hero">
   <div class="container">
     <div class="hero-content">
-      <h1 class="heading">Meet Our Team</h1>
-      <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <h1 class="heading" data-reveal data-reveal-delay="100">Meet Our Team</h1>
+      <p class="text" data-reveal data-reveal-delay="300">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
   </div>
 </section>
@@ -18,7 +18,7 @@
     height: 864px;
     background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, rgba(18, 18, 18, 0.75) 100%),
                 linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2)),
-                url('/section-image.png');
+                url('/ourteam-herosection.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -41,9 +41,6 @@
     align-items: flex-start;
     gap: 16px;
     max-width: 658px;
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -96,15 +93,4 @@
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const heroContent = document.querySelector(".hero-content") as HTMLElement;
-    if (!heroContent) return;
-    
-    setTimeout(() => {
-      heroContent.style.transition = "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
-      heroContent.style.opacity = "1";
-      heroContent.style.transform = "translateY(0)";
-    }, 100);
-  });
-</script>
+

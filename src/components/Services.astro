@@ -6,7 +6,7 @@
   <div class="vector-bg"></div>
 
   <div class="container text-container">
-    <div class="text-content">
+    <div class="text-content" data-reveal>
       <span class="subtle">OUR SERVICES</span>
       <h2 class="heading">Thorough Preparation.<br />Precise Execution</h2>
 
@@ -210,9 +210,6 @@
     gap: 32px;
     max-width: 884px;
     width: 100%;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .subtle {
@@ -502,11 +499,10 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Scroll animation for Services section (Scale and Fade)
+    // Scroll animation for Services section (Scale only)
     const servicesSection = document.querySelector('.services-section') as HTMLElement;
-    const textContent = document.querySelector('.services-section .text-content') as HTMLElement;
 
-    if (servicesSection && textContent) {
+    if (servicesSection) {
       let tickingScroll = false;
       function updateServicesScale() {
         const rect = servicesSection.getBoundingClientRect();
@@ -521,13 +517,6 @@
           const scale = 0.96 + (progress * 0.04);
           servicesSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        textContent.style.opacity = opacity.toString();
-        textContent.style.transform = `translateY(${yOffset}vh)`;
-        
         tickingScroll = false;
       }
       

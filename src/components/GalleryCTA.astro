@@ -4,7 +4,7 @@
 
 <section class="gallery-cta">
   <div class="cta-banner" style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), url('/slider/slider_4.png');">
-    <div class="cta-content">
+    <div class="cta-content" data-reveal>
       <h2 class="heading">Have a Project in Mind?<br/>Let's Talk.</h2>
       <a href="/contact" class="button">
         <span class="button-label">CONTACT US</span>
@@ -14,7 +14,7 @@
   </div>
 
   <div class="cta-banner" style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), url('/slider/slider_5.png');">
-    <div class="cta-content">
+    <div class="cta-content" data-reveal data-reveal-delay="200">
       <h2 class="heading">One Partner.<br/>Multiple Scopes</h2>
       <a href="/services" class="button">
         <span class="button-label">VIEW SERVICES</span>
@@ -64,9 +64,6 @@
     gap: 32px;
     width: 100%;
     z-index: 2;
-    opacity: 0;
-    transform: translateY(4vh);
-    will-change: opacity, transform;
   }
 
   .heading {
@@ -169,9 +166,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const galleryCtaSection = document.querySelector('.gallery-cta') as HTMLElement;
-    const contents = document.querySelectorAll('.gallery-cta .cta-content');
 
-    if (galleryCtaSection && contents.length > 0) {
+    if (galleryCtaSection) {
       let ticking = false;
 
       function updateAnimation() {
@@ -187,15 +183,6 @@
           const scale = 0.96 + (progress * 0.04);
           galleryCtaSection.style.transform = `scale(${scale})`;
         }
-        
-        const opacity = progress; 
-        const yOffset = (1 - progress) * 4;
-        
-        contents.forEach(content => {
-          (content as HTMLElement).style.opacity = opacity.toString();
-          (content as HTMLElement).style.transform = `translateY(${yOffset}vh)`;
-        });
-        
         ticking = false;
       }
 
