@@ -316,7 +316,7 @@
     display: flex;
     align-items: center;
     gap: 18px;
-    padding: 0 100px 0 50vw;
+    padding: 0 100px 0 calc(50vw - 442px);
     will-change: transform;
   }
 
@@ -439,7 +439,7 @@
       padding: 0 40px;
     }
     .slider-track {
-      padding-left: 40vw;
+      padding-left: max(40px, calc(50vw - 442px));
     }
     .slide {
       flex: 0 0 500px;
