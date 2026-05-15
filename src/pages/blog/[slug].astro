@@ -1,0 +1,653 @@
+---
+import Layout from "../../layouts/layout.astro";
+
+export function getStaticPaths() {
+  // Mock blog posts — replace with real CMS/data source later
+  const posts = [
+    {
+      slug: "best-practices-client-satisfaction",
+      category: "Best Practices",
+      title: "Best Practices for Client Satisfaction",
+      author: "Yesenia Lacruz",
+      date: "January 22, 2026",
+      readTime: "4 min read",
+      image: "/wood-framing.png",
+      excerpt:
+        "A client is the person who purchases from a store or who regularly uses the services of a professional or a company.",
+      body: [
+        "A client is the person who purchases from a store or who regularly uses the services of a professional or a company. We have internal and external clients. Internal clients are part of the organization, for example: coworkers. External clients are not, for example: general contractors, external inspectors, etc. A client is anyone you serve.",
+        "In the construction industry, client satisfaction is built on three pillars: clear communication, schedule certainty, and quality of execution. When all three align, trust is established — and trust is the foundation of repeat business and referrals.",
+        "At Avonce, we practice a simple principle: underpromise and overdeliver. Before breaking ground on any project, our preconstruction team establishes clear milestones, identifies potential risk zones, and communicates these openly with our clients. This transparency sets expectations correctly and eliminates surprises.",
+        "Field execution is equally critical. A beautifully planned project can fail if the crew on the ground doesn't understand the intent. That's why our superintendents hold daily huddles, review RFIs proactively, and document progress with weekly photo reports shared directly with the client team.",
+        "Finally, closeout matters. The last 10% of a project often defines the client's final impression. We allocate resources specifically for punch-list completion and never consider a project done until the client signs off with confidence.",
+        "These practices aren't revolutionary — but their consistent application is what separates great contractors from merely adequate ones. Build a culture of service, and client satisfaction follows naturally.",
+      ],
+    },
+    {
+      slug: "framing-safety-on-the-jobsite",
+      category: "Safety",
+      title: "Framing Safety on the Jobsite",
+      author: "Carlos Mendez",
+      date: "February 10, 2026",
+      readTime: "5 min read",
+      image: "/section-image.png",
+      excerpt:
+        "Safety is the foundation of every Avonce project. Learn how our teams maintain top-tier safety standards on active multifamily sites.",
+      body: [
+        "Safety is not a checklist — it is a culture. At Avonce, every worker on every site understands that no schedule pressure justifies a safety shortcut. Our OSHA 30-certified superintendents lead daily toolbox talks and conduct weekly safety walks with documented findings.",
+        "Framing work introduces specific hazards: working at height, heavy material handling, and proximity to other trades. We address each with systematic controls. Fall protection is non-negotiable above six feet. All framing crews are trained on proper bracing techniques for wall panels before they are lifted into position.",
+        "Material staging is another underappreciated safety factor. Cluttered work areas cause trips and falls. Our yard teams follow a strict first-in, first-out material flow, and staging zones are clearly marked on site logistics plans shared with all subcontractors.",
+        "Communication between trades is equally essential. We hold weekly coordination meetings where framing, MEP, and exterior teams align on sequencing. Conflicts resolved in the meeting room cost hours; conflicts discovered in the field cost days — and sometimes injuries.",
+        "Our safety record is something we are proud of, but it is not something we take for granted. Every near-miss is reported, reviewed, and used as a learning opportunity. Because a safe site is a productive site.",
+      ],
+    },
+    {
+      slug: "field-execution-in-multifamily",
+      category: "Field Execution",
+      title: "Field Execution in Multifamily Construction",
+      author: "Robert Torres",
+      date: "March 5, 2026",
+      readTime: "6 min read",
+      image: "/slider_2.png",
+      excerpt:
+        "Multifamily projects demand precision at scale. Discover how Avonce coordinates complex multi-trade scopes to deliver on time.",
+      body: [
+        "Multifamily construction is one of the most demanding categories in the built environment. Hundreds of units, dozens of subcontractors, and overlapping MEP and finish scopes — all compressed into aggressive timelines driven by developer capital costs.",
+        "At Avonce, we thrive in this environment because we treat field execution as a system, not a series of individual tasks. Our project managers build phase-by-phase lookahead schedules that cascade down to crew-level daily assignments. Every foreman knows exactly what is expected of their crew that day, and what the next three days look like.",
+        "Procurement discipline is a force multiplier. Material shortages on a 300-unit project can cascade into weeks of delay. Our preconstruction team locks in material submittals during the first 30 days of a project, well before installation windows open.",
+        "Quality control is embedded in the process, not added at the end. Our superintendents perform floor-by-floor inspections against a standardized quality checklist before any trade is allowed to proceed to subsequent floors. This catches defects early, when correction is cheap.",
+        "Finally, data visibility drives accountability. We use digital dashboards to track unit completion rates, punch-list aging, and safety observations. These dashboards are shared with owners weekly, creating a culture of transparency and trust.",
+        "Multifamily is complex by nature. But with the right systems, the right people, and a relentless focus on execution, it is a category where Avonce consistently delivers results.",
+      ],
+    },
+  ];
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Related posts (all posts except current)
+const allSlugs = [
+  "best-practices-client-satisfaction",
+  "framing-safety-on-the-jobsite",
+  "field-execution-in-multifamily",
+];
+const relatedSlugs = allSlugs.filter((s) => s !== post.slug).slice(0, 2);
+
+const postImages: Record<string, string> = {
+  "best-practices-client-satisfaction": "/wood-framing.png",
+  "framing-safety-on-the-jobsite": "/section-image.png",
+  "field-execution-in-multifamily": "/slider_2.png",
+};
+const postTitles: Record<string, string> = {
+  "best-practices-client-satisfaction": "Best Practices for Client Satisfaction",
+  "framing-safety-on-the-jobsite": "Framing Safety on the Jobsite",
+  "field-execution-in-multifamily": "Field Execution in Multifamily Construction",
+};
+const postCategories: Record<string, string> = {
+  "best-practices-client-satisfaction": "Best Practices",
+  "framing-safety-on-the-jobsite": "Safety",
+  "field-execution-in-multifamily": "Field Execution",
+};
+---
+
+<Layout title={`${post.title} — Avonce Blog`} navLight={true}>
+  <main class="blog-detail-page">
+
+    <!-- Hero -->
+    <section class="post-hero">
+      <div class="hero-image" style={`background-image: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%), url('${post.image}');`}></div>
+      <div class="hero-content">
+        <span class="hero-category">{post.category}</span>
+        <h1 class="hero-title">{post.title}</h1>
+        <div class="hero-meta">
+          <span>By {post.author}</span>
+          <span class="dot"></span>
+          <span>{post.date}</span>
+          <span class="dot"></span>
+          <span>{post.readTime}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Body + Sidebar -->
+    <section class="post-body-section">
+      <div class="post-container">
+
+        <!-- Main Article -->
+        <article class="post-article">
+          <div class="article-lead">
+            <p>{post.excerpt}</p>
+          </div>
+          <div class="article-divider"></div>
+          <div class="article-content">
+            {post.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+
+          <!-- Share Row -->
+          <div class="share-row">
+            <span class="share-label">Share this article:</span>
+            <div class="share-links">
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://avonceconstruction.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://avonceconstruction.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X / Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="post-sidebar">
+
+          <!-- Author Card -->
+          <div class="author-card">
+            <div class="author-avatar">
+              {post.author.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div class="author-info">
+              <span class="author-label">Written by</span>
+              <span class="author-name">{post.author}</span>
+              <span class="author-role">Avonce Team</span>
+            </div>
+          </div>
+
+          <!-- Back to Blog -->
+          <a href="/blog" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            Back to Blog
+          </a>
+
+          <!-- Categories -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-heading">Categories</h3>
+            <ul class="sidebar-categories">
+              <li><a href="/blog">All</a></li>
+              <li><a href="/blog">Project Highlights</a></li>
+              <li><a href="/blog">Best Practices</a></li>
+              <li><a href="/blog">Safety</a></li>
+              <li><a href="/blog">Field Execution</a></li>
+              <li><a href="/blog">Company News</a></li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Related Posts -->
+    <section class="related-section">
+      <div class="related-container">
+        <h2 class="related-heading">More Articles</h2>
+        <div class="related-grid">
+          {relatedSlugs.map((slug) => {
+            return (
+              <a href={`/blog/${slug}`} class="related-card">
+                <div class="related-image" style={`background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${postImages[slug]}');`}>
+                  <span class="related-badge">{postCategories[slug]}</span>
+                </div>
+                <div class="related-content">
+                  <h3>{postTitles[slug]}</h3>
+                  <span class="related-cta">View More →</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  .blog-detail-page {
+    background: #FCFCFC;
+  }
+
+  /* ── Hero ──────────────────────────────────────────────────── */
+  .post-hero {
+    position: relative;
+    width: 100%;
+    min-height: 540px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transform: scale(1.04);
+    transition: transform 0.6s ease;
+  }
+
+  .post-hero:hover .hero-image {
+    transform: scale(1);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 100px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-category {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 170%;
+    text-transform: uppercase;
+    color: #E6A523;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 120%;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    max-width: 780px;
+    margin: 0;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .dot {
+    width: 3px;
+    height: 3px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+  }
+
+  /* ── Body + Sidebar ─────────────────────────────────────────── */
+  .post-body-section {
+    padding: 80px 0 100px;
+    background: #FCFCFC;
+  }
+
+  .post-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Article */
+  .post-article {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .article-lead p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 170%;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .article-divider {
+    width: 60px;
+    height: 3px;
+    background: #E6A523;
+    border-radius: 2px;
+  }
+
+  .article-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .article-content p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 180%;
+    color: #3A3A3A;
+    margin: 0;
+  }
+
+  /* Share row */
+  .share-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E5E5;
+  }
+
+  .share-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #778189;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .share-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .share-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #E5E5E5;
+    border-radius: 50%;
+    color: #778189;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .share-links a:hover {
+    background: #E6A523;
+    border-color: #E6A523;
+    color: #121212;
+  }
+
+  /* Sidebar */
+  .post-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: sticky;
+    top: 112px;
+  }
+
+  .author-card {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 24px;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    background: #FFFFFF;
+  }
+
+  .author-avatar {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #E6A523;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #121212;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .author-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #778189;
+  }
+
+  .author-name {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1B1B1B;
+  }
+
+  .author-role {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #778189;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1B1B1B;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #E6A523;
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sidebar-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1B1B1B;
+    margin: 0;
+  }
+
+  .sidebar-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-categories li a {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #F0F0F0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #778189;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .sidebar-categories li a:hover {
+    color: #E6A523;
+  }
+
+  /* ── Related Posts ──────────────────────────────────────────── */
+  .related-section {
+    background: #121212;
+    padding: 80px 0;
+  }
+
+  .related-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .related-heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 130%;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .related-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .related-image {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+
+  .related-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+
+  .related-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .related-content h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 150%;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  .related-cta {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #E6A523;
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 1200px) {
+    .hero-content,
+    .post-container,
+    .related-container {
+      padding: 0 60px;
+    }
+    .post-container {
+      grid-template-columns: 1fr 280px;
+      gap: 60px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-content {
+      padding: 0 40px 60px;
+    }
+    .post-body-section {
+      padding: 60px 0 80px;
+    }
+    .post-container {
+      padding: 0 40px;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .post-sidebar {
+      position: static;
+    }
+    .related-container {
+      padding: 0 40px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .post-hero {
+      min-height: 420px;
+    }
+    .hero-content {
+      padding: 0 20px 48px;
+    }
+    .post-container {
+      padding: 0 20px;
+    }
+    .related-container {
+      padding: 0 20px;
+    }
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

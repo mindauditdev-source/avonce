@@ -20,20 +20,20 @@
         <p>Tell us about yourself and the role you're interested in.<br/>Our team will follow up.</p>
       </div>
 
-      <form class="join-form" onsubmit="event.preventDefault()">
+      <form class="join-form" id="join-us-form">
         <div class="form-grid">
           <div class="form-left">
-            <input type="text" placeholder="Name*:" required />
-            <input type="email" placeholder="Email*:" required />
-            <input type="tel" placeholder="Phone*:" required />
+            <input type="text" name="name" placeholder="Name*:" required />
+            <input type="email" name="email" placeholder="Email*:" required />
+            <input type="tel" name="phone" placeholder="Phone*:" required />
           </div>
           <div class="form-right">
             <div class="select-wrapper">
-              <select required>
+              <select name="position" required>
                 <option value="" disabled selected>Position*:</option>
-                <option value="superintendent">Superintendent</option>
-                <option value="assistant-superintendent">Assistant Superintendent</option>
-                <option value="other">Other</option>
+                <option value="Superintendent">Superintendent</option>
+                <option value="Assistant Superintendent">Assistant Superintendent</option>
+                <option value="Other">Other</option>
               </select>
               <span class="chevron">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,10 +41,10 @@
                 </svg>
               </span>
             </div>
-            <textarea placeholder="Comments:" rows="4"></textarea>
+            <textarea name="comments" placeholder="Comments:" rows="4"></textarea>
             
             <div class="form-actions">
-              <button type="button" class="btn">
+              <button type="button" class="btn" id="upload-resume-btn">
                 <svg class="btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -372,6 +372,31 @@
       }, { passive: true });
 
       updateAnimation();
+    }
+
+    // Wire form submission to staffavonce@gmail.com
+    const form = document.getElementById('join-us-form') as HTMLFormElement;
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value || '';
+        const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || '';
+        const phone = (form.querySelector('[name="phone"]') as HTMLInputElement)?.value || '';
+        const position = (form.querySelector('[name="position"]') as HTMLSelectElement)?.value || '';
+        const comments = (form.querySelector('[name="comments"]') as HTMLTextAreaElement)?.value || '';
+
+        const subject = encodeURIComponent(`Join Our Team Application - ${name} (${position})`);
+        const body = encodeURIComponent(
+          `New applicant from the Avonce website:\n\n` +
+          `Name: ${name}\n` +
+          `Email: ${email}\n` +
+          `Phone: ${phone}\n` +
+          `Position of Interest: ${position}\n` +
+          `Comments:\n${comments}`
+        );
+
+        window.location.href = `mailto:staffavonce@gmail.com?subject=${subject}&body=${body}`;
+      });
     }
   });
 </script>

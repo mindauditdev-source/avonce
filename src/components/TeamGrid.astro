@@ -2,19 +2,19 @@
 // src/components/TeamGrid.astro
 
 const teamMembers = [
-  { name: "ZEFERINO AVONCE", title: "OWNER / PRESIDENT", image: "ZEFERINO AVONCE.png" },
-  { name: "YESENIA LACRUZ", title: "VICEPRESIDENT", image: "YESENIA LACRUZ.png" },
-  { name: "JAIME RUIZ", title: "CEO", image: "JAIME RUIZ.png" },
-  { name: "MARCEL MILIAN", title: "PROJECT MANAGER", image: "MARCEL MILIAN.png" },
-  { name: "ABRAHAM BROMSTEIN", title: "CONSULTING ESTIMATOR", image: "ABRAHAM BROMSTEIN.png" },
-  { name: "CYNTHIA REINEFELD", title: "ESTIMATOR", image: "CYNTHIA REINEFELD.png" },
-  { name: "NELSON RODRIGUEZ", title: "ESTIMATOR", image: "NELSON RODRIGUEZ.png" },
-  { name: "GRACE RUIZ", title: "ACCOUNTING MANAGER", image: "GRACE RUIZ.png" },
-  { name: "NESHMAYDA RODRIGUEZ", title: "OFFICE MANAGER", image: "NESHMAYDA RODRIGUEZ.png" },
-  { name: "ANDRES GONZALEZ", title: "ESTIMATOR", image: "ANDRES GONZALEZ.png" },
-  { name: "ZERGIO AVONCE", title: "SUPERINTENDENT", image: "ZERGIO AVONCE.png" },
-  { name: "JAIME PUENTE", title: "SUPERINTENDENT", image: "JAIME PUENTE.png" },
-  { name: "ALVARO VAZQUEZ", title: "SUPERINTENDENT", image: "ALVARO VAZQUEZ.png" }
+  { name: "ZEFERINO AVONCE", title: "OWNER / PRESIDENT", image: "photo.png" },
+  { name: "YESENIA LACRUZ", title: "VICEPRESIDENT", image: "photo.png" },
+  { name: "JAIME RUIZ", title: "CEO", image: "photo.png" },
+  { name: "MARCEL MILIAN", title: "PROJECT MANAGER", image: "photo.png" },
+  { name: "ABRAHAM BROMSTEIN", title: "CONSULTING ESTIMATOR", image: "photo.png" },
+  { name: "CYNTHIA REINEFELD", title: "ESTIMATOR", image: "photo.png" },
+  { name: "NELSON RODRIGUEZ", title: "ESTIMATOR", image: "photo.png" },
+  { name: "GRACE RUIZ", title: "ACCOUNTING MANAGER", image: "photo.png" },
+  { name: "NESHMAYDA RODRIGUEZ", title: "OFFICE MANAGER", image: "photo.png" },
+  { name: "ANDRES GONZALEZ", title: "ESTIMATOR", image: "photo.png" },
+  { name: "ZERGIO AVONCE", title: "SUPERINTENDENT", image: "photo.png" },
+  { name: "JAIME PUENTE", title: "SUPERINTENDENT", image: "photo.png" },
+  { name: "ALVARO VAZQUEZ", title: "SUPERINTENDENT", image: "photo.png" }
 ];
 ---
 
@@ -22,9 +22,9 @@ const teamMembers = [
   <div class="container">
     <div class="grid">
       {teamMembers.map((member, index) => (
-        <div class="team-member" data-reveal data-reveal-delay={((index % 4) * 100).toString()} data-name={member.name} data-title={member.title} data-image={`/team/${member.image}`}>
+        <div class="team-member" data-reveal data-reveal-delay={((index % 4) * 100).toString()} data-name={member.name} data-title={member.title} data-image={`/${member.image}`}>
           <div class="img-wrapper">
-            <img src={`/team/${member.image}`} alt={member.name} />
+            <img src={`/${member.image}`} alt={member.name} />
           </div>
           <div class="info">
             <h4 class="name">{member.name}</h4>
@@ -112,10 +112,9 @@ const teamMembers = [
   }
 
   .grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 64px 20px;
-    justify-content: center;
   }
 
   .team-member {
@@ -123,9 +122,9 @@ const teamMembers = [
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    width: 319px;
-    height: 500px;
+    width: 100%;
     cursor: pointer;
+    transition: transform 0.3s ease;
   }
   
   .team-member:hover {

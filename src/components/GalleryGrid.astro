@@ -6,7 +6,7 @@ const projects = [
     id: 1,
     title: "The Mira Apartments",
     location: "Apopka, FL",
-    image: "/slider/slider_0.png",
+    image: "/gallery/image1.png",
     units: "320",
     area: "459,850 GSF",
     scope: "Rough Framing",
@@ -18,7 +18,7 @@ const projects = [
     id: 2,
     title: "Poinciana Parc Apartments",
     location: "Poinciana, FL",
-    image: "/slider/slider_1.png",
+    image: "/gallery/image2.png",
     units: "280",
     area: "350,000 GSF",
     scope: "Rough Framing & Exterior",
@@ -30,51 +30,51 @@ const projects = [
     id: 3,
     title: "Proxi at Lake Mary",
     location: "Lake Mary, FL",
-    image: "/slider/slider_2.png",
+    image: "/gallery/image3.png",
   },
   {
     id: 4,
     title: "Gables at Baldwin Park",
     location: "Orlando, FL",
-    image: "/slider/slider_3.png",
+    image: "/gallery/image4.png",
   },
   {
     id: 5,
     title: "V3 Apartments",
     location: "Fort Myers, FL",
-    image: "/slider/slider_4.png",
+    image: "/gallery/image5.png",
     size: "xl",
   },
   {
     id: 6,
     title: "Cypress Junction Montessori School",
     location: "Winter Haven, FL",
-    image: "/slider/slider_5.png",
+    image: "/gallery/image6.png",
   },
   {
     id: 7,
     title: "Warner University - New Residence Hall",
     location: "Lake Wales, FL",
-    image: "/slider/slider_0.png",
+    image: "/gallery/image1.png",
   },
   {
     id: 8,
     title: "Lake Wire Mixed",
     location: "Lakeland, FL",
-    image: "/slider/slider_1.png",
+    image: "/gallery/image2.png",
   },
   {
     id: 9,
     title: "Brentwood Multifamily",
     location: "Davenport, FL",
-    image: "/slider/slider_2.png",
+    image: "/gallery/image3.png",
     size: "xl",
   },
   {
     id: 10,
     title: "Haven 41 Causeway Apartments",
     location: "Pasco County, FL",
-    image: "/slider/slider_3.png",
+    image: "/gallery/image4.png",
   },
 ];
 ---
@@ -85,7 +85,11 @@ const projects = [
     <div class="row row-3" data-reveal>
       {
         projects.slice(0, 3).map((p) => (
-          <div class="banner project-trigger" data-project={JSON.stringify(p)}>
+          <div 
+            class="banner project-trigger" 
+            data-project={JSON.stringify(p)}
+          >
+            <div class="banner-bg" style={`background-image: url(${p.image})`} />
             <div class="overlay" />
             <div class="content">
               <h4>{p.title}</h4>
@@ -106,6 +110,7 @@ const projects = [
             }`}
             data-project={JSON.stringify(p)}
           >
+            <div class="banner-bg" style={`background-image: url(${p.image})`} />
             <div class="overlay" />
             <div class="content">
               <h4>{p.title}</h4>
@@ -120,7 +125,11 @@ const projects = [
     <div class="row row-3" data-reveal>
       {
         projects.slice(5, 8).map((p) => (
-          <div class="banner project-trigger" data-project={JSON.stringify(p)}>
+          <div 
+            class="banner project-trigger" 
+            data-project={JSON.stringify(p)}
+          >
+            <div class="banner-bg" style={`background-image: url(${p.image})`} />
             <div class="overlay" />
             <div class="content">
               <h4>{p.title}</h4>
@@ -141,6 +150,7 @@ const projects = [
             }`}
             data-project={JSON.stringify(p)}
           >
+            <div class="banner-bg" style={`background-image: url(${p.image})`} />
             <div class="overlay" />
             <div class="content">
               <h4>{p.title}</h4>
@@ -201,45 +211,22 @@ const projects = [
     position: relative;
     height: 100%;
     background: #1e1e1e; /* Fallback color */
-    background-size: cover;
-    background-position: center;
     flex: 1;
     overflow: hidden;
+    cursor: pointer;
   }
 
-  /* Specific Banner Backgrounds (Mock data from /slider) */
-  .row-3:nth-child(1) .banner:nth-child(1) {
-    background-image: url("/slider/slider_0.png");
-  }
-  .row-3:nth-child(1) .banner:nth-child(2) {
-    background-image: url("/slider/slider_1.png");
-  }
-  .row-3:nth-child(1) .banner:nth-child(3) {
-    background-image: url("/slider/slider_2.png");
+  .banner-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 0;
   }
 
-  .row-mix-1-2 .banner:nth-child(1) {
-    background-image: url("/slider/slider_3.png");
-  }
-  .row-mix-1-2 .banner-xl {
-    background-image: url("/slider/slider_4.png");
-  }
-
-  .row-3:nth-child(3) .banner:nth-child(1) {
-    background-image: url("/slider/slider_5.png");
-  }
-  .row-3:nth-child(3) .banner:nth-child(2) {
-    background-image: url("/slider/slider_0.png");
-  }
-  .row-3:nth-child(3) .banner:nth-child(3) {
-    background-image: url("/slider/slider_1.png");
-  }
-
-  .row-mix-2-1 .banner-xl {
-    background-image: url("/slider/slider_2.png");
-  }
-  .row-mix-2-1 .banner:nth-child(2) {
-    background-image: url("/slider/slider_3.png");
+  .banner:hover .banner-bg {
+    transform: scale(1.08);
   }
 
   .overlay {
@@ -274,36 +261,40 @@ const projects = [
 
   .content {
     position: absolute;
-    bottom: 25px;
-    left: 32px;
-    width: calc(100% - 64px);
-    max-width: 444px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    inset: 0;
     z-index: 2;
     pointer-events: none;
   }
 
-  .content-xl {
-    max-width: 958px;
-  }
-
   h4 {
+    position: absolute;
+    width: 445px;
+    height: 34px;
+    left: 32px;
+    top: 32px;
     font-family: "Roboto", sans-serif;
     font-weight: 600;
     font-size: 24px;
-    line-height: 1.4;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
     letter-spacing: -0.02em;
-    color: #fcfcfc;
+    color: #e6a523;
     margin: 0;
   }
 
   p {
+    position: absolute;
+    width: 412px;
+    height: 81px;
+    left: 64px;
+    top: 211px;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 1.7;
+    font-size: 16px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
     letter-spacing: -0.02em;
     color: #ffffff;
     margin: 0;
@@ -385,6 +376,16 @@ const projects = [
     .pagination {
       flex-wrap: wrap;
       padding: 0 20px;
+    }
+    h4 {
+      width: calc(100% - 64px);
+      font-size: 20px;
+    }
+    p {
+      width: calc(100% - 96px);
+      font-size: 14px;
+      top: auto;
+      bottom: 32px;
     }
   }
 </style>

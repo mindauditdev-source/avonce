@@ -11,6 +11,12 @@ const categories = [
 ];
 
 // Mock data to match the 3x3 grid from the screenshot
+const slugOptions = [
+  "best-practices-client-satisfaction",
+  "framing-safety-on-the-jobsite",
+  "field-execution-in-multifamily"
+];
+
 const posts = Array(9).fill(null).map((_, i) => {
   const categoryOptions = ["Safety", "Field Execution", "Best Practices"];
   const imageOptions = ["/wood-framing.png", "/section-image.png", "/slider_2.png"];
@@ -23,7 +29,7 @@ const posts = Array(9).fill(null).map((_, i) => {
     date: "January 22, 2026",
     readTime: "(4 min read)",
     excerpt: "A client is the person who purchases from a store or who regularly uses the services of a professional or a company. We have internal and external clients. Internal clients are part of the organization, for example: coworkers. External clients are not, for example: general contractors, external inspectors, etc. A client is anyone you serve.",
-    link: "#"
+    link: `/blog/${slugOptions[i % 3]}`
   };
 });
 ---

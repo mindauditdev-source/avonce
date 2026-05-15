@@ -149,17 +149,22 @@
         </div>
       </div>
 
-      <!-- Card 6: Top Text -->
-      <div class="slide card-top">
+      <!-- Card 6: Gallery CTA -->
+      <a href="/gallery" class="slide card-gallery-cta">
         <div class="slide-img">
-          <div class="img-overlay"></div>
           <img
-            src="/slider/slider_5.png"
-            alt="Slider Image 6"
+            src="/slider/slider_0.png"
+            alt="See Project Gallery"
             draggable="false"
           />
+          <div class="gallery-cta-overlay"></div>
+          <div class="gallery-cta-label">
+            <span>See</span>
+            <span>Project</span>
+            <span>Gallery</span>
+          </div>
         </div>
-      </div>
+      </a>
         </div>
       </div>
     </div>
@@ -373,6 +378,60 @@
     width: 386px;
     z-index: 2;
     pointer-events: none;
+  }
+
+  /* Gallery CTA Card */
+  .card-gallery-cta {
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    position: relative;
+  }
+
+  .card-gallery-cta .slide-img {
+    position: relative;
+  }
+
+  .gallery-cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 18, 0.58);
+    border-radius: 8px;
+    z-index: 1;
+    transition: background 0.4s ease;
+    pointer-events: none;
+  }
+
+  .card-gallery-cta:hover .gallery-cta-overlay {
+    background: rgba(18, 18, 18, 0.42);
+  }
+
+  .gallery-cta-label {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    gap: 0;
+  }
+
+  .gallery-cta-label span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #e6a523;
+    display: block;
+    text-align: center;
+    transition: transform 0.4s ease;
+  }
+
+  .card-gallery-cta:hover .gallery-cta-label span {
+    transform: scale(1.04);
   }
 
   .divider {

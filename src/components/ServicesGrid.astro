@@ -7,12 +7,14 @@
     <!-- Row 1 -->
     <div class="banner-row" data-reveal>
       <div class="banner xl turnkey">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Turnkey Wood And Metal Framing</h4>
         <p class="banner-text">
           Complete structural framing solutions including labor and turnkey supply of lumber, metal framing, trusses, and hardware, ensuring coordination and reliable project performance.
         </p>
       </div>
       <div class="banner firewall">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Firewall Assemblies</h4>
         <p class="banner-text">
           Professional installation of window and exterior door systems with proper integration into the building envelope and flashing systems.
@@ -23,12 +25,14 @@
     <!-- Row 2 -->
     <div class="banner-row" data-reveal data-reveal-delay="200">
       <div class="banner cabinets">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Cabinets And Countertops</h4>
         <p class="banner-text">
           Supply and installation of cabinets, countertops, and sinks, coordinated with adjacent trades to ensure proper fit, quality execution, and seamless final results.
         </p>
       </div>
       <div class="banner xl finishing">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Interior Finishing</h4>
         <p class="banner-text">
           Comprehensive interior scope including insulation, drywall, and painting, coordinated to ensure proper sequencing, quality control, and consistent, well-executed project finishes.
@@ -39,12 +43,14 @@
     <!-- Row 3 -->
     <div class="banner-row" data-reveal data-reveal-delay="400">
       <div class="banner xl cladding">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Exterior Cladding Systems</h4>
         <p class="banner-text">
           High bonding capacity for building envelope scopes including stucco, siding, and stone, etc. ensuring integration, durability, weatherproofing, and consistent performance.
         </p>
       </div>
       <div class="banner windows">
+        <div class="banner-bg"></div>
         <h4 class="banner-title">Windows And Patio Doors Installation</h4>
         <p class="banner-text">
           Supply of windows and installation of windows and patio doors, coordinated with the building envelope to ensure proper fit, performance, and durability.
@@ -76,8 +82,7 @@
   .banner-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 6px;
     height: 324px;
     width: 100%;
@@ -86,29 +91,41 @@
   .banner {
     position: relative;
     height: 100%;
-    flex: 0 0 508px;
-    background-size: cover;
-    background-position: center;
+    flex: 1;                /* small banners get 1 share */
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 32px;
+    cursor: default;
   }
 
   .banner.xl {
-    flex: 0 0 1022px;
+    flex: 2;                /* xl banners get 2 shares → ~2:1 ratio */
   }
 
+  /* Background image layer — scaled on hover for zoom effect */
+  .banner-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 0;
+  }
+
+  .banner:hover .banner-bg {
+    transform: scale(1.07);
+  }
+
+  /* Dark overlay on top of bg, below text */
   .banner::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     z-index: 1;
+    pointer-events: none;
   }
 
   .banner-title {
@@ -144,30 +161,29 @@
     align-self: flex-end;
   }
 
-  /* Specific background images */
-  /* Using provided filenames, but using fallback colors for visibility if missing */
-  .turnkey {
-    background-image: url('/wood-framing.png'), 
+  /* Background images assigned to the .banner-bg child */
+  .turnkey .banner-bg {
+    background-image: url('/wood-framing.png'),
                       linear-gradient(45deg, #1a1a1a, #333);
   }
-  .firewall {
-    background-image: url('/firewall.png'), 
+  .firewall .banner-bg {
+    background-image: url('/firewall.png'),
                       linear-gradient(45deg, #222, #444);
   }
-  .cabinets {
-    background-image: url('/cabinets.png'), 
+  .cabinets .banner-bg {
+    background-image: url('/cabinets.png'),
                       linear-gradient(45deg, #1a1a1a, #333);
   }
-  .finishing {
-    background-image: url('/finishing.png'), 
+  .finishing .banner-bg {
+    background-image: url('/finishing.png'),
                       linear-gradient(45deg, #222, #444);
   }
-  .cladding {
-    background-image: url('/cladding.png'), 
+  .cladding .banner-bg {
+    background-image: url('/cladding.png'),
                       linear-gradient(45deg, #1a1a1a, #333);
   }
-  .windows {
-    background-image: url('/windows.png'), 
+  .windows .banner-bg {
+    background-image: url('/windows.png'),
                       linear-gradient(45deg, #222, #444);
   }
 
