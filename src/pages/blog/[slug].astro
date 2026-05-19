@@ -1,100 +1,27 @@
 ---
 import Layout from "../../layouts/layout.astro";
+import { getBlogPosts } from "../../lib/wordpress";
 
-export function getStaticPaths() {
-  // Mock blog posts — replace with real CMS/data source later
-  const posts = [
-    {
-      slug: "best-practices-client-satisfaction",
-      category: "Best Practices",
-      title: "Best Practices for Client Satisfaction",
-      author: "Yesenia Lacruz",
-      date: "January 22, 2026",
-      readTime: "4 min read",
-      image: "/wood-framing.png",
-      excerpt:
-        "A client is the person who purchases from a store or who regularly uses the services of a professional or a company.",
-      body: [
-        "A client is the person who purchases from a store or who regularly uses the services of a professional or a company. We have internal and external clients. Internal clients are part of the organization, for example: coworkers. External clients are not, for example: general contractors, external inspectors, etc. A client is anyone you serve.",
-        "In the construction industry, client satisfaction is built on three pillars: clear communication, schedule certainty, and quality of execution. When all three align, trust is established — and trust is the foundation of repeat business and referrals.",
-        "At Avonce, we practice a simple principle: underpromise and overdeliver. Before breaking ground on any project, our preconstruction team establishes clear milestones, identifies potential risk zones, and communicates these openly with our clients. This transparency sets expectations correctly and eliminates surprises.",
-        "Field execution is equally critical. A beautifully planned project can fail if the crew on the ground doesn't understand the intent. That's why our superintendents hold daily huddles, review RFIs proactively, and document progress with weekly photo reports shared directly with the client team.",
-        "Finally, closeout matters. The last 10% of a project often defines the client's final impression. We allocate resources specifically for punch-list completion and never consider a project done until the client signs off with confidence.",
-        "These practices aren't revolutionary — but their consistent application is what separates great contractors from merely adequate ones. Build a culture of service, and client satisfaction follows naturally.",
-      ],
-    },
-    {
-      slug: "framing-safety-on-the-jobsite",
-      category: "Safety",
-      title: "Framing Safety on the Jobsite",
-      author: "Carlos Mendez",
-      date: "February 10, 2026",
-      readTime: "5 min read",
-      image: "/section-image.png",
-      excerpt:
-        "Safety is the foundation of every Avonce project. Learn how our teams maintain top-tier safety standards on active multifamily sites.",
-      body: [
-        "Safety is not a checklist — it is a culture. At Avonce, every worker on every site understands that no schedule pressure justifies a safety shortcut. Our OSHA 30-certified superintendents lead daily toolbox talks and conduct weekly safety walks with documented findings.",
-        "Framing work introduces specific hazards: working at height, heavy material handling, and proximity to other trades. We address each with systematic controls. Fall protection is non-negotiable above six feet. All framing crews are trained on proper bracing techniques for wall panels before they are lifted into position.",
-        "Material staging is another underappreciated safety factor. Cluttered work areas cause trips and falls. Our yard teams follow a strict first-in, first-out material flow, and staging zones are clearly marked on site logistics plans shared with all subcontractors.",
-        "Communication between trades is equally essential. We hold weekly coordination meetings where framing, MEP, and exterior teams align on sequencing. Conflicts resolved in the meeting room cost hours; conflicts discovered in the field cost days — and sometimes injuries.",
-        "Our safety record is something we are proud of, but it is not something we take for granted. Every near-miss is reported, reviewed, and used as a learning opportunity. Because a safe site is a productive site.",
-      ],
-    },
-    {
-      slug: "field-execution-in-multifamily",
-      category: "Field Execution",
-      title: "Field Execution in Multifamily Construction",
-      author: "Robert Torres",
-      date: "March 5, 2026",
-      readTime: "6 min read",
-      image: "/slider_2.png",
-      excerpt:
-        "Multifamily projects demand precision at scale. Discover how Avonce coordinates complex multi-trade scopes to deliver on time.",
-      body: [
-        "Multifamily construction is one of the most demanding categories in the built environment. Hundreds of units, dozens of subcontractors, and overlapping MEP and finish scopes — all compressed into aggressive timelines driven by developer capital costs.",
-        "At Avonce, we thrive in this environment because we treat field execution as a system, not a series of individual tasks. Our project managers build phase-by-phase lookahead schedules that cascade down to crew-level daily assignments. Every foreman knows exactly what is expected of their crew that day, and what the next three days look like.",
-        "Procurement discipline is a force multiplier. Material shortages on a 300-unit project can cascade into weeks of delay. Our preconstruction team locks in material submittals during the first 30 days of a project, well before installation windows open.",
-        "Quality control is embedded in the process, not added at the end. Our superintendents perform floor-by-floor inspections against a standardized quality checklist before any trade is allowed to proceed to subsequent floors. This catches defects early, when correction is cheap.",
-        "Finally, data visibility drives accountability. We use digital dashboards to track unit completion rates, punch-list aging, and safety observations. These dashboards are shared with owners weekly, creating a culture of transparency and trust.",
-        "Multifamily is complex by nature. But with the right systems, the right people, and a relentless focus on execution, it is a category where Avonce consistently delivers results.",
-      ],
-    },
-  ];
+export async function getStaticPaths() {
+  let posts = [];
+  try {
+    posts = await getBlogPosts();
+  } catch (error) {
+    console.error("Error fetching WordPress posts in getStaticPaths:", error);
+  }
 
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 
 // Related posts (all posts except current)
-const allSlugs = [
-  "best-practices-client-satisfaction",
-  "framing-safety-on-the-jobsite",
-  "field-execution-in-multifamily",
-];
-const relatedSlugs = allSlugs.filter((s) => s !== post.slug).slice(0, 2);
-
-const postImages: Record<string, string> = {
-  "best-practices-client-satisfaction": "/wood-framing.png",
-  "framing-safety-on-the-jobsite": "/section-image.png",
-  "field-execution-in-multifamily": "/slider_2.png",
-};
-const postTitles: Record<string, string> = {
-  "best-practices-client-satisfaction":
-    "Best Practices for Client Satisfaction",
-  "framing-safety-on-the-jobsite": "Framing Safety on the Jobsite",
-  "field-execution-in-multifamily":
-    "Field Execution in Multifamily Construction",
-};
-const postCategories: Record<string, string> = {
-  "best-practices-client-satisfaction": "Best Practices",
-  "framing-safety-on-the-jobsite": "Safety",
-  "field-execution-in-multifamily": "Field Execution",
-};
+const relatedPosts = (allPosts || [])
+  .filter((p) => p.slug !== post.slug)
+  .slice(0, 2);
 ---
 
 <Layout title={`${post.title} — Avonce Blog`} navLight={true}>
@@ -128,9 +55,7 @@ const postCategories: Record<string, string> = {
             <p>{post.excerpt}</p>
           </div>
           <div class="article-divider"></div>
-          <div class="article-content">
-            {post.body.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
+          <div class="article-content" set:html={post.content}></div>
 
           <!-- Share Row -->
           <div class="share-row">
@@ -231,17 +156,17 @@ const postCategories: Record<string, string> = {
         <h2 class="related-heading">More Articles</h2>
         <div class="related-grid">
           {
-            relatedSlugs.map((slug) => {
+            relatedPosts.map((relatedPost) => {
               return (
-                <a href={`/blog/${slug}`} class="related-card">
+                <a href={`/blog/${relatedPost.slug}`} class="related-card">
                   <div
                     class="related-image"
-                    style={`background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${postImages[slug]}');`}
+                    style={`background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${relatedPost.image}');`}
                   >
-                    <span class="related-badge">{postCategories[slug]}</span>
+                    <span class="related-badge">{relatedPost.category}</span>
                   </div>
                   <div class="related-content">
-                    <h3>{postTitles[slug]}</h3>
+                    <h3>{relatedPost.title}</h3>
                     <span class="related-cta">View More →</span>
                   </div>
                 </a>
@@ -377,6 +302,11 @@ const postCategories: Record<string, string> = {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    color: #3a3a3a;
+  }
+
+  .article-content * {
+    color: inherit;
   }
 
   .article-content p {
@@ -386,6 +316,55 @@ const postCategories: Record<string, string> = {
     line-height: 180%;
     color: #3a3a3a;
     margin: 0;
+  }
+
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4,
+  .article-content h5,
+  .article-content h6 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .article-content h1 { font-size: 32px; }
+  .article-content h2 { font-size: 28px; }
+  .article-content h3 { font-size: 24px; }
+  .article-content h4 { font-size: 20px; }
+
+  .article-content ul,
+  .article-content ol {
+    margin-left: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .article-content ul {
+    list-style-type: disc;
+  }
+
+  .article-content ol {
+    list-style-type: decimal;
+  }
+
+  .article-content li {
+    font-family: "Roboto", sans-serif;
+    font-size: 17px;
+    line-height: 160%;
+  }
+
+  .article-content blockquote {
+    border-left: 4px solid #e6a523;
+    padding-left: 16px;
+    margin: 16px 0;
+    font-style: italic;
+    color: #555555;
   }
 
   /* Share row */

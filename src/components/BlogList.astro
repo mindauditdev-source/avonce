@@ -1,37 +1,22 @@
 ---
 // src/components/BlogList.astro
+import type { WPPost } from '../lib/wordpress';
+import { getCategories } from '../lib/wordpress';
 
-const categories = [
-  "All",
-  "Project Highlights",
-  "Best Practices",
-  "Safety",
-  "Field Execution",
-  "Company News"
-];
+interface Props {
+  posts: WPPost[];
+}
 
-// Mock data to match the 3x3 grid from the screenshot
-const slugOptions = [
-  "best-practices-client-satisfaction",
-  "framing-safety-on-the-jobsite",
-  "field-execution-in-multifamily"
-];
+const { posts } = Astro.props;
 
-const posts = Array(9).fill(null).map((_, i) => {
-  const categoryOptions = ["Safety", "Field Execution", "Best Practices"];
-  const imageOptions = ["/wood-framing.png", "/section-image.png", "/slider_2.png"];
-  return {
-    id: i,
-    image: imageOptions[i % 3],
-    category: categoryOptions[i % 3],
-    title: "Best Practices for Client Satisfaction",
-    author: "Yesenia Lacruz",
-    date: "January 22, 2026",
-    readTime: "(4 min read)",
-    excerpt: "A client is the person who purchases from a store or who regularly uses the services of a professional or a company. We have internal and external clients. Internal clients are part of the organization, for example: coworkers. External clients are not, for example: general contractors, external inspectors, etc. A client is anyone you serve.",
-    link: `/blog/${slugOptions[i % 3]}`
-  };
-});
+let apiCategories = [];
+try {
+  apiCategories = await getCategories();
+} catch (error) {
+  console.error("Error fetching categories:", error);
+}
+
+const categories = ["All", ...apiCategories.map((c: any) => c.name)];
 ---
 
 <section class="blog-list-section">
@@ -40,7 +25,7 @@ const posts = Array(9).fill(null).map((_, i) => {
     <!-- Category Filter -->
     <div class="category-filter">
       {categories.map((category, index) => (
-        <a href="#" class={`category-link ${index === 0 ? 'active' : ''}`}>
+        <a href="#" class={`category-link ${index === 0 ? 'active' : ''}`} data-filter={category}>
           {category}
         </a>
       ))}
@@ -48,8 +33,8 @@ const posts = Array(9).fill(null).map((_, i) => {
 
     <!-- Blog Grid -->
     <div class="blog-grid">
-      {posts.map((post) => (
-        <div class="blog-card" data-reveal data-reveal-delay={((post.id % 3) * 100).toString()}>
+      {posts.map((post, index) => (
+        <div class="blog-card" data-category={post.category} data-reveal data-reveal-delay={((index % 3) * 100).toString()}>
           <div class="image-wrapper">
             <div class="card-image" style={`background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('${post.image}');`}></div>
             <div class="category-badge">
@@ -65,14 +50,14 @@ const posts = Array(9).fill(null).map((_, i) => {
               <span class="dot"></span>
               <span class="date">{post.date}</span>
               <span class="dot"></span>
-              <span class="read-time">{post.readTime}</span>
+              <span class="read-time">({post.readTime})</span>
             </div>
             
             <p class="card-excerpt">
               {post.excerpt}
             </p>
             
-            <a href={post.link} class="view-more">View More</a>
+            <a href={`/blog/${post.slug}`} class="view-more">View More</a>
           </div>
         </div>
       ))}
@@ -399,5 +384,31 @@ const posts = Array(9).fill(null).map((_, i) => {
       }, { passive: true });
       updateAnimation();
     }
+
+    // Category Filter Client-Side Logic
+    const filterLinks = document.querySelectorAll('.category-link');
+    const blogCards = document.querySelectorAll('.blog-card');
+
+    filterLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        filterLinks.forEach(l => l.classList.remove('active'));
+        // Add active class to clicked link
+        link.classList.add('active');
+        
+        const filterValue = link.getAttribute('data-filter');
+        
+        blogCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (filterValue === 'All' || cardCategory === filterValue) {
+            (card as HTMLElement).style.display = 'flex';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
   });
 </script>
