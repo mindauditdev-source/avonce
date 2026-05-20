@@ -3,6 +3,9 @@
 ---
 
 <section class="services-why-us">
+  <!-- Top breathing room (matches home section's padding-top) -->
+  <div class="why-us-spacer"></div>
+
   <!-- Tall spacer that creates the scroll distance -->
   <div class="slider-pin-spacer">
     <!-- Sticky container that stays in view while spacer scrolls -->
@@ -111,6 +114,10 @@
 
   /* ── Sticky scroll pattern (mirrors Services.astro) ─────────────── */
 
+  .why-us-spacer {
+    height: 160px; /* matches home section padding-top */
+  }
+
   .slider-pin-spacer {
     position: relative;
     width: 100%;
@@ -120,9 +127,9 @@
 
   .slider-wrapper {
     position: sticky;
-    top: 0;
+    top: calc((100vh - 600px) / 2);
     width: 100%;
-    height: 100vh;
+    height: 600px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -152,10 +159,10 @@
 
   .text-side {
     flex: 0 0 551px;
-    padding-left: 100px;
-    padding-top: 72px;
+    padding: 40px 100px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     position: relative;
   }
 
@@ -184,7 +191,8 @@
   }
 
   .divider {
-    width: 466.7px;
+    width: 100%;
+    max-width: 466.7px;
     height: 5px;
     background: #E6A523;
     margin-bottom: 32px;
@@ -280,7 +288,13 @@
   @media (max-width: 1440px) {
     .text-side {
       flex: 0 0 40%;
-      padding-left: 40px;
+      padding: 40px;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .text-side {
+      padding: 40px;
     }
   }
 
@@ -325,6 +339,9 @@
   }
 
   @media (max-width: 768px) {
+    .why-us-spacer {
+      height: 80px;
+    }
     .title, .summary-heading {
       font-size: 32px;
     }

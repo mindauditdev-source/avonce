@@ -291,12 +291,14 @@
     transition: width 0.3s ease;
   }
 
-  .btn-primary:hover .bg-effect {
-    width: 100%;
-  }
+  @media (hover: hover) {
+    .btn-primary:hover .bg-effect {
+      width: 100%;
+    }
 
-  .btn-primary:hover .btn-label {
-    color: #121212;
+    .btn-primary:hover .btn-label {
+      color: #121212;
+    }
   }
 
   /* Slider Styles */
@@ -472,8 +474,6 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 16px;
-    /* Al usar height auto, top absoluto basado en pixeles puede fallar si las imgs son de diferentes proporciones.
-       Usaremos bottom para alinear desde abajo. */
     bottom: -100px;
   }
 
@@ -494,31 +494,66 @@
   }
 
   @media (max-width: 1024px) {
+    .slide {
+      flex: 0 0 500px;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-content {
+      position: static;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 16px;
+      width: 100%;
+      margin-top: 16px;
+      left: auto;
+      pointer-events: auto;
+    }
+    .divider {
+      height: auto;
+      min-height: 40px;
+      align-self: stretch;
+    }
+    .info {
+      flex: 1;
+      width: 100%;
+    }
+    .card-bottom .slide-content,
+    .card-top .slide-content {
+      top: auto;
+      bottom: auto;
+    }
+    .card-bottom .info,
+    .card-top .info {
+      padding: 0;
+    }
+    .slide-title {
+      font-size: 24px;
+    }
     .container {
       padding: 0 40px;
     }
     .slider-track {
       padding-left: max(40px, calc(50vw - 442px));
     }
-    .slide {
-      flex: 0 0 500px;
-    }
-    .slide-content {
-      left: 60px;
-      width: 300px;
-    }
-    .card-bottom .slide-content {
-      bottom: -80px;
-    }
-    .card-top .slide-content {
-      top: -80px;
-    }
-    .slide-title {
-      font-size: 24px;
-    }
   }
 
   @media (max-width: 768px) {
+    .slide {
+      flex: 0 0 300px;
+    }
+    .slide-content {
+      margin-top: 12px;
+    }
+    .vector-bg {
+      width: 120px;
+      height: 89px;
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(80px + 50vh);
+      bottom: auto;
+    }
     .services-section {
       padding-top: 80px;
     }
@@ -528,30 +563,8 @@
     .slider-track {
       padding-left: 20px;
       gap: 16px;
-      padding-top: 120px;
-      padding-bottom: 120px;
-    }
-    .slide {
-      flex: 0 0 300px;
-    }
-    .slide-content {
-      left: 20px;
-      width: 260px;
-    }
-    .card-bottom .slide-content {
-      bottom: -60px;
-    }
-    .card-top .slide-content {
-      top: -60px;
-    }
-    .info {
-      width: 100%;
-    }
-    .card-top .info {
-      padding-bottom: 24px;
-    }
-    .card-bottom .info {
-      padding-top: 24px;
+      padding-top: 80px;
+      padding-bottom: 80px;
     }
   }
 </style>

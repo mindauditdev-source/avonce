@@ -72,6 +72,7 @@ import Navbar from "./Navbar.astro";
       url("/hero-bg-1.png");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
@@ -188,8 +189,12 @@ import Navbar from "./Navbar.astro";
   }
 
   @media (max-width: 1024px) {
+    .hero {
+      align-items: center;
+    }
     .container {
-      padding: 0 40px 60px 40px;
+      padding: 0 40px;
+      justify-content: center;
     }
     .hero-content {
       width: 100%;
@@ -202,13 +207,10 @@ import Navbar from "./Navbar.astro";
   @media (max-width: 768px) {
     .hero {
       min-height: 500px;
-    }
-    .main-title {
-      /* Ajustamos el filtro para pantallas pequeñas si es necesario */
+      align-items: center;
     }
     .subtitle {
-      font-size: 16px;
-      white-space: normal;
+      display: none;
     }
     .subtitle-row {
       flex-direction: column !important;
@@ -216,7 +218,8 @@ import Navbar from "./Navbar.astro";
       gap: 16px;
     }
     .container {
-      padding: 0 20px 40px 20px;
+      padding: 0 20px;
+      justify-content: center;
     }
     .badge-img {
       height: 32px;

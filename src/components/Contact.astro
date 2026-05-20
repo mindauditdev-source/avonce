@@ -181,8 +181,14 @@ const testimonials = [
     z-index: 0;
   }
 
-  .contact-button:hover .bg-effect {
-    width: 100%;
+  @media (hover: hover) {
+    .contact-button:hover .bg-effect {
+      width: 100%;
+    }
+
+    .contact-button:hover .button-label {
+      color: #FFFFFF;
+    }
   }
 
   .button-label {
@@ -281,12 +287,16 @@ const testimonials = [
       gap: 80px;
     }
 
-    .testimonial-slider-container {
-      height: 400px;
+    .left-col {
+      position: static;
     }
-    
-    .testimonial-slider {
-      max-width: 100%;
+
+    .testimonial-slider-container {
+      width: 100%;
+      max-height: 400px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
   }
 
@@ -301,7 +311,12 @@ const testimonials = [
     }
 
     .vector-bg {
-      display: none; /* Hide complex shadow on mobile for performance/layout */
+      display: none;
+    }
+
+    .testimonial-item {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 </style>

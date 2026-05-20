@@ -24,7 +24,8 @@ const teamMembers = [
       {teamMembers.map((member, index) => (
         <div class="team-member" data-reveal data-reveal-delay={((index % 4) * 100).toString()} data-name={member.name} data-title={member.title} data-image={`/${member.image}`}>
           <div class="img-wrapper">
-            <img src={`/${member.image}`} alt={member.name} />
+            <img src={`/${member.image}`} alt={member.name} class="member-img" />
+            <img src="/hover.png" alt="" class="hover-img" aria-hidden="true" />
           </div>
           <div class="info">
             <h4 class="name">{member.name}</h4>
@@ -132,21 +133,33 @@ const teamMembers = [
   }
 
   .img-wrapper {
-    width: 319px;
-    height: 419px;
+    position: relative;
+    width: 100%;
+    max-width: 319px;
+    aspect-ratio: 319 / 419;
     overflow: hidden;
   }
 
   .img-wrapper img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.4s ease;
+    transition: opacity 0.4s ease;
   }
-  
-  .team-member:hover .img-wrapper img {
-    transform: scale(1.05);
+
+  .hover-img {
+    opacity: 0;
+  }
+
+  .team-member:hover .member-img {
+    opacity: 0;
+  }
+
+  .team-member:hover .hover-img {
+    opacity: 1;
   }
 
   .info {

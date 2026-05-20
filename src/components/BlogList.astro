@@ -34,7 +34,7 @@ const categories = ["All", ...apiCategories.map((c: any) => c.name)];
     <!-- Blog Grid -->
     <div class="blog-grid">
       {posts.map((post, index) => (
-        <div class="blog-card" data-category={post.category} data-reveal data-reveal-delay={((index % 3) * 100).toString()}>
+        <a href={`/blog/${post.slug}`} class="blog-card" data-category={post.category} data-reveal data-reveal-delay={((index % 3) * 100).toString()}>
           <div class="image-wrapper">
             <div class="card-image" style={`background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('${post.image}');`}></div>
             <div class="category-badge">
@@ -56,10 +56,8 @@ const categories = ["All", ...apiCategories.map((c: any) => c.name)];
             <p class="card-excerpt">
               {post.excerpt}
             </p>
-            
-            <a href={`/blog/${post.slug}`} class="view-more">View More</a>
           </div>
-        </div>
+        </a>
       ))}
     </div>
 
@@ -155,6 +153,13 @@ const categories = ["All", ...apiCategories.map((c: any) => c.name)];
     flex-direction: column;
     gap: 16px;
     width: 100%;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .blog-card:hover .card-image {
+    transform: scale(1.05);
   }
 
   .image-wrapper {
@@ -170,6 +175,7 @@ const categories = ["All", ...apiCategories.map((c: any) => c.name)];
     height: 100%;
     background-size: cover;
     background-position: center;
+    transition: transform 0.4s ease;
   }
 
   .category-badge {

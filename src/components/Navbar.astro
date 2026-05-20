@@ -214,16 +214,41 @@ const { light = false, primary = false } = Astro.props;
     transition: background 0.3s ease;
   }
 
-  .navbar:hover {
-    background: #e6a523;
-  }
+  @media (hover: hover) {
+    .navbar:hover {
+      background: #e6a523;
+    }
 
-  .navbar:hover .nav-link {
-    color: #2e2107 !important;
-  }
+    .navbar:hover .nav-link {
+      color: #2e2107 !important;
+    }
 
-  .navbar:hover path {
-    fill: #2e2107 !important;
+    .navbar:hover path {
+      fill: #2e2107 !important;
+    }
+
+    .nav-link:hover {
+      color: #e6a523;
+      opacity: 1;
+    }
+
+    .nav-item.has-submenu:hover .nav-link::after {
+      opacity: 1;
+    }
+
+    .nav-item.has-submenu:hover .submenu-container {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .highlight-item.v2:hover .image img {
+      transform: scale(1.05);
+    }
+
+    .other-list a:hover {
+      opacity: 0.6;
+    }
   }
 
   .navbar-light {
@@ -309,16 +334,11 @@ const { light = false, primary = false } = Astro.props;
     z-index: 100;
   }
 
-  .nav-link:hover {
-    color: #e6a523;
-    opacity: 1;
-  }
-
   /* Submenu Hover Triangle (V-notch) */
   .nav-item.has-submenu .nav-link::after {
     content: "";
     position: absolute;
-    bottom: -9px; /* Ajuste milimétrico para cubrir el grosor del borde (1px) */
+    bottom: -9px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
     width: 16px;
@@ -330,10 +350,6 @@ const { light = false, primary = false } = Astro.props;
     z-index: 101;
     transition: opacity 0.2s ease;
     pointer-events: none;
-  }
-
-  .nav-item.has-submenu:hover .nav-link::after {
-    opacity: 1;
   }
 
   /* Submenu Container */
@@ -352,12 +368,6 @@ const { light = false, primary = false } = Astro.props;
     cursor: default;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     z-index: 99;
-  }
-
-  .nav-item.has-submenu:hover .submenu-container {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
   }
 
   .submenu-inner.v2 {
@@ -390,10 +400,6 @@ const { light = false, primary = false } = Astro.props;
     transition: transform 0.5s ease;
   }
 
-  .highlight-item.v2:hover .image img {
-    transform: scale(1.05);
-  }
-
   .highlight-item.v2 .title {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
@@ -416,7 +422,7 @@ const { light = false, primary = false } = Astro.props;
   .other.v2 {
     display: flex;
     flex-direction: column;
-    margin-left: 20px; /* Optional spacing adjustment */
+    margin-left: 20px;
   }
 
   .other-heading {
@@ -444,10 +450,6 @@ const { light = false, primary = false } = Astro.props;
     color: #2e2107;
     text-decoration: none;
     transition: opacity 0.3s ease;
-  }
-
-  .other-list a:hover {
-    opacity: 0.6;
   }
 
   @media (max-width: 1024px) {

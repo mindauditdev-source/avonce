@@ -81,87 +81,138 @@ const projects = [
 
 <section class="gallery-grid">
   <div class="grid-container">
-    <!-- Row 1 -->
-    <div class="row row-3" data-reveal>
-      {
-        projects.slice(0, 3).map((p) => (
-          <div 
-            class="banner project-trigger" 
-            data-project={JSON.stringify(p)}
-          >
-            <div class="banner-bg" style={`background-image: url(${p.image})`} />
-            <div class="overlay" />
-            <div class="content">
-              <h4>{p.title}</h4>
-              <p>{p.location}</p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <div class="pages">
+      <div class="page active" data-page="1">
+        <!-- Row 1 -->
+        <div class="row row-3" data-reveal>
+          {
+            projects.slice(0, 3).map((p) => (
+              <div 
+                class="banner project-trigger" 
+                data-project={JSON.stringify(p)}
+              >
+                <div class="banner-bg" style={`background-image: url(${p.image})`} />
+                <div class="overlay" />
+                <div class="content">
+                  <h4>{p.title}</h4>
+                  <p>{p.location}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
 
-    <!-- Row 2 -->
-    <div class="row row-mix-1-2" data-reveal>
-      {
-        projects.slice(3, 5).map((p) => (
-          <div
-            class={`banner project-trigger ${
-              p.size === "xl" ? "banner-xl" : ""
-            }`}
-            data-project={JSON.stringify(p)}
-          >
-            <div class="banner-bg" style={`background-image: url(${p.image})`} />
-            <div class="overlay" />
-            <div class="content">
-              <h4>{p.title}</h4>
-              <p>{p.location}</p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+        <!-- Row 2 -->
+        <div class="row row-mix-1-2" data-reveal>
+          {
+            projects.slice(3, 5).map((p) => (
+              <div
+                class={`banner project-trigger ${
+                  p.size === "xl" ? "banner-xl" : ""
+                }`}
+                data-project={JSON.stringify(p)}
+              >
+                <div class="banner-bg" style={`background-image: url(${p.image})`} />
+                <div class="overlay" />
+                <div class="content">
+                  <h4>{p.title}</h4>
+                  <p>{p.location}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
 
-    <!-- Row 3 -->
-    <div class="row row-3" data-reveal>
-      {
-        projects.slice(5, 8).map((p) => (
-          <div 
-            class="banner project-trigger" 
-            data-project={JSON.stringify(p)}
-          >
-            <div class="banner-bg" style={`background-image: url(${p.image})`} />
-            <div class="overlay" />
-            <div class="content">
-              <h4>{p.title}</h4>
-              <p>{p.location}</p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+        <!-- Row 3 -->
+        <div class="row row-3" data-reveal>
+          {
+            projects.slice(5, 8).map((p) => (
+              <div 
+                class="banner project-trigger" 
+                data-project={JSON.stringify(p)}
+              >
+                <div class="banner-bg" style={`background-image: url(${p.image})`} />
+                <div class="overlay" />
+                <div class="content">
+                  <h4>{p.title}</h4>
+                  <p>{p.location}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
 
-    <!-- Row 4 -->
-    <div class="row row-mix-2-1" data-reveal>
-      {
-        projects.slice(8, 10).map((p) => (
-          <div
-            class={`banner project-trigger ${
-              p.size === "xl" ? "banner-xl" : ""
-            }`}
-            data-project={JSON.stringify(p)}
-          >
-            <div class="banner-bg" style={`background-image: url(${p.image})`} />
-            <div class="overlay" />
-            <div class="content">
-              <h4>{p.title}</h4>
-              <p>{p.location}</p>
-            </div>
-          </div>
-        ))
-      }
+        <!-- Row 4 -->
+        <div class="row row-mix-2-1" data-reveal>
+          {
+            projects.slice(8, 10).map((p) => (
+              <div
+                class={`banner project-trigger ${
+                  p.size === "xl" ? "banner-xl" : ""
+                }`}
+                data-project={JSON.stringify(p)}
+              >
+                <div class="banner-bg" style={`background-image: url(${p.image})`} />
+                <div class="overlay" />
+                <div class="content">
+                  <h4>{p.title}</h4>
+                  <p>{p.location}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="page" data-page="2">
+        <div class="coming-soon">
+          <h2>Coming Soon</h2>
+          <p>New projects are on the way. Stay tuned!</p>
+        </div>
+      </div>
+
+      <div class="page" data-page="3">
+        <div class="coming-soon">
+          <h2>Coming Soon</h2>
+          <p>New projects are on the way. Stay tuned!</p>
+        </div>
+      </div>
+
+      <div class="page" data-page="4">
+        <div class="coming-soon">
+          <h2>Coming Soon</h2>
+          <p>New projects are on the way. Stay tuned!</p>
+        </div>
+      </div>
+
+      <div class="page" data-page="5">
+        <div class="coming-soon">
+          <h2>Coming Soon</h2>
+          <p>New projects are on the way. Stay tuned!</p>
+        </div>
+      </div>
     </div>
   </div>
-  ...
+
+  <div class="pagination">
+    <button class="page-control" data-action="prev">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 12L6 8L10 4" stroke="#1B1B1B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </button>
+    <button class="page-num active" data-page="1">1</button>
+    <button class="page-num" data-page="2">2</button>
+    <button class="page-num" data-page="3">3</button>
+    <button class="page-num" data-page="4">4</button>
+    <button class="page-num" data-page="5">5</button>
+    <button class="page-control" data-action="next">
+      Next
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 12L10 8L6 4" stroke="#1B1B1B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
   <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
       const triggers = document.querySelectorAll(".project-trigger");
@@ -173,6 +224,32 @@ const projects = [
           }
         });
       });
+
+      const pages = document.querySelectorAll(".page");
+      const pageNums = document.querySelectorAll(".page-num");
+      const prevBtn = document.querySelector('[data-action="prev"]');
+      const nextBtn = document.querySelector('[data-action="next"]');
+      let currentPage = 1;
+      const totalPages = 5;
+
+      function goToPage(page) {
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+
+        pages.forEach((p) => {
+          p.classList.toggle("active", Number(p.dataset.page) === page);
+        });
+        pageNums.forEach((btn) => {
+          btn.classList.toggle("active", Number(btn.dataset.page) === page);
+        });
+      }
+
+      pageNums.forEach((btn) => {
+        btn.addEventListener("click", () => goToPage(Number(btn.dataset.page)));
+      });
+
+      prevBtn.addEventListener("click", () => goToPage(currentPage - 1));
+      nextBtn.addEventListener("click", () => goToPage(currentPage + 1));
     });
   </script>
 </section>
@@ -244,21 +321,6 @@ const projects = [
     flex: 2;
   }
 
-  /* Pixel perfect widths from Figma for 1536px width */
-  .row-mix-1-2 .banner:not(.banner-xl) {
-    flex: 0 0 508px;
-  }
-  .row-mix-1-2 .banner-xl {
-    flex: 0 0 1022px;
-  }
-
-  .row-mix-2-1 .banner-xl {
-    flex: 0 0 1022px;
-  }
-  .row-mix-2-1 .banner:not(.banner-xl) {
-    flex: 0 0 508px;
-  }
-
   .content {
     position: absolute;
     inset: 0;
@@ -296,6 +358,46 @@ const projects = [
     display: flex;
     align-items: center;
     letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .pages {
+    position: relative;
+  }
+
+  .page {
+    display: none;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  .coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 1314px;
+    text-align: center;
+  }
+
+  .coming-soon h2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: #e6a523;
+    margin: 0 0 12px;
+  }
+
+  .coming-soon p {
+    position: static;
+    width: auto;
+    height: auto;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
     color: #ffffff;
     margin: 0;
   }

@@ -11,48 +11,90 @@
   </div>
 
   <div class="slider-container" data-reveal data-reveal-delay="200">
-    <!-- Left Tab (Previous) -->
+
     <button class="slider-tab prev-tab" id="prevBtn" aria-label="Previous Phase">
-      <span class="tab-text" id="prevTabText">Lesson Learned</span>
+      <span class="tab-text" id="prevTabText">Close-Out &amp; Review</span>
     </button>
 
-    <!-- Center Slider Viewport -->
-    <div class="slider-viewport" id="sliderViewport">
-      <!-- Gradient overlay inside viewport -->
-      <div class="gradient-overlay"></div>
-      
-      <!-- Content Overlay -->
-      <div class="slider-content">
-        <h4 class="phase-label" id="slidePhase">Phase 1</h4>
-        <h3 class="slide-title" id="slideTitle">Project budget preparation</h3>
-        <p class="slide-desc" id="slideDesc">
-          The process begins with a thorough review of project information to establish a clear, accurate, and well-defined budget. Drawings, specifications, and scope requirements are carefully analyzed with a focus on constructability, sequencing, and project intent. This early evaluation creates a solid foundation, aligns expectations, and reduces risk before the project moves forward.
-        </p>
+    <!-- overflow:visible → the active card protrudes freely -->
+    <div class="slider-viewport">
+
+      <!--
+        .card-scene has perspective: 1000px → shared vanishing point for all cards.
+        NO transform-style: preserve-3d → avoids the browser flattening bug.
+        JS only writes data-pos; CSS owns every transform.
+      -->
+      <div class="card-scene" id="cardScene">
+
+        <article class="slide-card" data-index="0" data-pos="0"
+                 style="background-image:url('/slider/slider_0.png')">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <h4 class="phase-label">Phase 1</h4>
+            <h3 class="slide-title">Project budget preparation</h3>
+            <p class="slide-desc">The process begins with a thorough review of project information to establish a clear, accurate, and well-defined budget. Drawings, specifications, and scope requirements are carefully analyzed with a focus on constructability, sequencing, and project intent. This early evaluation creates a solid foundation, aligns expectations, and reduces risk before the project moves forward.</p>
+          </div>
+        </article>
+
+        <article class="slide-card" data-index="1" data-pos="1"
+                 style="background-image:url('/slider/slider_1.png')">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <h4 class="phase-label">Phase 2</h4>
+            <h3 class="slide-title">Pre-construction planning</h3>
+            <p class="slide-desc">Detailed scheduling and coordination take place. We secure necessary permits, finalize vendor agreements, and map out the logistics to ensure a seamless transition to the construction phase. Our proactive approach guarantees that resources are allocated efficiently.</p>
+          </div>
+        </article>
+
+        <article class="slide-card" data-index="2" data-pos="2"
+                 style="background-image:url('/slider/slider_2.png')">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <h4 class="phase-label">Phase 3</h4>
+            <h3 class="slide-title">Construction &amp; Execution</h3>
+            <p class="slide-desc">Our skilled field crews take over, bringing the plans to life. Constant monitoring of safety, quality, and progress ensures that the project stays on track. Regular communication with partners keeps everyone informed and aligned throughout the build.</p>
+          </div>
+        </article>
+
+        <article class="slide-card" data-index="3" data-pos="-1"
+                 style="background-image:url('/slider/slider_3.png')">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <h4 class="phase-label">Phase 4</h4>
+            <h3 class="slide-title">Close-Out &amp; Review</h3>
+            <p class="slide-desc">We perform a comprehensive final inspection, ensuring all punch list items are resolved. The close-out phase also includes a Lesson Learned review to identify successes and areas for improvement, continuously refining our processes for future projects.</p>
+          </div>
+        </article>
+
+      </div><!-- /card-scene -->
+
+      <div class="navigation-indicators">
+        <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="nav-dot"        data-slide="1" aria-label="Slide 2"></button>
+        <button class="nav-dot"        data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot"        data-slide="3" aria-label="Slide 4"></button>
       </div>
 
-      <!-- Navigation Indicators -->
-      <div class="navigation-indicators" id="navIndicators">
-        <!-- Generated via JS -->
-      </div>
-    </div>
+    </div><!-- /slider-viewport -->
 
-    <!-- Right Tab (Next) -->
     <button class="slider-tab next-tab" id="nextBtn" aria-label="Next Phase">
       <span class="tab-text" id="nextTabText">Pre-construction planning</span>
     </button>
+
   </div>
 </section>
 
 <style>
+  /* ─── Section ──────────────────────────────────────────────────────────── */
   .avonce-way {
     width: 100%;
     background: #FCFCFC;
-    padding: 148px 20px 100px;
+    padding: 148px 20px 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 64px;
-    overflow: hidden;
+    overflow: hidden;          /* final clip: nothing bleeds past the section */
     transform: scale(0.96);
     transform-origin: center top;
     will-change: transform;
@@ -87,7 +129,7 @@
     margin: 0;
   }
 
-  /* Slider Structure */
+  /* ─── Slider shell ─────────────────────────────────────────────────────── */
   .slider-container {
     display: flex;
     align-items: center;
@@ -96,6 +138,7 @@
     height: 600px;
   }
 
+  /* Tabs must always sit above any overflowing card */
   .slider-tab {
     width: 93px;
     height: 555px;
@@ -104,21 +147,16 @@
     align-items: center;
     border: none;
     cursor: pointer;
-    transition: opacity 0.3s ease;
     padding: 0;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 20;               /* always above cards */
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
+  .slider-tab:hover { opacity: 0.9; transform: scaleX(1.05); }
 
-  .slider-tab:hover {
-    opacity: 0.9;
-  }
-
-  .prev-tab {
-    background: #1B1B1B;
-  }
-
-  .next-tab {
-    background: #E6A523;
-  }
+  .prev-tab { background: #1B1B1B; }
+  .next-tab  { background: #E6A523; }
 
   .tab-text {
     font-family: 'Roboto', sans-serif;
@@ -128,40 +166,119 @@
     letter-spacing: -0.02em;
     white-space: nowrap;
   }
+  .prev-tab .tab-text { color: #F5F4F4; transform: rotate(180deg); writing-mode: vertical-rl; }
+  .next-tab .tab-text { color: #1B1B1B; transform: rotate(180deg); writing-mode: vertical-rl; }
 
-  .prev-tab .tab-text {
-    color: #F5F4F4;
-    transform: rotate(180deg);
-    writing-mode: vertical-rl;
-  }
-
-  .next-tab .tab-text {
-    color: #1B1B1B;
-    transform: rotate(180deg);
-    writing-mode: vertical-rl;
-  }
-
+  /* ─── Viewport ─────────────────────────────────────────────────────────── */
+  /*
+   * overflow: visible  → the active card is NOT clipped when it pops forward.
+   * z-index: 1         → creates a stacking context so internal z-indices are
+   *                       self-contained (doesn't affect overflow behaviour).
+   */
   .slider-viewport {
     flex: 1;
-    height: 100%;
+    height: 555px;
     position: relative;
+    overflow: visible;
+    z-index: 1;
+  }
+
+  /* ─── 3D scene ─────────────────────────────────────────────────────────── */
+  /*
+   * perspective is placed here — on the DIRECT parent of the cards.
+   * This is the only correct setup: perspective on a parent creates the
+   * vanishing-point for its direct children's rotateY / translateZ without
+   * needing transform-style: preserve-3d (which breaks with overflow/opacity).
+   */
+  .card-scene {
+    position: absolute;
+    inset: 0;
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
+  }
+
+  /* ─── Base card ─────────────────────────────────────────────────────────── */
+  .slide-card {
+    position: absolute;
+    inset: 0;
+    background-color: #121212; /* fallback solid background for image loading and contrast */
     background-size: cover;
     background-position: center;
-    transition: background-image 0.5s ease-in-out;
-    background-image: url('/slider/slider_0.png'); /* Default */
+    cursor: pointer;
+    /* Smooth transition for every positional change */
+    transition:
+      transform  0.80s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity    0.80s ease,
+      box-shadow 0.80s ease;
   }
 
-  .gradient-overlay {
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     CARD POSITION STATES  —  all 3D handled entirely in CSS via data-pos.
+     JS writes the attribute; it never touches transform or opacity directly.
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  /* Active — pops toward the viewer (perspective math: 1000/940 ≈ ×1.06) */
+  .slide-card[data-pos="0"] {
+    transform: translateZ(60px);
+    opacity: 1;
+    z-index: 10;
+    cursor: default;
+    box-shadow:
+      0 40px 100px rgba(0, 0, 0, 0.58),
+      0  0   0 2px rgba(230, 165, 35, 0.35);
+  }
+
+  /* One step to the RIGHT */
+  .slide-card[data-pos="1"] {
+    transform: translateX(42%) translateZ(-50px) rotateY(-35deg) scale(0.86);
+    opacity: 0.65;
+    z-index: 7;
+    box-shadow: 0 14px 48px rgba(0, 0, 0, 0.38);
+  }
+
+  /* One step to the LEFT */
+  .slide-card[data-pos="-1"] {
+    transform: translateX(-42%) translateZ(-50px) rotateY(35deg) scale(0.86);
+    opacity: 0.65;
+    z-index: 7;
+    box-shadow: 0 14px 48px rgba(0, 0, 0, 0.38);
+  }
+
+  /* Two steps to the RIGHT */
+  .slide-card[data-pos="2"] {
+    transform: translateX(76%) translateZ(-160px) rotateY(-52deg) scale(0.70);
+    opacity: 0.25;
+    z-index: 4;
+    box-shadow: none;
+  }
+
+  /* Two steps to the LEFT */
+  .slide-card[data-pos="-2"] {
+    transform: translateX(-76%) translateZ(-160px) rotateY(52deg) scale(0.70);
+    opacity: 0.25;
+    z-index: 4;
+    box-shadow: none;
+  }
+
+  /* ─── Gradient overlay ──────────────────────────────────────────────────── */
+  .card-gradient {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%),
-                linear-gradient(0deg, rgba(18, 18, 18, 0.2), rgba(18, 18, 18, 0.2));
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(18,18,18,0) -24%, #121212 100%),
+      linear-gradient(0deg, rgba(18,18,18,.20), rgba(18,18,18,.20));
+    transition: background 0.5s ease;
   }
 
-  .slider-content {
+  /* Non-active cards get a heavy dark tint to reinforce depth */
+  .slide-card:not([data-pos="0"]) .card-gradient {
+    background:
+      linear-gradient(180deg, rgba(10,10,10,.50) 0%, rgba(6,6,6,.94) 100%);
+  }
+
+  /* ─── Text content — CSS-only visibility tied to data-pos ──────────────── */
+  .card-content {
     position: absolute;
     bottom: 80px;
     left: 46px;
@@ -170,7 +287,26 @@
     flex-direction: column;
     gap: 8px;
     z-index: 2;
-    transition: opacity 0.4s ease;
+    pointer-events: none;
+    /* Hidden / slid down by default */
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity   0.42s ease 0.28s,
+      transform 0.42s ease 0.28s;
+  }
+
+  /* Only the front card reveals its content */
+  .slide-card[data-pos="0"] .card-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    animation: content-float 5.5s ease-in-out 0.7s infinite;
+  }
+
+  @keyframes content-float {
+    0%, 100% { transform: translateY(0);   }
+    50%       { transform: translateY(-6px); }
   }
 
   .phase-label {
@@ -201,223 +337,226 @@
     max-width: 1018px;
   }
 
+  /* ─── Navigation dots ───────────────────────────────────────────────────── */
   .navigation-indicators {
     position: absolute;
-    bottom: 26px;
+    bottom: -36px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 16px;
-    z-index: 2;
+    z-index: 30;
   }
 
-  :global(.nav-dot) {
+  .nav-dot {
     width: 79px;
     height: 6px;
-    background: #D9D9D9;
+    background: rgba(27, 27, 27, 0.18);
+    border: none;
+    padding: 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+  .nav-dot.active { background: #E6A523; }
 
-  :global(.nav-dot.active) {
-    background: #E6A523;
-  }
-
-  /* Responsive Adjustments */
+  /* ─── Responsive ─────────────────────────────────────────────────────────── */
   @media (max-width: 1024px) {
     .slider-container {
-      height: 844px; /* Taller on mobile to fit content */
+      height: auto;
       flex-direction: column;
     }
-
-    .slider-tab {
-      display: none; /* Hide side tabs on small screens, rely on bottom navigation */
+    .slider-tab    { display: none; }
+    .slider-viewport { width: 100%; height: 500px; flex: none; }
+    .slide-card {
+      width: 86%;
+      left: 7%;
     }
-
-    .slider-viewport {
-      width: 100%;
-      height: 100%;
-    }
-
-    .slider-content {
-      bottom: 80px;
-      left: 16px;
-      right: 16px;
-    }
+    /* Adjacent peek on tablet */
+    .slide-card[data-pos="1"]  { transform: translateX(30%) translateZ(-50px) rotateY(-30deg) scale(0.86); }
+    .slide-card[data-pos="-1"] { transform: translateX(-30%) translateZ(-50px) rotateY(30deg)  scale(0.86); }
+    .slide-card[data-pos="2"],
+    .slide-card[data-pos="-2"] { opacity: 0; pointer-events: none; }
   }
 
   @media (max-width: 768px) {
-    .avonce-way {
-      padding: 80px 0 60px; /* Reduce horizontal padding to let slider take full width */
+    .avonce-way      { padding: 80px 0 100px; transform: none !important; will-change: auto !important; }
+    .header-section  { padding: 0 16px; }
+    .heading         { font-size: 36px; }
+    .phase-label     { font-size: 18px; }
+    .slide-title     { font-size: 26px; }
+    .slide-desc      { font-size: 16px; }
+
+    .slider-viewport { height: 440px; }
+
+    .slide-card {
+      width: 88%;
+      left: 6%;
     }
 
-    .header-section {
-      padding: 0 16px; /* Keep text padded */
+    /* Tighter peek on mobile */
+    .slide-card[data-pos="1"]  { transform: translateX(24%) translateZ(-50px) rotateY(-24deg) scale(0.86); }
+    .slide-card[data-pos="-1"] { transform: translateX(-24%) translateZ(-50px) rotateY(24deg)  scale(0.86); }
+    .slide-card[data-pos="2"],
+    .slide-card[data-pos="-2"] { opacity: 0; pointer-events: none; }
+
+    .card-content { bottom: 40px; left: 24px; right: 24px; gap: 6px; }
+
+    .navigation-indicators { bottom: -28px; gap: 8px; }
+    .nav-dot { width: 56px; height: 5px; }
+  }
+
+  @media (max-width: 480px) {
+    .heading         { font-size: 30px; }
+    .text            { font-size: 15px; }
+    .slider-viewport { height: 460px; }
+
+    .slide-card {
+      width: 90%;
+      left: 5%;
     }
 
-    .heading {
-      font-size: 36px;
-    }
+    .slide-card[data-pos="1"]  { transform: translateX(20%) translateZ(-50px) rotateY(-20deg) scale(0.86); }
+    .slide-card[data-pos="-1"] { transform: translateX(-20%) translateZ(-50px) rotateY(20deg)  scale(0.86); }
 
-    .phase-label {
-      font-size: 18px;
-    }
+    .phase-label     { font-size: 16px; }
+    .slide-title     { font-size: 20px; }
+    .slide-desc      { font-size: 13.5px; line-height: 1.5; }
 
-    .slide-title {
-      font-size: 28px;
-    }
-
-    .slide-desc {
-      font-size: 18px;
-    }
-
-    .navigation-indicators {
-      bottom: 36px;
-      gap: 6.66px;
-    }
-
-    :global(.nav-dot) {
-      width: 65.76px;
-      height: 5px;
-    }
+    .card-content { bottom: 24px; left: 16px; right: 16px; gap: 4px; }
+    .nav-dot { width: 44px; }
   }
 </style>
 
 <script>
-  // Slider Logic
-  const slides = [
-    {
-      phase: "Phase 1",
-      title: "Project budget preparation",
-      desc: "The process begins with a thorough review of project information to establish a clear, accurate, and well-defined budget. Drawings, specifications, and scope requirements are carefully analyzed with a focus on constructability, sequencing, and project intent. This early evaluation creates a solid foundation, aligns expectations, and reduces risk before the project moves forward.",
-      image: "/slider/slider_0.png"
-    },
-    {
-      phase: "Phase 2",
-      title: "Pre-construction planning",
-      desc: "Detailed scheduling and coordination take place. We secure necessary permits, finalize vendor agreements, and map out the logistics to ensure a seamless transition to the construction phase. Our proactive approach guarantees that resources are allocated efficiently.",
-      image: "/slider/slider_1.png"
-    },
-    {
-      phase: "Phase 3",
-      title: "Construction & Execution",
-      desc: "Our skilled field crews take over, bringing the plans to life. Constant monitoring of safety, quality, and progress ensures that the project stays on track. Regular communication with partners keeps everyone informed and aligned throughout the build.",
-      image: "/slider/slider_2.png"
-    },
-    {
-      phase: "Phase 4",
-      title: "Close-Out & Review",
-      desc: "We perform a comprehensive final inspection, ensuring all punch list items are resolved. The close-out phase also includes a 'Lesson Learned' review to identify successes and areas for improvement, continuously refining our processes for future projects.",
-      image: "/slider/slider_3.png"
-    }
+  // Slide titles — used only to keep the side tabs' labels correct.
+  const titles = [
+    "Project budget preparation",
+    "Pre-construction planning",
+    "Construction & Execution",
+    "Close-Out & Review",
   ];
 
+  const n = titles.length;
   let currentIndex = 0;
+  let isAnimating  = false;
 
-  // DOM Elements
-  const viewport = document.getElementById('sliderViewport');
-  const contentEl = document.querySelector('.slider-content');
-  const phaseEl = document.getElementById('slidePhase');
-  const titleEl = document.getElementById('slideTitle');
-  const descEl = document.getElementById('slideDesc');
+  // ── DOM refs (all elements are pre-rendered in HTML) ──────────────────────
+  const cards       = Array.from(document.querySelectorAll<HTMLElement>('.slide-card'));
+  const navDots     = Array.from(document.querySelectorAll<HTMLElement>('.nav-dot'));
+  const prevBtn     = document.getElementById('prevBtn');
+  const nextBtn     = document.getElementById('nextBtn');
   const prevTabText = document.getElementById('prevTabText');
   const nextTabText = document.getElementById('nextTabText');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const navContainer = document.getElementById('navIndicators');
 
-  function initSlider() {
-    if (!navContainer) return;
-    // Generate nav dots
-    slides.forEach((_, index) => {
-      const dot = document.createElement('div');
-      dot.className = `nav-dot ${index === currentIndex ? 'active' : ''}`;
-      dot.addEventListener('click', () => goToSlide(index));
-      navContainer.appendChild(dot);
+  // ── Core: shortest circular distance from currentIndex to any index ───────
+  function relPos(index: number): number {
+    let rel = index - currentIndex;
+    if (rel >  n / 2) rel -= n;
+    if (rel < -n / 2) rel += n;
+    return rel;
+  }
+
+  // ── Apply state — only attribute & class writes, zero inline styles ───────
+  function updateUI() {
+    // 3D positions: CSS does ALL visual work based on data-pos
+    cards.forEach(card => {
+      const idx       = parseInt(card.dataset.index ?? '0', 10);
+      card.dataset.pos = String(relPos(idx));
     });
-    updateDOM();
+
+    // Nav dots
+    navDots.forEach(dot => {
+      const i = parseInt(dot.dataset.slide ?? '0', 10);
+      dot.classList.toggle('active', i === currentIndex);
+    });
+
+    // Side tab labels
+    if (prevTabText) prevTabText.textContent = titles[(currentIndex - 1 + n) % n];
+    if (nextTabText) nextTabText.textContent = titles[(currentIndex + 1) % n];
   }
 
-  function updateDOM() {
-    const slide = slides[currentIndex];
-    
-    // Calculate prev and next indices
-    const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
-    const nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
-
-    // Fade out content
-    if (contentEl) (contentEl as HTMLElement).style.opacity = '0';
-    
-    setTimeout(() => {
-      // Update data
-      if (viewport) viewport.style.backgroundImage = `url('${slide.image}')`;
-      if (phaseEl) phaseEl.textContent = slide.phase;
-      if (titleEl) titleEl.textContent = slide.title;
-      if (descEl) descEl.textContent = slide.desc;
-      
-      if (prevTabText) prevTabText.textContent = slides[prevIndex].title;
-      if (nextTabText) nextTabText.textContent = slides[nextIndex].title;
-
-      // Update dots
-      if (navContainer) {
-        const dots = navContainer.children;
-        for(let i=0; i<dots.length; i++) {
-          dots[i].className = `nav-dot ${i === currentIndex ? 'active' : ''}`;
-        }
-      }
-
-      // Fade in
-      if (contentEl) (contentEl as HTMLElement).style.opacity = '1';
-    }, 300); // Wait for fade out
+  // ── Navigate ──────────────────────────────────────────────────────────────
+  function goTo(index: number) {
+    const target = ((index % n) + n) % n;
+    if (target === currentIndex || isAnimating) return;
+    isAnimating  = true;
+    currentIndex = target;
+    updateUI();
+    setTimeout(() => { isAnimating = false; }, 820);
   }
 
-  function goToSlide(index) {
-    if(index === currentIndex) return;
-    currentIndex = index;
-    updateDOM();
-  }
+  // ── Events ────────────────────────────────────────────────────────────────
+  cards.forEach(card =>
+    card.addEventListener('click', () => {
+      const idx = parseInt(card.dataset.index ?? '0', 10);
+      goTo(idx);
+    })
+  );
 
-  // Event Listeners
-  if (prevBtn) prevBtn.addEventListener('click', () => {
-    goToSlide(currentIndex === 0 ? slides.length - 1 : currentIndex - 1);
+  navDots.forEach(dot =>
+    dot.addEventListener('click', () =>
+      goTo(parseInt(dot.dataset.slide ?? '0', 10))
+    )
+  );
+
+  prevBtn?.addEventListener('click', () => goTo(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => goTo(currentIndex + 1));
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+    if (e.key === 'ArrowRight') goTo(currentIndex + 1);
   });
 
-  if (nextBtn) nextBtn.addEventListener('click', () => {
-    goToSlide(currentIndex === slides.length - 1 ? 0 : currentIndex + 1);
-  });
+  // ── Swipe gestures for touch devices ──────────────────────────────────────
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
 
-  // Initialize
-  initSlider();
-
-  // Scroll Animation Logic (Section Scaling only)
-  const avonceWaySection = document.querySelector('.avonce-way') as HTMLElement;
-
-  if (avonceWaySection) {
-    let ticking = false;
-
-    function updateAnimation() {
-      const rect = avonceWaySection.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      let progress = 1 - (rect.top / windowHeight);
-      progress = Math.max(0, Math.min(progress, 1));
-      
-      if (progress >= 1) {
-        avonceWaySection.style.transform = 'none';
-      } else {
-        const scale = 0.96 + (progress * 0.04);
-        avonceWaySection.style.transform = `scale(${scale})`;
-      }
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateAnimation);
-        ticking = true;
-      }
+  const viewport = document.querySelector<HTMLElement>('.slider-viewport');
+  if (viewport) {
+    viewport.addEventListener('touchstart', (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
     }, { passive: true });
 
-    updateAnimation();
+    viewport.addEventListener('touchend', (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+      handleSwipe();
+    }, { passive: true });
+  }
+
+  function handleSwipe() {
+    const minDistance = 40; // minimum swipe distance in px
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+
+    // Ensure it's mostly a horizontal swipe, not vertical scrolling
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minDistance) {
+      if (diffX < 0) {
+        goTo(currentIndex + 1); // Swiped left -> next
+      } else {
+        goTo(currentIndex - 1); // Swiped right -> prev
+      }
+    }
+  }
+
+  // Sync tabs on load (cards already have correct data-pos from HTML)
+  updateUI();
+
+  // ── Scroll-driven section scale ───────────────────────────────────────────
+  const section = document.querySelector<HTMLElement>('.avonce-way');
+  if (section) {
+    let ticking = false;
+    const tick = () => {
+      const p = Math.max(0, Math.min(1, 1 - section.getBoundingClientRect().top / window.innerHeight));
+      section.style.transform = p >= 1 ? 'none' : `scale(${0.96 + p * 0.04})`;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(tick); ticking = true; }
+    }, { passive: true });
+    tick();
   }
 </script>

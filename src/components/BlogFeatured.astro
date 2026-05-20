@@ -19,7 +19,7 @@ const { post } = Astro.props;
       <div class="featured-articles">
         <h2 class="section-heading">Featured Articles</h2>
         
-        <div class="article-card">
+        <a href={`/blog/${post.slug}`} class="article-card">
           <div class="image-wrapper">
             <div class="article-image" style={`background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('${post.image}');`}></div>
             <div class="category-badge">
@@ -41,10 +41,8 @@ const { post } = Astro.props;
             <p class="article-excerpt">
               {post.excerpt}
             </p>
-            
-            <a href={`/blog/${post.slug}`} class="view-more">View More</a>
           </div>
-        </div>
+        </a>
         
         <div class="pagination">
           <div class="dot-active"></div>
@@ -156,6 +154,13 @@ const { post } = Astro.props;
     flex-direction: column;
     gap: 16px;
     width: 100%;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .article-card:hover .article-image {
+    transform: scale(1.05);
   }
 
   .image-wrapper {
@@ -171,6 +176,7 @@ const { post } = Astro.props;
     height: 100%;
     background-size: cover;
     background-position: center;
+    transition: transform 0.4s ease;
   }
 
   .category-badge {
