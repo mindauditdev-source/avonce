@@ -2,7 +2,7 @@
 // src/components/ServicesWhyUs.astro
 ---
 
-<section class="services-why-us">
+<section class="services-why-us" id="safety">
   <!-- Top breathing room (matches home section's padding-top) -->
   <div class="why-us-spacer"></div>
 
@@ -83,17 +83,15 @@
 
         <!-- Final Summary Block -->
         <div class="slide slide-summary">
-          <div class="summary-bg">
-            <img src="/slider/slider_3.png" alt="Summary Background" />
-            <div class="overlay"></div>
-          </div>
-          <div class="summary-content" data-reveal data-reveal-delay="400">
-            <h2 class="summary-heading">Simplified Management.<br />Reduced Risk.<br />Better Results.</h2>
-            <p class="summary-text">
-              Bundling scopes with Avonce means fewer handoffs, clearer accountability, 
-              and a coordinated installation strategy that protects schedule, 
-              quality, and overall project performance.
-            </p>
+          <div class="summary-inner">
+            <div class="summary-content" data-reveal data-reveal-delay="400">
+              <h2 class="summary-heading">Simplified Management.<br />Reduced Risk.<br />Better Results.</h2>
+              <p class="summary-text">
+                Bundling scopes with Avonce means fewer handoffs, clearer accountability, 
+                and a coordinated installation strategy that protects schedule, 
+                quality, and overall project performance.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -236,21 +234,19 @@
     overflow: hidden;
   }
 
-  .summary-bg {
-    position: absolute;
-    inset: 0;
-  }
-
-  .summary-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+  .summary-inner {
+    width: calc(100% - 80px);
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('/slider/slider_3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .summary-content {
@@ -335,6 +331,10 @@
     }
     .slide-summary {
       min-height: 500px;
+    }
+    .summary-inner {
+      width: calc(100% - 48px);
+      max-width: 100%;
     }
   }
 
