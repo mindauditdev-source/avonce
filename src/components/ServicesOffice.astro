@@ -499,29 +499,142 @@
   }
 
   @media (max-width: 768px) {
+    .services-office {
+      background: #E6A523;
+      min-height: 687px;
+    }
+    .img-map-bg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: url("/map-stroke-mobile.png");
+      background-size: auto 80%;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+    }
     .content-wrapper {
-      padding: 0 20px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .headings {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+      max-width: 358px;
+      margin: 0;
+      padding-top: 72px;
+      gap: 32px;
+    }
+    .container,
+    .frame {
+      width: 100%;
+      height: auto;
+      gap: 32px;
     }
     .heading {
-      font-size: 36px;
+      width: 100%;
+      height: auto;
+      font-size: 28px;
+      line-height: 120%;
+      letter-spacing: -0.04em;
+      color: #1E1E1E;
+    }
+    .description {
+      width: 100%;
+      height: auto;
+      font-size: 16px;
+      line-height: 170%;
+      letter-spacing: -0.02em;
+      color: #1B1B1B;
     }
     .info {
-      padding: 32px;
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+      max-width: 358px;
+      height: auto;
+      padding: 24px;
+      gap: 4px;
+      border: 2px solid #000000;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .frame-23 {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      height: auto;
+    }
+    .frame-26 {
+      width: auto;
+      flex: 1;
+      height: auto;
+      gap: 16px;
+    }
+    .orlando-fl {
+      width: 100%;
+      height: auto;
+      font-size: 18px;
+      line-height: 120%;
+      letter-spacing: -0.04em;
+    }
+    .address {
+      width: 100%;
+      height: auto;
+      font-size: 16px;
+      line-height: 170%;
+      letter-spacing: -0.02em;
+    }
+    .frame-24 {
+      width: 100%;
+      height: 32px;
     }
     .orlando-map {
-      width: 100%;
-      height: 200px;
+      width: 92px;
+      height: 88.63px;
+      flex-shrink: 0;
     }
     .mini-map-text {
-      font-size: 16px;
+      font-size: 13px;
     }
     .map-nav-link {
-      width: 36px;
-      height: 36px;
+      width: 26px;
+      height: 26px;
     }
     .map-nav-link svg {
-      width: 20px;
-      height: 20px;
+      width: 14px;
+      height: 14px;
+    }
+    .button-2 {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 105px;
+      height: 44px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 0;
+    }
+    .button-2 .button-label {
+      font-size: 11px;
+      line-height: 170%;
+      white-space: nowrap;
+    }
+    .bg-effect {
+      height: 44px;
+      border-radius: 4px;
     }
   }
 </style>

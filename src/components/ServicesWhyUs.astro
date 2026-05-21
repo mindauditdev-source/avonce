@@ -340,7 +340,84 @@
 
   @media (max-width: 768px) {
     .why-us-spacer {
-      height: 80px;
+      display: none;
+    }
+    .slider-track {
+      gap: 0;
+    }
+    .slide-card {
+      min-height: 844px;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-card .slide-content {
+      position: relative;
+      height: 100%;
+      min-height: 844px;
+    }
+    .slide-card .text-side {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 0;
+      z-index: 2;
+      display: block;
+      background: linear-gradient(180deg, rgba(18, 18, 18, 0) -23.9%, #121212 100%), linear-gradient(0deg, rgba(18, 18, 18, 0.5), rgba(18, 18, 18, 0.5));
+    }
+    .slide-card .text-side .title {
+      position: absolute;
+      left: 16px;
+      top: 213px;
+      width: calc(100% - 32px);
+      font-size: 32px;
+      line-height: 120%;
+      letter-spacing: -0.04em;
+      color: #E6A523;
+      margin: 0;
+    }
+    .slide-card .text-side .divider {
+      position: absolute;
+      right: 16.3px;
+      top: 321px;
+      width: 466.7px;
+      height: 5px;
+      border: none;
+      background: #E6A523;
+      max-width: none;
+      margin: 0;
+    }
+    .slide-card .text-side .info-box {
+      position: absolute;
+      left: 16px;
+      top: 353px;
+      width: calc(100% - 32px);
+      max-width: 358px;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .slide-card .text-side .subtle {
+      font-size: 18px;
+      line-height: 120%;
+      letter-spacing: -0.04em;
+      color: #F5F4F4;
+      width: 279px;
+    }
+    .slide-card .text-side .info {
+      font-size: 16px;
+      line-height: 170%;
+      letter-spacing: -0.02em;
+      color: #F5F4F4;
+    }
+    .slide-card .image-side {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      z-index: 1;
     }
     .title, .summary-heading {
       font-size: 32px;

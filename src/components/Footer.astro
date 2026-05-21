@@ -150,19 +150,8 @@
       </div>
     </div>
 
-    <!-- Bottom row: Copyright, Terms and Social Icons -->
+    <!-- Bottom row: Social Icons and Legal Links -->
     <div class="footer-bottom" data-reveal data-reveal-delay="400">
-      <div class="footer-bottom-left">
-        <span class="copyright">©2026 Avonce Company, LLC</span>
-        <a href="tel:4072704808" class="footer-link">(407) 270-4808</a>
-        <a href="mailto:zef@avonceconstruction.com" class="footer-link"
-          >zef@avonceconstruction.com</a
-        >
-
-        <a href="/privacy" class="footer-link">Privacy Statement</a>
-        <a href="/terms" class="footer-link">Terms of Service</a>
-      </div>
-
       <div class="social-links">
         <!-- LinkedIn -->
         <a
@@ -188,6 +177,18 @@
               r="2"></circle>
           </svg>
         </a>
+      </div>
+
+      <div class="footer-bottom-left">
+        <span class="copyright">©2026 Avonce Company, LLC</span>
+        <a href="tel:4072704808" class="footer-link">(407) 270-4808</a>
+        <a href="mailto:zef@avonceconstruction.com" class="footer-link"
+          >zef@avonceconstruction.com</a
+        >
+
+        <a href="/privacy" class="footer-link">Privacy Statement</a>
+        <a href="/terms" class="footer-link">Terms of Service</a>
+        <a href="/cookie-policy" class="footer-link">Cookie Policy</a>
       </div>
     </div>
   </div>
@@ -394,8 +395,7 @@
       flex-wrap: wrap;
       align-items: flex-start;
       align-content: flex-start;
-      gap: 0 28px;
-      row-gap: 0;
+      gap: 28px;
     }
 
     .nav-link {
@@ -438,14 +438,28 @@
       align-items: center;
       gap: 0 8px;
       row-gap: 0;
+      order: 1;
     }
 
-    /* Social icons: top 445px, left 16px */
+    /* Hide phone/email from bottom row (not in Figma mobile) */
+    .footer-bottom-left a[href^="tel:"],
+    .footer-bottom-left a[href^="mailto:"] {
+      display: none;
+    }
+
+    /* Social icons: flow below text, order 2 so text is first */
     .social-links {
-      position: absolute;
-      top: 445px;
-      left: 16px;
+      position: static;
+      margin-top: 16px;
+      margin-left: 0;
+      width: 93px;
       gap: 6.4px;
+      order: 2;
+    }
+
+    .social-links svg {
+      width: 16px;
+      height: 16px;
     }
   }
 </style>

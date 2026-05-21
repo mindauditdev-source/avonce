@@ -5,152 +5,158 @@
 <dialog id="project-modal" class="project-modal">
   <div class="modal-wrapper">
     <div class="modal-container">
+
+      <!-- Close button -->
       <button id="close-modal" class="close-button" aria-label="Close modal">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path
-            d="M25 7L7 25M7 7L25 25"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"></path>
+          <path d="M24 8L8 24M8 8L24 24" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
       </button>
 
+      <!-- ── TOP ZONE (Golden, containing details and description) ── -->
       <div class="modal-top">
         <div class="modal-header">
           <div class="info-left">
             <h2 class="heading-white">Project Details</h2>
-            <div id="project-stats" class="cargo-black">
-              <!-- Populated by JS -->
+            <div id="project-stats" class="stats-block">
+              <!-- Populated dynamically by JS -->
             </div>
           </div>
-
           <div class="info-right">
             <h2 class="heading-white">General Contractor</h2>
-            <div id="contractor-info" class="cargo-black">
-              <p id="contractor-name">LandSouth Construction</p>
-            </div>
+            <p id="contractor-name" class="contractor-name"></p>
           </div>
         </div>
 
         <div class="description-container">
-          <p id="project-description" class="description-text">
-            <!-- Populated by JS -->
-          </p>
+          <p id="project-description" class="description-text collapsed"></p>
+          <button id="read-more-btn" class="read-more-btn">Read more</button>
         </div>
       </div>
 
+      <!-- ── SLIDER ZONE (White Band) ─────────────────────────── -->
       <div class="slider-section">
-        <div class="slider-background"></div>
-        <div id="slider-track" class="slider-track">
-          <!-- Populated by JS -->
+        <div class="slider-viewport">
+          <div id="slider-track" class="slider-track">
+            <!-- Populated dynamically by JS with clones for infinite loop -->
+          </div>
         </div>
       </div>
 
-      <div id="gallery-pagination" class="pagination">
-        <!-- Populated by JS -->
+      <!-- ── PAGINATION ZONE (Bottom Golden Strip) ───────────── -->
+      <div class="pagination-section">
+        <div id="gallery-pagination" class="pagination-dots">
+          <!-- Populated dynamically by JS -->
+        </div>
       </div>
+
     </div>
   </div>
 </dialog>
 
-<style>
+<style is:global>
+  /* ═══════════════════════════════════════════════════════
+     DIALOG RESET & BACKDROP
+     ═══════════════════════════════════════════════════════ */
   .project-modal {
     border: none;
     padding: 0;
     background: transparent;
     max-width: 100vw;
     max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     outline: none;
     overflow: hidden;
   }
 
   .project-modal::backdrop {
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
   }
 
+  /* ═══════════════════════════════════════════════════════
+     WRAPPER & CONTAINER
+     ═══════════════════════════════════════════════════════ */
   .modal-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    padding: 20px;
+    padding: 24px;
     box-sizing: border-box;
   }
 
-  /* ─── Main Container ──────────────────────────────────── */
   .modal-container {
     position: relative;
-    width: 90vw;
-    max-width: 1454px;
-    /* Figma height 944px on a 1454px-wide modal → ~64.9% ratio */
-    height: min(90vh, calc(90vw * 944 / 1454));
-    max-height: 944px;
-    background: #e6a523;
+    width: min(95vw, 1454px);
+    height: min(95vh, 944px);
+    background: #E6A523;
     border-radius: 24px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    /* Use CSS custom properties so inner elements can reference the real size */
-    --modal-h: min(90vh, calc(90vw * 944 / 1454));
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
   }
 
-  /* ─── Close Button ────────────────────────────────────── */
-  /* Figma: left 1390 / 1454 ≈ 95.6% from left → right ≈ 4.4% – 32px */
+  /* ═══════════════════════════════════════════════════════
+     CLOSE BUTTON
+     ═══════════════════════════════════════════════════════ */
   .close-button {
     position: absolute;
+    top: 32px;
+    right: 32px;
+    z-index: 200;
     width: 32px;
     height: 32px;
-    right: calc(64px - 32px); /* mirrors left: 64px inset but from right */
-    top: calc(32 / 944 * 100%); /* ~3.4% */
     background: transparent;
     border: none;
-    color: #000000;
     cursor: pointer;
-    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
   }
 
   .close-button:hover {
-    transform: scale(1.1) rotate(90deg);
+    transform: rotate(90deg) scale(1.1);
+    opacity: 0.8;
   }
 
-  /* ─── Scrollable top zone (header + description) ─────── */
+  /* ═══════════════════════════════════════════════════════
+     TOP ZONE
+     ═══════════════════════════════════════════════════════ */
   .modal-top {
-    flex: none;
-    /* Reserve Figma ratio: top zone = 455px out of 944px ≈ 48.2% */
-    max-height: 48%;
+    flex: 1 1 auto;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+    padding: 64px 64px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
 
   .modal-top::-webkit-scrollbar {
     width: 4px;
   }
   .modal-top::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 4px;
   }
 
-  /* ─── Header ──────────────────────────────────────────── */
-  /* Figma: info-left at left 64, top 64; right heading at left 1007 top 64 */
+  /* Header details block */
   .modal-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    padding: calc(64 / 944 * 100%) 64px 0 64px;
-    width: 100%;
-    flex: none;
-    box-sizing: border-box;
+    gap: 32px;
+    margin-bottom: 32px;
+    flex-shrink: 0;
   }
 
   .info-left {
@@ -158,8 +164,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    /* Figma width 332px on 1454px ≈ 22.8% */
-    width: clamp(200px, 22.8%, 332px);
+    max-width: 50%;
   }
 
   .info-right {
@@ -168,139 +173,129 @@
     align-items: flex-end;
     gap: 4px;
     text-align: right;
-    /* Right side heading at left 1007 → width ≈ 1454 - 1007 = 447px max */
-    width: clamp(200px, 30%, 447px);
+    max-width: 50%;
   }
 
   .heading-white {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 600;
-    /* Reduced from 48px max to 36px max */
-    font-size: clamp(20px, 2.5vw, 36px);
+    font-size: clamp(24px, 3.5vw, 48px);
     line-height: 130%;
-    display: flex;
-    align-items: center;
     letter-spacing: -0.03em;
-    color: #fcfcfc;
+    color: #FCFCFC;
     margin: 0;
   }
 
-  .cargo-black {
-    font-family: "Roboto", sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: clamp(13px, 1.1vw, 16px);
-    line-height: 170%;
+  /* Cargo stats and contractor styling */
+  .stats-block {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 0px;
+  }
+
+  .stats-block span,
+  .contractor-name {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 170%;
     letter-spacing: -0.02em;
     color: #000000;
     margin: 0;
   }
 
-  .cargo-black p {
-    margin: 0;
+  .stats-block span strong {
+    font-weight: 600;
   }
 
-  .info-right .cargo-black {
-    align-items: flex-end;
-  }
-
-  /* ─── Description ─────────────────────────────────────── */
-  /* Figma top 243 on 944 ≈ 25.7%, header ends ~(64+147)/944 ≈ 22.4% */
+  /* Description text */
   .description-container {
-    padding: calc(32 / 944 * 100%) 64px 0 64px;
-    width: 100%;
-    flex: none;
-    box-sizing: border-box;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .description-text {
-    max-width: 100%;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: clamp(14px, 1.38vw, 20px);
+    font-size: clamp(15px, 1.8vw, 20px);
     line-height: 150%;
     color: #000000;
     margin: 0;
     white-space: pre-wrap;
   }
 
-  /* ─── Slider Section ──────────────────────────────────── */
-  /* White band: Figma height 385/944 ≈ 40.8% of modal height */
+  /* Read more button — hidden on desktop, shown on mobile */
+  .read-more-btn {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 170%;
+    color: #000000;
+    text-decoration: underline;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: opacity 0.2s;
+  }
+
+  .read-more-btn:hover {
+    opacity: 0.65;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SLIDER ZONE — WHITE BAND
+     ═══════════════════════════════════════════════════════ */
   .slider-section {
-    position: relative;
+    flex: 0 0 385px;
     width: 100%;
-    height: calc(385 / 944 * 100%);
-    flex: none;
-    overflow: hidden;
-    margin-top: auto;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .slider-background {
-    position: absolute;
-    inset: 0;
-    background: #fcfcfc;
-    z-index: 1;
-  }
-
-  /* Scrollable + draggable flex row */
-  .slider-track {
+    background: #FCFCFC;
     position: relative;
-    z-index: 2;
+    overflow: hidden;
+  }
+
+  .slider-viewport {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slider-track {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* Vertical padding creates breathing room above/below images */
-    padding: 28px 56px;
-    gap: 20px;
     height: 100%;
-    box-sizing: border-box;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none; /* Firefox */
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
+    gap: 24px;
+    width: max-content; /* Critical: prevents items from shrinking inside view */
+    will-change: transform;
     cursor: grab;
-    /* Prevent text selection while dragging */
+  }
+
+  .slider-track:active {
+    cursor: grabbing;
+  }
+
+  /* Slider items (cards) */
+  .slider-item {
+    flex: 0 0 534.67px;
+    width: 534.67px;
+    height: 345px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0px;
+    transition: flex-basis 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     user-select: none;
     -webkit-user-select: none;
-  }
-
-  .slider-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Applied via JS while dragging */
-  .slider-track.is-dragging {
-    cursor: grabbing;
-    scroll-behavior: auto; /* instant during drag */
-  }
-
-  /* All images in the flow */
-  .slider-item {
-    flex: none;
-    /* Reduced widths: side ≈ 26% of modal, center ≈ 34% */
-    width: clamp(160px, 26%, 380px);
-    /* Height fills the band minus the 28px top + 28px bottom padding */
-    height: 100%;
-    border-radius: 6px;
-    overflow: hidden;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    scroll-snap-align: center;
-    opacity: 0.75;
-    transition: opacity 0.35s ease, width 0.35s ease;
-  }
-
-  /* The currently centered image is wider and fully opaque */
-  .slider-item.active {
-    width: clamp(200px, 34%, 480px);
-    opacity: 1;
   }
 
   .slider-item img {
@@ -308,302 +303,551 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    pointer-events: none; /* don't interfere with drag */
+    pointer-events: none;
   }
 
-  /* ─── Pagination ──────────────────────────────────────── */
-  /* Figma: top 872, height 8 → bottom = 944-872-8 = 64px from bottom */
-  .pagination {
+  /* Active center item styling */
+  .slider-item.active {
+    flex: 0 0 630px;
+    width: 630px;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     PAGINATION ZONE — BOTTOM GOLDEN STRIP
+     ═══════════════════════════════════════════════════════ */
+  .pagination-section {
+    flex: 0 0 104px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .pagination-dots {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 0;
-    /* Figma: dots are 64px from bottom of the 944 modal */
-    height: calc(64 / 944 * 100%);
     gap: 6px;
-    width: 100%;
-    flex: none;
-    align-self: flex-end;
   }
 
   .dot {
     width: 8px;
     height: 8px;
-    background: #f0c97b;
     border-radius: 38px;
+    background: #F0C97B;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s;
+    flex-shrink: 0;
   }
 
   .dot.active {
     background: #121212;
+    transform: scale(1.1);
   }
 
-  /* ─── Responsive ──────────────────────────────────────── */
-  @media (max-width: 900px) {
-    .modal-wrapper {
-      padding: 10px;
-    }
+  .dot:hover:not(.active) {
+    background: rgba(18, 18, 18, 0.4);
+  }
 
+  /* ═══════════════════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+     ═══════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
     .modal-container {
-      width: 100%;
-      height: 92vh;
-      max-height: none;
+      width: 95vw;
+      height: 90vh;
+      border-radius: 20px;
     }
 
     .modal-top {
-      max-height: 52%;
-    }
-
-    .modal-header {
-      padding: 32px 24px 0 24px;
-    }
-
-    .info-left,
-    .info-right {
-      width: 48%;
-    }
-
-    .heading-white {
-      font-size: clamp(18px, 4vw, 28px);
-    }
-
-    .description-container {
-      padding: 12px 24px 0 24px;
+      padding: 48px 48px 24px;
     }
 
     .close-button {
-      right: 20px;
-      top: 20px;
+      top: 24px;
+      right: 24px;
+    }
+
+    /* Scaling slider elements down on tablets */
+    .slider-section {
+      flex: 0 0 320px;
+    }
+    .slider-track {
+      gap: 16px;
+    }
+    .slider-item {
+      flex: 0 0 400px;
+      width: 400px;
+      height: 280px;
+    }
+    .slider-item.active {
+      flex: 0 0 480px;
+      width: 480px;
+    }
+    .pagination-section {
+      flex: 0 0 80px;
     }
   }
 
-  @media (max-width: 640px) {
-    .modal-container {
-      height: 96vh;
-      border-radius: 16px;
+  @media (max-width: 768px) {
+    /* ── CONTAINER: fullscreen ───────────────────────────── */
+    .modal-wrapper {
+      padding: 0;
     }
 
+    .modal-container {
+      width: 100vw;
+      height: 100dvh; /* use dvh so address bar doesn't cut content */
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    /* ── CLOSE BUTTON: top-right at 16px ────────────────── */
+    .close-button {
+      top: 16px;
+      right: 16px;
+    }
+
+    /* ── TOP ZONE: scrollable content area ──────────────── */
+    .modal-top {
+      padding: 16px 16px 24px;
+      flex: 1 1 auto;
+      overflow-y: auto;
+    }
+
+    /* ── HEADER: stack vertically, GC on top ────────────── */
     .modal-header {
       flex-direction: column;
-      gap: 16px;
-      padding: 32px 20px 0 20px;
+      gap: 0;
+      margin-bottom: 24px;
+      padding-top: 16px; /* space below close button */
     }
 
-    .info-left,
+    /* General Contractor block moves to TOP via order */
     .info-right {
-      width: 100%;
-    }
-
-    .info-right {
+      order: -1;
+      max-width: 100%;
       align-items: flex-start;
       text-align: left;
+      gap: 2px;
     }
 
-    .info-right .cargo-black {
+    .info-left {
+      max-width: 100%;
       align-items: flex-start;
+      text-align: left;
+      margin-top: 16px;
     }
 
+    /* ── TYPOGRAPHY scaling ─────────────────────────────── */
+    .heading-white {
+      font-size: 30px;
+      line-height: 40px;
+      letter-spacing: 0;
+    }
+
+    .stats-block span,
+    .contractor-name {
+      font-size: 16px;
+      line-height: 28px;
+    }
+
+    /* ── DESCRIPTION: collapsed with Read More ──────────── */
     .description-container {
-      padding: 12px 20px 0 20px;
+      gap: 4px;
+    }
+
+    .description-text {
+      font-size: 20px;
+      line-height: 32px;
+      white-space: normal;
+    }
+
+    /* Collapsed state: show ~5 lines */
+    .description-text.collapsed {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      overflow: hidden;
+    }
+
+    .read-more-btn {
+      display: block;
+    }
+
+    /* ── SLIDER: full-width single-slide ────────────────── */
+    .slider-section {
+      flex: 0 0 240px;
+      overflow: hidden;
+    }
+
+    .slider-viewport {
+      overflow: hidden;
     }
 
     .slider-track {
-      gap: 12px;
-      padding: 16px 24px;
+      gap: 0;
     }
 
-    .close-button {
-      right: 16px;
-      top: 16px;
+    .slider-item,
+    .slider-item.active {
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 240px;
+      filter: none;
+      transition: none;
+    }
+
+    /* ── PAGINATION ─────────────────────────────────────── */
+    .pagination-section {
+      flex: 0 0 56px;
     }
   }
 </style>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("project-modal");
-    const closeBtn = document.getElementById("close-modal");
+  // Robust initialization helper to ensure script runs whether loaded synchronously or asynchronously
+  function initModal() {
+    const modal       = document.getElementById("project-modal");
+    const closeBtn    = document.getElementById("close-modal");
+    const track       = document.getElementById("slider-track");
+    const viewport    = document.querySelector(".slider-viewport");
+    const pagination  = document.getElementById("gallery-pagination");
+    const descEl      = document.getElementById("project-description");
+    const readMoreBtn = document.getElementById("read-more-btn");
 
-    // ── Close ───────────────────────────────────────────────
-    if (modal && closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        modal.close();
-        document.body.style.overflow = "";
-      });
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.close();
-          document.body.style.overflow = "";
+    if (!modal || !track || !viewport || !pagination) return;
+
+    // ── READ MORE TOGGLE (mobile) ────────────────────────────────
+    let expanded = false;
+    readMoreBtn?.addEventListener("click", () => {
+      expanded = !expanded;
+      if (expanded) {
+        descEl?.classList.remove("collapsed");
+        readMoreBtn.textContent = "Read less";
+      } else {
+        descEl?.classList.add("collapsed");
+        readMoreBtn.textContent = "Read more";
+      }
+    });
+
+    let currentIndex  = 0;
+    let totalImages   = 0;
+    let isTransitioning = false;
+    
+    // Drag state variables
+    let isDragging = false;
+    let dragStartX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+
+    // ── CLOSE MODAL ─────────────────────────────────────────────
+    function closeModal() {
+      modal.close();
+      document.body.style.overflow = "";
+    }
+
+    closeBtn?.addEventListener("click", closeModal);
+
+    modal?.addEventListener("click", (e) => {
+      // Close when clicking the dialog backdrop
+      if (e.target === modal) closeModal();
+    });
+
+    modal?.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // ── SLIDER CONFIGURATION ────────────────────────────────────
+    function getSliderConfig(viewportWidth) {
+      const w = window.innerWidth;
+      if (w > 1024) {
+        return {
+          wActive: 630,
+          wInactive: 534.67,
+          gap: 24,
+          isMobile: false
+        };
+      } else if (w > 768) {
+        return {
+          wActive: 480,
+          wInactive: 400,
+          gap: 16,
+          isMobile: false
+        };
+      } else {
+        return {
+          wActive: viewportWidth,
+          wInactive: viewportWidth,
+          gap: 0,
+          isMobile: true
+        };
+      }
+    }
+
+    function getTranslateX(trackIndex, viewportWidth) {
+      const config = getSliderConfig(viewportWidth);
+      if (config.isMobile) {
+        // On mobile: each slide is exactly 100vw (viewport.clientWidth)
+        return -trackIndex * viewportWidth;
+      } else {
+        const w = window.innerWidth;
+        if (w > 1024) {
+          // Shift by -13px to align active card at left: 399px per Figma
+          const offset = (viewportWidth - config.wActive) / 2 - 13;
+          return offset - trackIndex * (config.wInactive + config.gap);
+        } else {
+          return (viewportWidth - config.wActive) / 2 - trackIndex * (config.wInactive + config.gap);
         }
-      });
+      }
     }
 
-    // ── Drag-to-scroll ──────────────────────────────────────
-    function initDrag(track) {
-      let isDragging = false;
-      let startX = 0;
-      let scrollLeft = 0;
+    function goToTrackIndex(trackIndex, animate = true) {
+      if (animate && isTransitioning) return;
+      if (animate) isTransitioning = true;
 
-      const onMouseDown = (e) => {
-        isDragging = true;
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-        track.classList.add("is-dragging");
-      };
-      const onMouseMove = (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.2; // multiplier for feel
-        track.scrollLeft = scrollLeft - walk;
-      };
-      const onMouseUp = () => {
-        isDragging = false;
-        track.classList.remove("is-dragging");
-      };
-
-      // Touch
-      let touchStartX = 0;
-      let touchScrollL = 0;
-      const onTouchStart = (e) => {
-        touchStartX = e.touches[0].pageX;
-        touchScrollL = track.scrollLeft;
-      };
-      const onTouchMove = (e) => {
-        const dx = touchStartX - e.touches[0].pageX;
-        track.scrollLeft = touchScrollL + dx;
-      };
-
-      track.addEventListener("mousedown", onMouseDown);
-      track.addEventListener("mousemove", onMouseMove);
-      track.addEventListener("mouseup", onMouseUp);
-      track.addEventListener("mouseleave", onMouseUp);
-      track.addEventListener("touchstart", onTouchStart, { passive: true });
-      track.addEventListener("touchmove", onTouchMove, { passive: true });
-    }
-
-    // ── Active dot / item on scroll ─────────────────────────
-    function syncActive(track) {
       const items = track.querySelectorAll(".slider-item");
-      const dots = document.querySelectorAll("#gallery-pagination .dot");
-      const trackRect = track.getBoundingClientRect();
-      const trackCenter = trackRect.left + trackRect.width / 2;
-
-      let closest = 0;
-      let minDist = Infinity;
       items.forEach((item, i) => {
-        const r = item.getBoundingClientRect();
-        const itemCenter = r.left + r.width / 2;
-        const dist = Math.abs(itemCenter - trackCenter);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = i;
-        }
+        item.classList.toggle("active", i === trackIndex);
       });
 
-      items.forEach((item, i) =>
-        item.classList.toggle("active", i === closest),
-      );
-      dots.forEach((dot, i) => dot.classList.toggle("active", i === closest));
-    }
+      // Map trackIndex back to original index
+      let origIndex = 0;
+      if (trackIndex < 2) {
+        origIndex = totalImages - 2 + trackIndex;
+      } else if (trackIndex < totalImages + 2) {
+        origIndex = trackIndex - 2;
+      } else {
+        origIndex = trackIndex - (totalImages + 2);
+      }
+      currentIndex = origIndex;
 
-    // ── Scroll to index ─────────────────────────────────────
-    function scrollToIndex(track, index) {
-      const items = track.querySelectorAll(".slider-item");
-      if (!items[index]) return;
-      const item = items[index];
-      const trackW = track.offsetWidth;
-      const itemOffset = item.offsetLeft;
-      const itemW = item.offsetWidth;
-      track.scrollTo({
-        left: itemOffset - trackW / 2 + itemW / 2,
-        behavior: "smooth",
+      // Update dots
+      const dots = pagination.querySelectorAll(".dot");
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentIndex);
       });
+
+      const viewportWidth = viewport.clientWidth;
+      const targetTx = getTranslateX(trackIndex, viewportWidth);
+      
+      track.style.transition = animate
+        ? "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)"
+        : "none";
+      track.style.transform = `translateX(${targetTx}px)`;
+      
+      currentTranslate = targetTx;
+      prevTranslate = targetTx;
     }
 
-    // ── Open modal ──────────────────────────────────────────
+    // Handle loop wrap instantly at the end of sliding transition
+    track.addEventListener("transitionend", () => {
+      isTransitioning = false;
+      
+      const activeItem = track.querySelector(".slider-item.active");
+      if (!activeItem) return;
+      
+      const trackIndex = parseInt(activeItem.dataset.trackIndex, 10);
+      
+      // Warp check
+      if (trackIndex === 1) {
+        goToTrackIndex(totalImages + 1, false);
+      } else if (trackIndex === totalImages + 2) {
+        goToTrackIndex(2, false);
+      }
+    });
+
+    // ── MOUSE & TOUCH DRAG MECHANICS ────────────────────────────
+    function getEventX(e) {
+      return e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+    }
+
+    function dragStart(e) {
+      if (isTransitioning) return;
+      // Prevent browser default behavior (dragging images as links, selecting text) to enable mouse dragging
+      if (e.type.startsWith("mouse")) {
+        e.preventDefault();
+      }
+      isDragging = true;
+      dragStartX = getEventX(e);
+      track.style.transition = "none";
+    }
+
+    function dragMove(e) {
+      if (!isDragging) return;
+      const currentX = getEventX(e);
+      const dx = currentX - dragStartX;
+      const tx = prevTranslate + dx;
+      track.style.transform = `translateX(${tx}px)`;
+      currentTranslate = tx;
+    }
+
+    function dragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const diff = currentTranslate - prevTranslate;
+      const activeItem = track.querySelector(".slider-item.active");
+      if (!activeItem) return;
+
+      const activeTrackIndex = parseInt(activeItem.dataset.trackIndex, 10);
+
+      // Threshold: 100px drag to switch slides
+      let targetTrackIndex = activeTrackIndex;
+      if (diff < -100) {
+        targetTrackIndex = Math.min(activeTrackIndex + 1, totalImages + 3);
+      } else if (diff > 100) {
+        targetTrackIndex = Math.max(activeTrackIndex - 1, 0);
+      }
+
+      goToTrackIndex(targetTrackIndex, true);
+    }
+
+    // Bind viewport drag listeners once globally on DOM load
+    viewport.addEventListener("touchstart", dragStart, { passive: true });
+    viewport.addEventListener("touchmove", dragMove, { passive: true });
+    viewport.addEventListener("touchend", dragEnd);
+
+    viewport.addEventListener("mousedown", dragStart);
+    window.addEventListener("mousemove", dragMove);
+    window.addEventListener("mouseup", dragEnd);
+
+    // ── OPEN MODAL TRIGGER ───────────────────────────────────────
     window.openProjectModal = (projectData) => {
-      const modal = document.getElementById("project-modal");
-      if (!modal) return;
-
-      // Contractor
+      // 1. Populate General Contractor
       document.getElementById("contractor-name").textContent =
-        projectData.contractor || "LandSouth Construction";
+        projectData.contractor || "N/A";
 
-      // Description
+      // 2. Populate Description
       document.getElementById("project-description").textContent =
-        projectData.description || "Project description goes here...";
+        projectData.description || "";
 
-      // Stats
-      const statsContainer = document.getElementById("project-stats");
-      const stats = [];
+      // 3. Populate Statistics Grid
+      const statsEl = document.getElementById("project-stats");
+      const rows = [];
       if (projectData.units)
-        stats.push(
-          `<span><strong>Total Units:</strong> ${projectData.units}</span>`,
-        );
+        rows.push(`<span><strong>Total Units:</strong> ${projectData.units}</span>`);
       if (projectData.area)
-        stats.push(
-          `<span><strong>Total Area:</strong> ${projectData.area}</span>`,
-        );
+        rows.push(`<span><strong>Total Area:</strong> ${projectData.area}</span>`);
       if (projectData.scope)
-        stats.push(
-          `<span><strong>Scope(s) of Work:</strong> ${projectData.scope}</span>`,
-        );
-      statsContainer.innerHTML = stats.join("");
+        rows.push(`<span><strong>Scope(s) of Work:</strong> ${projectData.scope}</span>`);
+      statsEl.innerHTML = rows.join("");
 
-      // Gallery images
+      // 4. Set Images and Clones
       const images =
         projectData.gallery && projectData.gallery.length > 0
           ? projectData.gallery
-          : Array(5).fill(projectData.image);
+          : [projectData.image || ""];
 
-      // Render ALL images in the scroll track
-      const track = document.getElementById("slider-track");
-      track.innerHTML = images
-        .map(
-          (src, i) => `
-        <div class="slider-item${i === 0 ? " active" : ""}" data-index="${i}">
-          <img src="${src}" alt="Project image ${i + 1}" loading="lazy" />
-        </div>
-      `,
-        )
+      totalImages = images.length;
+      currentIndex = 0;
+
+      // Infinite loop cloned list: prepend N-2, N-1 and append 0, 1
+      const N = totalImages;
+      let renderedImages = [];
+      if (N >= 3) {
+        renderedImages = [
+          images[N - 2],
+          images[N - 1],
+          ...images,
+          images[0],
+          images[1]
+        ];
+      } else {
+        // Fallback if there are very few images
+        renderedImages = [...images];
+      }
+
+      // Render track with appropriate index tags
+      track.innerHTML = renderedImages
+        .map((src, i) => {
+          let originalIndex = 0;
+          if (N >= 3) {
+            if (i < 2) {
+              originalIndex = N - 2 + i;
+            } else if (i < N + 2) {
+              originalIndex = i - 2;
+            } else {
+              originalIndex = i - (N + 2);
+            }
+          } else {
+            originalIndex = i;
+          }
+          return `<div class="slider-item" data-track-index="${i}" data-original-index="${originalIndex}">
+                    <img src="${src}" alt="Project details image ${originalIndex + 1}" draggable="false" />
+                  </div>`;
+        })
         .join("");
 
-      // Pagination dots
-      const pagination = document.getElementById("gallery-pagination");
+      // 5. Populate Pagination Dots (based on original N images)
       pagination.innerHTML = images
-        .map(
-          (_, i) => `
-        <div class="dot${i === 0 ? " active" : ""}" data-index="${i}"></div>
-      `,
+        .map((_, i) =>
+          `<button class="dot${i === 0 ? " active" : ""}" data-index="${i}" aria-label="Go to slide ${i + 1}"></button>`
         )
         .join("");
 
-      // Dot click → scroll to that image
+      // Bind pagination dots click events
       pagination.querySelectorAll(".dot").forEach((dot) => {
         dot.addEventListener("click", () => {
-          scrollToIndex(track, parseInt(dot.dataset.index, 10));
+          goToTrackIndex(parseInt(dot.dataset.index, 10) + 2);
         });
       });
 
-      // Sync active state as user scrolls
-      track.addEventListener("scroll", () => syncActive(track), {
-        passive: true,
+      // Bind click events directly to preview cards for smart navigation
+      track.querySelectorAll(".slider-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          const idx = parseInt(item.dataset.trackIndex, 10);
+          const activeItem = track.querySelector(".slider-item.active");
+          if (activeItem) {
+            const activeIdx = parseInt(activeItem.dataset.trackIndex, 10);
+            if (idx !== activeIdx) {
+              goToTrackIndex(idx, true);
+            }
+          }
+        });
       });
 
-      // Init drag
-      initDrag(track);
+      // Reset coordinates and position track instantly to original first item (trackIndex = 2)
+      const viewportWidth = viewport.clientWidth;
+      const initialIdx = N >= 3 ? 2 : 0;
+      const initialTx = getTranslateX(initialIdx, viewportWidth);
+      
+      track.style.transition = "none";
+      track.style.transform = `translateX(${initialTx}px)`;
+      currentTranslate = initialTx;
+      prevTranslate = initialTx;
+
+      // Handle window resize dynamically to center current index
+      const onResize = () => {
+        const activeItem = track.querySelector(".slider-item.active");
+        if (activeItem) {
+          const activeTrackIndex = parseInt(activeItem.dataset.trackIndex, 10);
+          goToTrackIndex(activeTrackIndex, false);
+        }
+      };
+      window.addEventListener("resize", onResize);
+      modal.addEventListener("close", () => {
+        window.removeEventListener("resize", onResize);
+      }, { once: true });
 
       modal.showModal();
       document.body.style.overflow = "hidden";
-
-      // Scroll to first image & sync
-      requestAnimationFrame(() => {
-        track.scrollLeft = 0;
-        syncActive(track);
-      });
+      
+      // Delay offset calculation to ensure layout is painted
+      setTimeout(() => {
+        goToTrackIndex(initialIdx, false);
+      }, 50);
     };
-  });
+  }
+
+  // Bind execution when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initModal);
+  } else {
+    initModal();
+  }
 </script>
+

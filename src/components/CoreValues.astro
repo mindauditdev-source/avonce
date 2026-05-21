@@ -51,7 +51,6 @@ const valuesList = [
           <div class={`value-item ${i === 0 ? 'active' : ''}`} data-index={i}>
             <div class="value-item-content">
               <div class="icon-house">
-                <!-- Avonce "A" imagotipo — only the house/A mark, no wordmark -->
                 <svg width="28" height="28" viewBox="0 0 42 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 12.109V30.5912H12.0755V18.4151L28.9476 8.55347V30.5912H41.1908L41.1573 15.0608L22.239 0L0 12.109Z" fill="currentColor"/>
                 </svg>
@@ -59,6 +58,17 @@ const valuesList = [
               <h3 class="value-title">{val.title}</h3>
             </div>
             <div class="icon-toggle">{i === 0 ? '+' : '-'}</div>
+            <div class="mobile-panel">
+              <p class="details-text">{val.description}</p>
+              <div class="images-grid">
+                <div class="img-wrapper">
+                  <img src={val.images[0]} alt={val.title + " image 1"} />
+                </div>
+                <div class="img-wrapper">
+                  <img src={val.images[1]} alt={val.title + " image 2"} />
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -207,6 +217,10 @@ const valuesList = [
     flex-shrink: 0;
   }
 
+  .mobile-panel {
+    display: none;
+  }
+
   /* Right Column (Details) */
   .values-details {
     display: flex;
@@ -299,6 +313,28 @@ const valuesList = [
     .container {
       padding: 0 20px;
     }
+
+    .values-details {
+      display: none;
+    }
+
+    .value-item {
+      flex-wrap: wrap;
+    }
+
+    .mobile-panel {
+      display: none;
+      width: 100%;
+      padding-top: 24px;
+      border-top: 1px solid #E6A523;
+      margin-top: 16px;
+    }
+
+    .value-item.active .mobile-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
     
     .images-grid {
       flex-direction: column;
@@ -342,6 +378,17 @@ const valuesList = [
           el.style.display = 'none';
         }
       });
+
+      // On mobile, scroll to the opened panel
+      if (window.innerWidth <= 768) {
+        const activeItem = items[index] as HTMLElement;
+        const panel = activeItem.querySelector('.mobile-panel') as HTMLElement;
+        if (panel) {
+          setTimeout(() => {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
+      }
     }
 
     items.forEach((item, i) => {
